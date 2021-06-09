@@ -36,6 +36,10 @@ var platforms = [
 		isSubscribed: true,
 	},
 	{
+		platform: "hacker_rank",
+		isSubscribed: true,
+	},
+	{
 		platform: "kick_start",
 		isSubscribed: true,
 	},
@@ -152,8 +156,8 @@ async function setmyContests() {
 	await localforage.setItem("myContests", myContests);
 }
 
-async function setmyPlatforms() {
-	console.log("In setmyPlatforms");
+async function setPlatforms() {
+	console.log("In setPlatforms");
 	await localforage.setItem("platforms", platforms);
 }
 
@@ -221,6 +225,7 @@ async function startRequest() {
 	await fetchAllMyContests();
 	await setDeletedContests();
 	await setmyContests();
+	await setPlatforms();
 	// getmyContests();
 	// console.log(myContests);
 	// console.log(deletedContests);

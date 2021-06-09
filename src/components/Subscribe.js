@@ -1,6 +1,18 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { InputLabel, Input, Button, Icon, SvgIcon, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from "@material-ui/core";
+import {
+	InputLabel,
+	Input,
+	Button,
+	Icon,
+	SvgIcon,
+	List,
+	ListItem,
+	ListItemAvatar,
+	Avatar,
+	ListItemText,
+	ListItemSecondaryAction,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
@@ -11,8 +23,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { blueGrey } from "@material-ui/core/colors";
 import "./Subscribe.css";
 import localforage from "localforage";
-import IconButton from '@material-ui/core/IconButton';
-import codechefIcon from '@iconify-icons/simple-icons/codechef'
+import IconButton from "@material-ui/core/IconButton";
+import at_coder from "./img/at_coder.png";
+import code_chef from "./img/code_chef.png";
+import codeforces from "./img/codeforces.png";
+import hacker_earth from "./img/hacker_earth.png";
+import hacker_rank from "./img/hacker_rank.png";
+import kick_start from "./img/kick_start.png";
+import leet_code from "./img/leet_code.png";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -25,315 +43,57 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Subscribe() {
 	const classes = useStyles();
-	const [state, setState] = React.useState({
-		codechef: true,
-		codeforces: true,
-		hackerearth: true,
-		hackerrank: true,
-		atcoder: true,
-		kickstart: true,
-		leetcode: true
-	});
+	const [platforms, setplatforms] = React.useState([]);
+	useEffect(() => {
+		async function getPlatforms() {
+			console.log("1. In getPlatforms");
+			await localforage.getItem("platforms", function (err, value) {
+				if (value === null) {
+					console.log("Err: No platforms array in DB");
+					return;
+				}
+				setplatforms([...value]);
+			});
+		}
+		getPlatforms();
+	}, []);
 
-	const handleChange = (event) => {
-
-		setState({ ...state, [event.target.name]: event.target.checked });
+	const handleChange = (event, index) => {
+		let newPlatforms = [...platforms];
+		newPlatforms[index] = {
+			...platforms[index],
+			isSubscribed: !platforms[index].isSubscribed,
+		};
+		setplatforms(newPlatforms);
+		localforage.setItem("platforms", newPlatforms);
+		console.log(newPlatforms);
 	};
-
-	const {
-		codechef,
-		codeforces,
-		hackerearth,
-		hackerrank,
-		atcoder,
-		kickstart,
-		leetcode
-	} = state;
 
 	return (
 		<div className="form">
 			<h2 className="title">SUBSCRIBE</h2>
-			{/* <FormControl component="fieldset" className={classes.formControl}> */}
-				<div>
-					<List className="list-group-item">
-						
-						<ListItem button >
+			<div>
+				<List className="list-group-item">
+					{platforms.map((platform, index) => (
+						<ListItem button key={index}>
 							<ListItemAvatar>
 								<Avatar
 									alt={"Codechef"}
-									src={`img/CC.png`}
+									src={platform.platform}
 								/>
 							</ListItemAvatar>
-							<ListItemText primary={`CodeChef`}/>
+							<ListItemText primary={platform.platform} />
 							<ListItemSecondaryAction>
-								<Checkbox name="codechef"
-									checked={codechef}
-									onChange={handleChange}
+								<Checkbox
+									name="code_chef"
+									checked={platform.isSubscribed}
+									onChange={(e) => handleChange(e, index)}
 								/>
 							</ListItemSecondaryAction>
 						</ListItem>
-						<ListItem button >
-							<ListItemAvatar>
-								<Avatar
-									alt={"CodeForces"}
-									src={`img/codechef.png`}
-								/>
-							</ListItemAvatar>
-							<ListItemText primary={`CodeForces`}/>
-							<ListItemSecondaryAction>
-								<Checkbox name="codeforces"
-									checked={codeforces}
-									onChange={handleChange}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem button >
-							<ListItemAvatar>
-								<Avatar
-									alt={"HackerRank"}
-									src={`img/hackerrank.png`}
-								/>
-							</ListItemAvatar>
-							<ListItemText primary={`HackerRank`}/>
-							<ListItemSecondaryAction>
-								<Checkbox name="hackerrank"
-									checked={hackerrank}
-									onChange={handleChange}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem button >
-							<ListItemAvatar>
-								<Avatar
-									alt={"HackerEarth"}
-									src={`img/hackerearth.png`}
-								/>
-							</ListItemAvatar>
-							<ListItemText primary={`HackerEarth`}/>
-							<ListItemSecondaryAction>
-								<Checkbox name="hackerearth"
-									checked={hackerearth}
-									onChange={handleChange}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem button >
-							<ListItemAvatar>
-								<Avatar
-									alt={"AtCoder"}
-									src={`img/topcoder.png`}
-								/>
-							</ListItemAvatar>
-							<ListItemText primary={`AtCoder`}/>
-							<ListItemSecondaryAction>
-								<Checkbox name="atcoder"
-									checked={atcoder}
-									onChange={handleChange}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem button >
-							<ListItemAvatar>
-								<Avatar
-									alt={"KickStart"}
-									src={`img/icon32.png`}
-								/>
-							</ListItemAvatar>
-							<ListItemText primary={`KickStart`}/>
-							<ListItemSecondaryAction>
-								<Checkbox name="kickstart"
-									checked={kickstart}
-									onChange={handleChange}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-						<ListItem button >
-							<ListItemAvatar>
-								<Avatar
-									alt={"LeetCode"}
-									src={`img/leetcode.png`}
-								/>
-							</ListItemAvatar>
-							<ListItemText primary={`Leetcode`}/>
-							<ListItemSecondaryAction>
-								<Checkbox name="leetcode"
-									checked={leetcode}
-									onChange={handleChange}
-								/>
-							</ListItemSecondaryAction>
-						</ListItem>
-							 
-						
-					</List>
-					{/* <div className="form-group">
-            <Button className="btn btn-success">
-               Save Changes
-            </Button>
-        </div> */}
-				</div>
-			{/* </FormControl> */}
+					))}
+				</List>
+			</div>
 		</div>
 	);
 }
-
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Avatar from '@material-ui/core/Avatar';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: '100%',
-//     maxWidth: 360,
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
-
-// export default function Subscribe() {
-
-//   const classes = useStyles();
-// 	const [state, setState] = React.useState({
-// 		codechef: true,
-// 		codeforces: true,
-// 		hackerearth: true,
-// 		hackerrank: true,
-// 		atcoder: true,
-// 		kickstart: true,
-// 	});
-
-// 	const handleChange = (event) => {
-// 		setState({ ...state, [event.target.name]: event.target.checked });
-// 	};
-
-// 	const {
-// 		codechef,
-// 		codeforces,
-// 		hackerearth,
-// 		hackerrank,
-// 		atcoder,
-// 		kickstart,
-// 	} = state;
-// //   const [checked, setChecked] = React.useState([1]);
-
-// //   const handleChange = (value) => () => {
-// //     const currentIndex = state.indexOf(value);
-// //     const newChecked = [...state];
-
-// //     if (currentIndex === -1) {
-// //       newChecked.push(value);
-// //     } else {
-// //       newChecked.splice(currentIndex, 1);
-// //     }
-
-// //     setState(newChecked);
-// //   };
-
-//   	return (
-    	
-
-//       <div>
-// 		<List dense className={classes.root}>  
-// 		  <ListItem button>
-// 			<ListItemAvatar>
-// 				<Avatar
-// 					alt={`Codechef`}
-// 					src={`img/codechef.jpg`}
-// 				/>
-// 					</ListItemAvatar>
-// 					<ListItemText  primary={`CodeChef`} />
-// 					<ListItemSecondaryAction>
-// 					<Checkbox
-// 						checked={codechef}
-// 						onChange={handleChange(codechef)}
-// 					/>
-// 					</ListItemSecondaryAction>
-// 			</ListItem>	
-// 			<ListItem button>
-// 			<ListItemAvatar>
-// 				<Avatar
-// 					alt={`CodeForces`}
-// 					src={`img/codeforces.jpg`}
-// 				/>
-// 					</ListItemAvatar>
-// 					<ListItemText  primary={`CodeForces`} />
-// 					<ListItemSecondaryAction>
-// 					<Checkbox
-// 						checked={codeforces}
-// 						onChange={handleChange}
-// 					/>
-// 					</ListItemSecondaryAction>
-// 			</ListItem>	
-// 			<ListItem button>
-// 			<ListItemAvatar>
-// 				<Avatar
-// 					alt={`HackerRank`}
-// 					src={`img/hackerrank.png`}
-// 				/>
-// 					</ListItemAvatar>
-// 					<ListItemText  primary={`HackerRank`} />
-// 					<ListItemSecondaryAction>
-// 					<Checkbox
-// 						checked={hackerrank}
-// 						onChange={handleChange}
-// 					/>
-// 					</ListItemSecondaryAction>
-// 			</ListItem>
-// 			<ListItem button>	
-// 			<ListItemAvatar>
-// 				<Avatar
-// 					alt={`HackerEarth`}
-// 					src={`img/hackerearth.png`}
-// 				/>
-// 					</ListItemAvatar>
-// 					<ListItemText  primary={`HackerEarth`} />
-// 					<ListItemSecondaryAction>
-// 					<Checkbox
-// 						checked={hackerearth}
-// 						onChange={handleChange}
-// 					/>
-// 					</ListItemSecondaryAction>
-// 			</ListItem>	
-// 			<ListItem button>
-// 			<ListItemAvatar>
-// 				<Avatar
-// 					alt={`Atcoder`}
-// 					src={`img/icon32.png`}
-// 				/>
-// 					</ListItemAvatar>
-// 					<ListItemText  primary={`AtCoder`} />
-// 					<ListItemSecondaryAction>
-// 					<Checkbox
-// 						checked={atcoder}
-// 						onChange={handleChange}
-// 					/>
-// 					</ListItemSecondaryAction>
-// 			</ListItem>	
-// 			<ListItem button>
-// 			<ListItemAvatar>
-// 				<Avatar
-// 					alt={`KickStart`}
-// 					src={`img/google_play.png`}
-// 				/>
-// 					</ListItemAvatar>
-// 					<ListItemText  primary={`KickStart`} />
-// 					<ListItemSecondaryAction>
-// 					<Checkbox
-// 						checked={kickstart}
-// 						onChange={handleChange}
-// 					/>
-// 					</ListItemSecondaryAction>
-// 			</ListItem>	
-			
-	
-	
-	
-
-//     	</List>
-// 	</div>
-// 	)
-// }

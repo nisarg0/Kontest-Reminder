@@ -16,10 +16,10 @@ export default function MyContest() {
 	//console.log(contest)
 
 	const [mycontest, setmycontest] = useState([]);
-	console.log(mycontest);
+	// console.log(mycontest);
 	//setmycontest(contest24 => contest24= myContests_db)
 	useEffect(() => {
-		console.log("here in useEffect");
+		// console.log("here in useEffect");
 		const GetData = async () =>
 			localforage.getItem("myContests", function (err, value) {
 				if (err) console.log(err);
@@ -42,7 +42,7 @@ export default function MyContest() {
 		for (var i = 0; i < mycontest.length; i++)
 			if (dcontest == delcontest[i]) delcontest.splice(i, 1);
 
-		console.log(delcontest);
+		// console.log(delcontest);
 		setmyContests(delcontest);
 		setmycontest(delcontest);
 	};
@@ -56,9 +56,9 @@ export default function MyContest() {
 	function ContestAlarm(contest) {
 		AlarmContests.push(contest);
 
-		console.log("In ContestAlarm");
+		// console.log("In ContestAlarm");
 		var date = new Date(contest.start_time);
-		console.log(date);
+		// console.log(date);
 		var now = new Date();
 
 		var time_diff = Math.abs(date.getTime() - now.getTime());

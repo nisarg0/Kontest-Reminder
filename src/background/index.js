@@ -74,7 +74,19 @@ async function fetchAllMyContests() {
 	deletedContests = usedDeletedContests;
 }
 
-// ================================= Testing ============================
+// ================================= Recieve Alarm Request ============================
+
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+//     if(request.action == 'createAlarm')
+//     {
+//         // Create
+//         chrome.alarms.create('theAlarm', {
+//             // Wann soll der Alarm gefeuert werden?
+//             // Angabe in Millisekunden
+//             when: whenToRing,
+//         });
+//     }
+// });
 
 // =============================Alarms, startup, instaleed functions =======================
 
@@ -97,20 +109,10 @@ function scheduleRequest() {
 	chrome.alarms.create("refresh", { periodInMinutes: 60 });
 }
 
-// function contestRemainder() {
-// 	console.log("In contestRemainder");
-// 	var date = new Date();
-// 	console.log(typeof date);
-// 	console.log(date + 1);
-// 	chrome.alarms.create("ContestName", {
-// 		when: 1000 + Date(),
-// 	});
-// 	console.log("reminderSet at " + date);
-// }
 // NOT WORKING
-function deleteContestRemainder() {
-	console.log("In deleteContestRemainder");
-}
+// function cancelAlarm() {
+// 	chrome.alarms.clear(alarmName);
+//   }
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
 	if (alarm.name === "refresh") {
@@ -122,6 +124,25 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 	}
 	if (alarm.name === "ContestName") {
 		console.log("Contest Remainder Listened");
+	} else {
+		var AlarmContests = [];
+		await localforage.getItem("AlarmContests", function (err, value) {
+			if (value === null) {
+				console.log("Err: No Alarm in DB");
+				return;
+			}
+			AlarmContests = value;
+		});
+		for (var i = 0; i < AlarmContests.length; i++) {
+			if (alarm.name === AlarmContests[i].name) {
+				await chrome.tabs.create({
+					active: true,
+					url: AlarmContests[i].url,
+				});
+				await chrome.alarms.clear(alarm.name);
+				console.log("Created new tab with contest");
+			}
+		}
 	}
 });
 
@@ -200,8 +221,7 @@ async function startRequest() {
 	await fetchAllMyContests();
 	await setDeletedContests();
 	await setmyContests();
-	getmyContests();
-	console.log(myContests);
-	console.log(deletedContests);
-	// contestRemainder();
+	// getmyContests();
+	// console.log(myContests);
+	// console.log(deletedContests);
 }

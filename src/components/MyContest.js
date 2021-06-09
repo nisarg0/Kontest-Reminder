@@ -8,6 +8,7 @@ import { render } from "@testing-library/react";
 import NavigationBar from "./NavigationBar";
 
 let deletedContests = [];
+let AlarmContests = [];
 
 export default function MyContest() {
 	//let contest=[]
@@ -24,6 +25,10 @@ export default function MyContest() {
 				if (err) console.log(err);
 				setmycontest(value);
 			});
+		localforage.getItem("AlarmContests", function (err, value) {
+			if (err) console.log(err);
+			AlarmContests = value;
+		});
 		GetData();
 	}, []);
 
@@ -46,6 +51,27 @@ export default function MyContest() {
 	function openLink(uri) {
 		chrome.tabs.create({ active: true, url: uri });
 	}
+
+	// Adds an alarm for 1 min before contest
+	function ContestAlarm(contest) {
+		AlarmContests.push(contest);
+
+		console.log("In ContestAlarm");
+		var date = new Date(contest.start_time);
+		console.log(date);
+		var now = new Date();
+
+		var time_diff = Math.abs(date.getTime() - now.getTime());
+		time_diff = time_diff - 1;
+
+		localforage.setItem("AlarmContests", AlarmContests);
+		chrome.alarms.create(contest.name, {
+			when: Date.now() + time_diff,
+		});
+		console.log("reminderSet after " + time_diff);
+		console.log(AlarmContests);
+	}
+
 	// Db function
 	async function setmyContests(delcontest) {
 		console.log("In setmyContests");
@@ -91,6 +117,7 @@ export default function MyContest() {
 								<button
 									type="button"
 									className="btn btn-primary btn-sm"
+									onClick={() => ContestAlarm(contest)}
 								>
 									<i className="bi bi-alarm-fill"></i>
 								</button>

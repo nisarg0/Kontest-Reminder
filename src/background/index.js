@@ -152,7 +152,7 @@ function getmyContests() {
 async function getPlatforms() {
 	console.log("1. In getPlatforms");
 	await localforage.getItem("platforms", function (err, value) {
-		if (err || value === null) {
+		if (value === null) {
 			console.log("Err: No platforms array in DB");
 			return;
 		}
@@ -163,7 +163,7 @@ async function getPlatforms() {
 
 async function getDeletedContests() {
 	console.log("1. In get Deleted Contests");
-	await localforage.getItem("deltedContests", function (err, value) {
+	await localforage.getItem("deletedContests", function (err, value) {
 		if (err || value === null) {
 			console.log("Err: No deletedContests array in DB");
 			return;

@@ -1,0 +1,46 @@
+.title{
+    align-items: center;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 8%;
+    text-decoration-color: bisque;
+
+}
+.form{
+    width: 300px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    border-color: black;
+    border-width: 3px;
+}
+.subs{
+    width:300px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
+.checkbox-list-secondary-label{
+    width: 300px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    margin-right: 30px;
+    background-color: aqua;
+    
+}
+
+.list-group-item{
+    width: 325px;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    margin-left: 25%;
+    margin-top: -30%;
+    
+    background-color: aqua;
+}
+.card-body{
+    margin-top: -5%;
+    margin-bottom: -2%;
+}

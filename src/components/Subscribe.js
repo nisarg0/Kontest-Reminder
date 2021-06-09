@@ -67,6 +67,8 @@ export default function Subscribe() {
 		setplatforms(newPlatforms);
 		localforage.setItem("platforms", newPlatforms);
 		console.log(newPlatforms);
+
+		chrome.runtime.sendMessage({ data: "Update MyContests" });
 	};
 
 	return (

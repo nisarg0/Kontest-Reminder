@@ -80,17 +80,18 @@ async function fetchAllMyContests() {
 
 // ================================= Recieve Alarm Request ============================
 
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-//     if(request.action == 'createAlarm')
-//     {
-//         // Create
-//         chrome.alarms.create('theAlarm', {
-//             // Wann soll der Alarm gefeuert werden?
-//             // Angabe in Millisekunden
-//             when: whenToRing,
-//         });
-//     }
-// });
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+	console.log("Msg recieed");
+	if (request.data == "Update MyContests") {
+		sendResponse({ data: "success" });
+		await getPlatforms();
+		await getDeletedContests();
+		await fetchAllMyContests();
+		await setDeletedContests();
+		await setmyContests();
+		await setPlatforms();
+	}
+});
 
 // =============================Alarms, startup, instaleed functions =======================
 

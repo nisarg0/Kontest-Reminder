@@ -12,12 +12,12 @@ To download the zip click [here]()
 - Choose the unzipped folder and you are good to go.
 
 ### How to use?
-- Home page has 3 sections
-  - Live
-  - In 24 hours
-  - Upcoming
+- Home page has 3 sections:
+  > Live
+  > In 24 hours
+  > Upcoming
 - Subscribe page 
-  This has a list of websites which want updates of.
+  > This has a list of websites which want updates of.
 
 ```markdown
 Syntax highlighted code block

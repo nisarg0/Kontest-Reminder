@@ -8,16 +8,24 @@ To download the zip click [here]()
 - Download and unzip the folder.
 - Open `chrome://extensions/` in new tab
 - Toggle developer option on.
-- click `Load unpackaged`
+- Click `Load unpackaged`
 - Choose the unzipped folder and you are good to go.
 
 ### How to use?
-- Home page has 3 sections:
-  > Live
-  > In 24 hours
-  > Upcoming
-- Subscribe page 
-  > This has a list of websites which want updates of.
+- **Home page** has 3 sections:
+  - Live
+  - In 24 hours
+  - Upcoming
+  
+- Each contest has 4 options
+  1. Go to Contest
+  2. Add to google calander
+  3. Set an alarm _which will open th contest tab 1 min prior to the contest_.
+  4. Delete
+
+
+- **Subscribe page**: 
+  - This has a list of websites which want updates of.
 
 ```markdown
 Syntax highlighted code block

@@ -44,3 +44,4 @@ This site is made with :heart: by:
 
 Special thanks to:
 - Akashy - [akashay-mali](https://github.com/akshay-mali)
+- [Kontest.net](https://www.kontests.net/) for free API's.

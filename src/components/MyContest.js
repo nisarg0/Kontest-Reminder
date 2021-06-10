@@ -27,7 +27,8 @@ export default function MyContest() {
 			});
 		localforage.getItem("AlarmContests", function (err, value) {
 			if (err) console.log(err);
-			AlarmContests = value;
+			if (value === null) AlarmContests = [];
+			else AlarmContests = value;
 		});
 		GetData();
 	}, []);
@@ -51,6 +52,39 @@ export default function MyContest() {
 	function openLink(uri) {
 		chrome.tabs.create({ active: true, url: uri });
 	}
+
+	// Open Calander
+	// function openCalander(contest) {
+	// 	function ISODateString(d) {
+	// 		function pad(n) {
+	// 			return n < 10 ? "0" + n : n;
+	// 		}
+	// 		return (
+	// 			d.getUTCFullYear() +
+	// 			"-" +
+	// 			pad(d.getUTCMonth() + 1) +
+	// 			"-" +
+	// 			pad(d.getUTCDate()) +
+	// 			"T" +
+	// 			pad(d.getUTCHours()) +
+	// 			":" +
+	// 			pad(d.getUTCMinutes()) +
+	// 			":" +
+	// 			pad(d.getUTCSeconds()) +
+	// 			"Z"
+	// 		);
+	// 	}
+
+	// 	var start = new Date(contest.start_time);
+	// 	var end = new Date(contest.end_time);
+	// 	// console.log(start.toISOString());
+	// 	var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${
+	// 		contest.name
+	// 	}&dates=${ISODateString(start)}/20180513T030000Z&details=${
+	// 		contest.url
+	// 	}`;
+	// 	chrome.tabs.create({ active: true, url: uri });
+	// }
 
 	// Adds an alarm for 1 min before contest
 	function ContestAlarm(contest) {
@@ -111,6 +145,7 @@ export default function MyContest() {
 								<button
 									type="button"
 									className="btn btn-primary btn-sm"
+									onClick={() => openCalander(contest)}
 								>
 									<i className="bi bi-calendar-event"></i>
 								</button>
@@ -140,18 +175,6 @@ function contests_in_24_hours(myContests_db) {
 	}
 	return in_24_hours;
 }
-
-// Function sets an alarm and it opens a new tab 1 min before contest start_time
-// NOT WORKING
-// function setAlarm(contest) {
-// 	chrome.runtime.sendMessage({
-// 		msg: "Create Alarm",
-// 		data: {
-// 			url: contest.url,
-// 			time: contest.start_time,
-// 		},
-// 	});
-// }
 
 // ============================ Helper =================================
 function getDate(d) {

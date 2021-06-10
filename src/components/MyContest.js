@@ -19,12 +19,8 @@ export default function MyContest() {
 	const [currentContest, setcurrentContest] = useState("24hours");
 	const [mycontest, setmycontest] = useState([]);
 	const [temp_contest, settemp_contest] = useState([]);
-	const [alarm_color, setalarm_color] = useState(
-		{
-			selected:""
-		}
-	);
-
+	// const [color, setcolor] = useState([]);
+	// let selected: "";
 	// console.log(mycontest);
 	//setmycontest(contest24 => contest24= myContests_db)
 	useEffect(() => {
@@ -86,38 +82,28 @@ export default function MyContest() {
 	}
 
 	// Open Calander
-	// function openCalander(contest) {
-	// 	function ISODateString(d) {
-	// 		function pad(n) {
-	// 			return n < 10 ? "0" + n : n;
-	// 		}
-	// 		return (
-	// 			d.getUTCFullYear() +
-	// 			"-" +
-	// 			pad(d.getUTCMonth() + 1) +
-	// 			"-" +
-	// 			pad(d.getUTCDate()) +
-	// 			"T" +
-	// 			pad(d.getUTCHours()) +
-	// 			":" +
-	// 			pad(d.getUTCMinutes()) +
-	// 			":" +
-	// 			pad(d.getUTCSeconds()) +
-	// 			"Z"
-	// 		);
-	// 	}
+	function openCalander(contest) {
+		console.log("In Calander");
+		function ISODateString(d) {
+			var isoDate = d.toISOString();
+			isoDate = isoDate.replaceAll(":", "");
+			isoDate = isoDate.replaceAll("-", "");
+			var retval = isoDate.split(".")[0];
+			return retval + "Z";
+		}
 
-	// 	var start = new Date(contest.start_time);
-	// 	var end = new Date(contest.end_time);
-	// 	// console.log(start.toISOString());
-	// 	var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${
-	// 		contest.name
-	// 	}&dates=${ISODateString(start)}/20180513T030000Z&details=${
-	// 		contest.url
-	// 	}`;
-	// 	chrome.tabs.create({ active: true, url: uri });
-	// }
-
+		var start = new Date(contest.start_time);
+		var end = new Date(contest.end_time);
+		// console.log(start.toISOString());
+		var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${
+			contest.name
+		}&dates=${ISODateString(start)}/${ISODateString(end)}&details=${
+			contest.url
+		}`;
+		console.log(uri);
+		console.log(ISODateString(start));
+		chrome.tabs.create({ active: true, url: uri });
+	}
 	// Adds an alarm for 1 min before contest
 	function ContestAlarm(event,contest) {
 		AlarmContests.push(contest);
@@ -138,6 +124,7 @@ export default function MyContest() {
 		console.log("reminderSet after " + time_diff);
 		console.log(AlarmContests);
 	}
+
 	function contests_in_24_hours(myContests_db) {
 		//await getmyContests();
 		var in_24_hours = [];
@@ -254,7 +241,7 @@ export default function MyContest() {
 									<button
 										type="button"
 										className="btn btn-primary btn-sm btn-circle"
-										// onClick={() => openCalander(contest)}
+										onClick={() => openCalander(contest)}
 									>
 										<i className="bi bi-calendar-event"></i>
 									</button>

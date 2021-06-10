@@ -104,24 +104,42 @@ export default function MyContest() {
 		console.log(ISODateString(start));
 		chrome.tabs.create({ active: true, url: uri });
 	}
-	// Adds an alarm for 1 min before contest
-	function ContestAlarm(event,contest) {
-		AlarmContests.push(contest);
-		event.target.style.backgroundColor ="yellow";
-		//setcolour(contest)
-		// console.log("In ContestAlarm");
-		var date = new Date(contest.start_time);
-		// console.log(date);
-		var now = new Date();
+	function toggleAlarm(event, contest) {
+		var isAlarmSet = -1;
 
-		var time_diff = Math.abs(date.getTime() - now.getTime());
-		time_diff = time_diff - 1;
+		for (var i = 0; i < AlarmContests.length; i++) {
+			if (AlarmContests[i].name === contest.name) {
+				isAlarmSet = i;
+				break;
+			}
+		}
 
-		localforage.setItem("AlarmContests", AlarmContests);
-		chrome.alarms.create(contest.name, {
-			when: Date.now() + time_diff,
-		});
-		console.log("reminderSet after " + time_diff);
+		if (isAlarmSet !== -1) {
+			// Remove alarm
+			AlarmContests.splice(isAlarmSet, 1);
+			event.target.style.backgroundColor = "blue";
+
+			localforage.setItem("AlarmContests", AlarmContests);
+			chrome.alarms.clear(contest.name);
+			console.log("Alarm Cleared");
+		} else {
+			AlarmContests.push(contest);
+			event.target.style.backgroundColor = "yellow";
+			//setcolour(contest)
+			// console.log("In ContestAlarm");
+			var date = new Date(contest.start_time);
+			// console.log(date);
+			var now = new Date();
+
+			var time_diff = Math.abs(date.getTime() - now.getTime());
+			time_diff = time_diff - 1;
+
+			localforage.setItem("AlarmContests", AlarmContests);
+			chrome.alarms.create(contest.name, {
+				when: Date.now() + time_diff,
+			});
+			console.log("reminderSet after " + time_diff);
+		}
 		console.log(AlarmContests);
 	}
 
@@ -167,21 +185,18 @@ export default function MyContest() {
 		console.log("In setDeletedContests");
 		await localforage.setItem("deletedContests", deletedContests);
 	}
+
 	const setcolour = (contest) => {
 		let c;
-		for(let i=0;i<AlarmContests.length;i++)
-		{
-			if(AlarmContests[i].name == contest.name) 
-			{
-				c= "yellow"
+		for (let i = 0; i < AlarmContests.length; i++) {
+			if (AlarmContests[i].name == contest.name) {
+				c = "yellow";
 			}
-			
 		}
 		return c;
 	};
 
 	{
-		
 		return (
 			<div>
 				<div className="Sections">
@@ -217,8 +232,7 @@ export default function MyContest() {
 				{mycontest.map((contest, key) => (
 					<div key={key}>
 						<div className="card text-center">
-							<h6 className="card-header"
-							>{contest.name}</h6>
+							<h6 className="card-header">{contest.name}</h6>
 							<div className="card-body">
 								<h6 className="card-title">
 									Start:{getDate(contest.start_time)}
@@ -247,14 +261,13 @@ export default function MyContest() {
 									</button>
 									<button
 										style={{
-											backgroundColor:setcolour(contest)
-												
+											backgroundColor: setcolour(contest),
 										}}
 										type="button"
 										className="btn btn-primary btn-sm btn-circle"
 										onClick={(e) => {
-											ContestAlarm(e,contest);
-											setcolour(contest)
+											toggleAlarm(e, contest);
+											setcolour(contest);
 										}}
 									>
 										<i className="bi bi-alarm-fill"></i>

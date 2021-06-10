@@ -56,3 +56,11 @@
 .sections:focus {
 	border: black;
 }
+.card-text {
+	color: grey;
+	font-size: 14px;
+	margin-bottom: 16px;
+}
+.card-header {
+	background-color: white;
+}

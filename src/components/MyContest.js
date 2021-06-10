@@ -7,7 +7,6 @@ import { Route } from "react-router";
 import { render } from "@testing-library/react";
 import NavigationBar from "./NavigationBar";
 import { Card, CardContent, Typography, Button } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
 
 let deletedContests = [];
 let AlarmContests = [];
@@ -97,7 +96,9 @@ export default function MyContest() {
 		// console.log(start.toISOString());
 		var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${
 			contest.name
-		}&dates=${ISODateString(start)}/${ISODateString(end)}&details=${
+		}&dates=${ISODateString(start)}/${ISODateString(
+			end
+		)}&details=Your remainder is set by CP-Schedular. Contest URL : ${
 			contest.url
 		}`;
 		console.log(uri);
@@ -117,14 +118,14 @@ export default function MyContest() {
 		if (isAlarmSet !== -1) {
 			// Remove alarm
 			AlarmContests.splice(isAlarmSet, 1);
-			event.target.style.backgroundColor = "blue";
+			event.currentTarget.style.backgroundColor = "";
 
 			localforage.setItem("AlarmContests", AlarmContests);
 			chrome.alarms.clear(contest.name);
 			console.log("Alarm Cleared");
 		} else {
 			AlarmContests.push(contest);
-			event.target.style.backgroundColor = "yellow";
+			event.currentTarget.style.backgroundColor = "#ffe066";
 			//setcolour(contest)
 			// console.log("In ContestAlarm");
 			var date = new Date(contest.start_time);
@@ -206,6 +207,18 @@ export default function MyContest() {
 							setmycontest(ongoing(temp_contest));
 							setcurrentContest("ongoing");
 						}}
+						fontFamily="Helvetica Neue"
+						style={{
+							textTransform: "none",
+							backgroundColor:
+								currentContest === "ongoing"
+									? "#fff"
+									: "#343a40",
+							color:
+								currentContest === "ongoing" ? "#222" : "#fff",
+							borderRadius: 0,
+							outline: "none",
+						}}
 					>
 						Ongoing
 					</Button>
@@ -214,6 +227,18 @@ export default function MyContest() {
 						onClick={() => {
 							setmycontest(contests_in_24_hours(temp_contest));
 							setcurrentContest("24hours");
+						}}
+						fontFamily="Helvetica Neue"
+						style={{
+							textTransform: "none",
+							backgroundColor:
+								currentContest === "24hours"
+									? "#fff"
+									: "#343a40",
+							color:
+								currentContest === "24hours" ? "#222" : "#fff",
+							borderRadius: 0,
+							outline: "none",
 						}}
 					>
 						In 24 hours
@@ -224,6 +249,18 @@ export default function MyContest() {
 							setmycontest(upcoming(temp_contest));
 							setcurrentContest("upcoming");
 						}}
+						fontFamily="Helvetica Neue"
+						style={{
+							textTransform: "none",
+							backgroundColor:
+								currentContest === "upcoming"
+									? "#fff"
+									: "#343a40",
+							color:
+								currentContest === "upcoming" ? "#222" : "#fff",
+							borderRadius: 0,
+							outline: "none",
+						}}
 					>
 						Upcoming
 					</Button>
@@ -232,9 +269,9 @@ export default function MyContest() {
 				{mycontest.map((contest, key) => (
 					<div key={key}>
 						<div className="card text-center">
-							<h6 className="card-header">{contest.name}</h6>
 							<div className="card-body">
-								<h6 className="card-title">
+								<h6>{contest.name}</h6>
+								<h6 className="card-text">
 									Start:{getDate(contest.start_time)}
 								</h6>
 								<div className="buttons">
@@ -245,13 +282,7 @@ export default function MyContest() {
 									>
 										Go to Contest
 									</button>
-									<button
-										type="button"
-										className="btn btn-danger btn-sm btn-circle"
-										onClick={() => deleteContest(contest)}
-									>
-										<i className="bi bi-trash-fill"></i>
-									</button>
+
 									<button
 										type="button"
 										className="btn btn-primary btn-sm btn-circle"
@@ -272,11 +303,16 @@ export default function MyContest() {
 									>
 										<i className="bi bi-alarm-fill"></i>
 									</button>
+									<button
+										type="button"
+										className="btn btn-danger btn-sm btn-circle"
+										onClick={() => deleteContest(contest)}
+									>
+										<i className="bi bi-trash-fill"></i>
+									</button>
 								</div>
 							</div>
 						</div>
-
-						<br></br>
 					</div>
 				))}
 			</div>

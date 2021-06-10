@@ -1,10 +1,15 @@
 ## Welcome to Kontest Remainder
 
-We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to imprve there CP skills. We wish you all the best on this intresting journy of Competitive Programming.
+We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to improve there CP skills. We wish you all the best on this intresting journy of Competitive Programming.
 
-### Markdown
+### Download Link
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+To download the zip click [here]() 
+- Download and unzip the folder.
+- Open [link](chrome://extensions/)
+- Toggle developer option on.
+- click "Load unpackaged"
+- Choose the unzipped folder and you are good to go.
 
 ```markdown
 Syntax highlighted code block

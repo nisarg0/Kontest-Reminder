@@ -34,6 +34,8 @@ To download the zip click [here]()
   7. Kick Start.
   8. Top Coder.
 
+Please report bugs and suggest changes [here](https://forms.gle/VU4ge6wEmqKtzu7k7)
+
 ## About
 
 This site is made with :heart: by:

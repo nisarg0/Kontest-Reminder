@@ -6,13 +6,18 @@ We have made this chrome-extension as a challenge to ourselves and we hope it wi
 
 To download the zip click [here]() 
 - Download and unzip the folder.
-- Open _chrome://extensions/_ in new tab
+- Open `chrome://extensions/` in new tab
 - Toggle developer option on.
-- click _Load unpackaged_
+- click `Load unpackaged`
 - Choose the unzipped folder and you are good to go.
 
 ### How to use?
-
+- Home page has 3 sections
+  - Live
+  - In 24 hours
+  - Upcoming
+- Subscribe page 
+  This has a list of websites which want updates of.
 
 ```markdown
 Syntax highlighted code block
@@ -41,6 +46,6 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### About
 
 This site is made with :heart: by:
-- Nisarg [nisarg_0](https://github.com/nisarg0)
-- Anjali [anju218](https://github.com/anju218)
-- Akashy [akashay-mali](https://github.com/akshay-mali)
+- Nisarg - [nisarg_0](https://github.com/nisarg0)
+- Anjali - [anju218](https://github.com/anju218)
+- Akashy - [akashay-mali](https://github.com/akshay-mali)

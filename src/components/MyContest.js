@@ -20,7 +20,7 @@ export default function MyContest() {
 	
 	const [mycontest, setmycontest] = useState([]);
 	const [temp_contest, settemp_contest] = useState([])
-	const [tab_color,settab_color]=useState([])
+	const [color,setcolor]=useState([])
 	// console.log(mycontest);
 	//setmycontest(contest24 => contest24= myContests_db)
 	useEffect(() => {
@@ -124,6 +124,10 @@ export default function MyContest() {
 		console.log("In setDeletedContests");
 		await localforage.setItem("deletedContests", deletedContests);
 	}
+    function setcolour(contest)
+    {
+        setcolor(red)
+    }
 	
 	{
 		return (

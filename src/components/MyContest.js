@@ -6,6 +6,9 @@ import "./Subscribe.css";
 import { Route } from "react-router";
 import { render } from "@testing-library/react";
 import NavigationBar from "./NavigationBar";
+import { Card, CardContent, Typography } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
+
 
 let deletedContests = [];
 let AlarmContests = [];
@@ -14,8 +17,10 @@ export default function MyContest() {
 	//let contest=[]
 	//contest=contests_in_24_hours(myContests_db)
 	//console.log(contest)
-
+	
 	const [mycontest, setmycontest] = useState([]);
+	const [temp_contest, settemp_contest] = useState([])
+	const [tab_color,settab_color]=useState([])
 	// console.log(mycontest);
 	//setmycontest(contest24 => contest24= myContests_db)
 	useEffect(() => {
@@ -24,11 +29,16 @@ export default function MyContest() {
 			localforage.getItem("myContests", function (err, value) {
 				if (err) console.log(err);
 				setmycontest(value);
+				settemp_contest(value)
+				//settemp_contest(value)
+				
 			});
+			
 		localforage.getItem("AlarmContests", function (err, value) {
 			if (err) console.log(err);
 			AlarmContests = value;
 		});
+		
 		GetData();
 	}, []);
 
@@ -38,13 +48,14 @@ export default function MyContest() {
 		deletedContests.push(dcontest);
 
 		setDeletedContests();
-		let delcontest = [...mycontest];
-		for (var i = 0; i < mycontest.length; i++)
+		let delcontest = [...temp_contest];
+		for (var i = 0; i < temp_contest.length; i++)
 			if (dcontest == delcontest[i]) delcontest.splice(i, 1);
 
 		// console.log(delcontest);
 		setmyContests(delcontest);
-		setmycontest(delcontest);
+        settemp_contest(delcontest);
+		setmycontest(temp_contest);
 	};
 
 	// Opens new tab with given uri
@@ -54,6 +65,7 @@ export default function MyContest() {
 
 	// Adds an alarm for 1 min before contest
 	function ContestAlarm(contest) {
+        
 		AlarmContests.push(contest);
 
 		// console.log("In ContestAlarm");
@@ -71,6 +83,36 @@ export default function MyContest() {
 		console.log("reminderSet after " + time_diff);
 		console.log(AlarmContests);
 	}
+	function contests_in_24_hours(myContests_db) {
+		//await getmyContests();
+		var in_24_hours = [];
+		for (var contest of myContests_db) {
+			if (contest.in_24_hours === "Yes") in_24_hours.push(contest);
+		}
+		return in_24_hours;
+	}
+	function ongoing(myContests_db) {
+		//await getmyContests();
+		var Ongoing = [];
+		for (var contest of myContests_db) {
+			if (contest.status === "CODING") Ongoing.push(contest);
+		}
+		console.log(Ongoing)
+		console.log(mycontest)
+		return Ongoing;
+	}
+	function upcoming(myContests_db) {
+		//await getmyContests();
+        
+		var Upcoming = [];
+		for (var contest of myContests_db) {
+			if (contest.status == "BEFORE" && contest.in_24_hours == "No") Upcoming.push(contest);
+		}
+		
+		console.log(Upcoming)
+		console.log(mycontest)
+		return Upcoming;
+	}
 
 	// Db function
 	async function setmyContests(delcontest) {
@@ -82,10 +124,34 @@ export default function MyContest() {
 		console.log("In setDeletedContests");
 		await localforage.setItem("deletedContests", deletedContests);
 	}
-
+	
 	{
 		return (
 			<div>
+				<div className="Sections">
+					<Card variant="outlined" className="sections" onClick={()=>setmycontest(ongoing(temp_contest))} >
+						<CardContent>
+							<Typography color="textSecondary" gutterBottom>
+							Ongoing
+							</Typography>
+						</CardContent>
+					</Card>
+					<Card variant="outlined" className="sections"onClick={()=>setmycontest(contests_in_24_hours(temp_contest))}>
+						<CardContent>
+							<Typography color="textSecondary" gutterBottom>
+							Contest in 24 hours
+							</Typography>
+						</CardContent>
+					</Card>
+					<Card variant="outlined" className="sections" onClick={()=>setmycontest(upcoming(temp_contest))} > 
+						<CardContent>
+							<Typography color="textSecondary" gutterBottom>
+							Upcoming
+							</Typography>
+						</CardContent>
+					</Card>
+				</div>
+				
 				{mycontest.map((contest, key) => (
 					<div key={key}>
 						<div className="card text-center">
@@ -94,6 +160,7 @@ export default function MyContest() {
 								<h6 className="card-title">
 									Start:{getDate(contest.start_time)}
 								</h6>
+                                <div className="buttons">
 								<button
 									type="button"
 									className="btn btn-primary btn-sm"
@@ -121,6 +188,7 @@ export default function MyContest() {
 								>
 									<i className="bi bi-alarm-fill"></i>
 								</button>
+                                </div>
 							</div>
 						</div>
 
@@ -132,14 +200,7 @@ export default function MyContest() {
 	}
 }
 
-function contests_in_24_hours(myContests_db) {
-	//await getmyContests();
-	var in_24_hours = [];
-	for (var contest of myContests_db) {
-		if (contest.in_24_hours === "Yes") in_24_hours.push(contest);
-	}
-	return in_24_hours;
-}
+
 
 // Function sets an alarm and it opens a new tab 1 min before contest start_time
 // NOT WORKING

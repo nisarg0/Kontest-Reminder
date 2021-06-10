@@ -81,7 +81,7 @@ export default function Subscribe() {
 							<ListItemAvatar>
 								<Avatar
 									alt={"Codechef"}
-									src={platform.platform}
+									src={`platform.platform`}
 								/>
 							</ListItemAvatar>
 							<ListItemText primary={platform.platform} />

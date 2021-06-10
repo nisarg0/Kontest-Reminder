@@ -37,10 +37,39 @@
     align-content: center;
     margin-left: 25%;
     margin-top: -30%;
-    
+    padding: 0.5rem;
     background-color: aqua;
 }
 .card-body{
     margin-top: -5%;
     margin-bottom: -2%;
+    
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.Sections{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -10%;
+}
+.sections{
+    margin-top: -2%;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    cursor: pointer;
+    
+    
+}
+.sections:active{
+    background-color: gray;
+}
+.sections:hover{
+    background-color: lightgray;
+}
+.sections:focus{
+    border: black;
 }

@@ -6,9 +6,8 @@ import "./Subscribe.css";
 import { Route } from "react-router";
 import { render } from "@testing-library/react";
 import NavigationBar from "./NavigationBar";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography, Button } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
-
 
 let deletedContests = [];
 let AlarmContests = [];
@@ -17,10 +16,11 @@ export default function MyContest() {
 	//let contest=[]
 	//contest=contests_in_24_hours(myContests_db)
 	//console.log(contest)
-	
+	const [currentContest, setcurrentContest] = useState("24hours");
 	const [mycontest, setmycontest] = useState([]);
-	const [temp_contest, settemp_contest] = useState([])
-	const [tab_color,settab_color]=useState([])
+	const [temp_contest, settemp_contest] = useState([]);
+	const [color, setcolor] = useState([]);
+	let selected: "";
 	// console.log(mycontest);
 	//setmycontest(contest24 => contest24= myContests_db)
 	useEffect(() => {
@@ -28,18 +28,17 @@ export default function MyContest() {
 		const GetData = async () =>
 			localforage.getItem("myContests", function (err, value) {
 				if (err) console.log(err);
-				setmycontest(value);
-				settemp_contest(value)
+				setmycontest(contests_in_24_hours(value));
+				settemp_contest(value);
 				//settemp_contest(value)
-				
 			});
-			
+
 		localforage.getItem("AlarmContests", function (err, value) {
 			if (err) console.log(err);
 			if (value === null) AlarmContests = [];
 			else AlarmContests = value;
 		});
-		
+
 		GetData();
 	}, []);
 
@@ -50,13 +49,31 @@ export default function MyContest() {
 
 		setDeletedContests();
 		let delcontest = [...temp_contest];
-		for (var i = 0; i < temp_contest.length; i++)
-			if (dcontest == delcontest[i]) delcontest.splice(i, 1);
+		for (var i = 0; i < temp_contest.length; i++) {
+			if (dcontest == delcontest[i]) {
+				delcontest.splice(i, 1);
+				break;
+			}
+		}
 
+		switch (currentContest) {
+			case "24hours": {
+				setmycontest(contests_in_24_hours(delcontest));
+				break;
+			}
+			case "ongoing": {
+				setmycontest(ongoing(delcontest));
+				break;
+			}
+			case "upcoming": {
+				setmycontest(upcoming(delcontest));
+				break;
+			}
+		}
 		// console.log(delcontest);
-		setmyContests(delcontest);
-        settemp_contest(delcontest);
-		setmycontest(temp_contest);
+		saveMyContest(delcontest);
+		settemp_contest(delcontest);
+		// setmycontest(delcontest);
 	};
 
 	// Opens new tab with given uri
@@ -99,7 +116,6 @@ export default function MyContest() {
 
 	// Adds an alarm for 1 min before contest
 	function ContestAlarm(contest) {
-        
 		AlarmContests.push(contest);
 
 		// console.log("In ContestAlarm");
@@ -131,26 +147,27 @@ export default function MyContest() {
 		for (var contest of myContests_db) {
 			if (contest.status === "CODING") Ongoing.push(contest);
 		}
-		console.log(Ongoing)
-		console.log(mycontest)
+		console.log(Ongoing);
+		console.log(mycontest);
 		return Ongoing;
 	}
 	function upcoming(myContests_db) {
 		//await getmyContests();
-        
+
 		var Upcoming = [];
 		for (var contest of myContests_db) {
-			if (contest.status == "BEFORE" && contest.in_24_hours == "No") Upcoming.push(contest);
+			if (contest.status == "BEFORE" && contest.in_24_hours == "No")
+				Upcoming.push(contest);
 		}
-		
-		console.log(Upcoming)
-		console.log(mycontest)
+
+		console.log(Upcoming);
+		console.log(mycontest);
 		return Upcoming;
 	}
 
 	// Db function
-	async function setmyContests(delcontest) {
-		console.log("In setmyContests");
+	async function saveMyContest(delcontest) {
+		console.log("In saveMyContest");
 		await localforage.setItem("myContests", delcontest);
 	}
 	// DB function
@@ -158,34 +175,46 @@ export default function MyContest() {
 		console.log("In setDeletedContests");
 		await localforage.setItem("deletedContests", deletedContests);
 	}
-	
+	const changeColor = (key) => {
+		{
+			selected: key;
+		}
+	};
+
 	{
+		const { selected, temp_contest } = temp_contest;
 		return (
 			<div>
 				<div className="Sections">
-					<Card variant="outlined" className="sections" onClick={()=>setmycontest(ongoing(temp_contest))} >
-						<CardContent>
-							<Typography color="textSecondary" gutterBottom>
-							Ongoing
-							</Typography>
-						</CardContent>
-					</Card>
-					<Card variant="outlined" className="sections"onClick={()=>setmycontest(contests_in_24_hours(temp_contest))}>
-						<CardContent>
-							<Typography color="textSecondary" gutterBottom>
-							Contest in 24 hours
-							</Typography>
-						</CardContent>
-					</Card>
-					<Card variant="outlined" className="sections" onClick={()=>setmycontest(upcoming(temp_contest))} > 
-						<CardContent>
-							<Typography color="textSecondary" gutterBottom>
-							Upcoming
-							</Typography>
-						</CardContent>
-					</Card>
+					<Button
+						className="sections"
+						onClick={() => {
+							setmycontest(ongoing(temp_contest));
+							setcurrentContest("ongoing");
+						}}
+					>
+						Ongoing
+					</Button>
+					<Button
+						className="sections"
+						onClick={() => {
+							setmycontest(contests_in_24_hours(temp_contest));
+							setcurrentContest("24hours");
+						}}
+					>
+						In 24 hours
+					</Button>
+					<Button
+						className="sections"
+						onClick={() => {
+							setmycontest(upcoming(temp_contest));
+							setcurrentContest("upcoming");
+						}}
+					>
+						Upcoming
+					</Button>
 				</div>
-				
+
 				{mycontest.map((contest, key) => (
 					<div key={key}>
 						<div className="card text-center">
@@ -194,36 +223,43 @@ export default function MyContest() {
 								<h6 className="card-title">
 									Start:{getDate(contest.start_time)}
 								</h6>
-                                <div className="buttons">
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={() => openLink(contest.url)}
-								>
-									Go to Contest
-								</button>
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={() => deleteContest(contest)}
-								>
-									<i className="bi bi-trash-fill"></i>
-								</button>
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={() => openCalander(contest)}
-								>
-									<i className="bi bi-calendar-event"></i>
-								</button>
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={() => ContestAlarm(contest)}
-								>
-									<i className="bi bi-alarm-fill"></i>
-								</button>
-                                </div>
+								<div className="buttons">
+									<button
+										type="button"
+										className="btn btn-primary btn-sm"
+										onClick={() => openLink(contest.url)}
+									>
+										Go to Contest
+									</button>
+									<button
+										type="button"
+										className="btn btn-danger btn-sm btn-circle"
+										onClick={() => deleteContest(contest)}
+									>
+										<i className="bi bi-trash-fill"></i>
+									</button>
+									<button
+										type="button"
+										className="btn btn-primary btn-sm btn-circle"
+										// onClick={() => openCalander(contest)}
+									>
+										<i className="bi bi-calendar-event"></i>
+									</button>
+									<button
+										style={{
+											color:
+												selected === key ? "red" : "",
+										}}
+										type="button"
+										className="btn btn-primary btn-sm btn-circle"
+										onClick={() => {
+											ContestAlarm(contest);
+											changeColor(key);
+										}}
+									>
+										<i className="bi bi-alarm-fill"></i>
+									</button>
+								</div>
 							</div>
 						</div>
 
@@ -234,8 +270,6 @@ export default function MyContest() {
 		);
 	}
 }
-
-
 
 // ============================ Helper =================================
 function getDate(d) {

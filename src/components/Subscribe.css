@@ -1,75 +1,58 @@
-.title{
-    align-items: center;
-    text-align: center;
-    margin-top: 5%;
-    margin-bottom: 8%;
-    text-decoration-color: bisque;
-
+.form {
+	width: 325px;
+	align-items: center;
+	align-self: center;
+	align-content: center;
+	border-width: 3px;
 }
-.form{
-    width: 300px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    border-color: black;
-    border-width: 3px;
+.subs {
+	width: 325px;
+	align-items: center;
+	align-self: center;
+	align-content: center;
 }
-.subs{
-    width:300px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-}
-.checkbox-list-secondary-label{
-    width: 300px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    margin-right: 30px;
-    background-color: aqua;
-    
+.checkbox-list-secondary-label {
+	width: 325px;
+	align-items: center;
+	align-self: center;
+	align-content: center;
+	margin-right: 30px;
+	background-color: aqua;
 }
 
-.list-group-item{
-    width: 325px;
-    align-items: center;
-    align-self: center;
-    align-content: center;
-    margin-left: 25%;
-    margin-top: -30%;
-    padding: 0.5rem;
-    background-color: aqua;
+.list-group-item {
+	width: 325px;
+	align-items: center;
+	align-self: center;
+	align-content: center;
+	margin-left: 25%;
+	margin-top: -30%;
+	padding: 0.5rem;
+	background-color: #fff;
 }
-.card-body{
-    margin-top: -5%;
-    margin-bottom: -2%;
-    
+.card-body {
+	margin-top: -5%;
+	margin-bottom: -2%;
 }
-.buttons{
-    display: flex;
-    justify-content: space-between;
-    
+.buttons {
+	display: flex;
+	justify-content: space-between;
 }
-.Sections{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: -10%;
+.Sections {
+	display: flex;
+	justify-content: space-between;
 }
-.sections{
-    margin-top: -2%;
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    cursor: pointer;
-    
-    
+.sections {
+	display: flex;
+	width: 100%;
+	cursor: pointer;
 }
-.sections:active{
-    background-color: gray;
+.sections:active {
+	background-color: gray;
 }
-.sections:hover{
-    background-color: lightgray;
+.sections:hover {
+	background-color: lightgray;
 }
-.sections:focus{
-    border: black;
+.sections:focus {
+	border: black;
 }

@@ -1,8 +1,6 @@
-## Welcome to GitHub Pages
+## Welcome to Kontest Remainder
 
-You can use the [editor on GitHub](https://github.com/nisarg0/Kontest-Remainder/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to imprve there CP skills. We wish you all the best on this intresting journy of Competitive Programming.
 
 ### Markdown
 

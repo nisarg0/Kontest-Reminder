@@ -4,7 +4,7 @@ We have made this chrome-extension as a challenge to ourselves and we hope it wi
 
 ### How to download?
 
-To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn81RzBT8KSWGzyrdwNa/view?usp=sharing) 
+To download the zip click [here](https://drive.google.com/file/d/1NqIpS5g93z7NLYd9N-A4xoDLnRNpmwJZ/view?usp=sharing) 
 - Download and unzip the folder.
 - Open `chrome://extensions/` in new tab
 - Toggle developer option on.

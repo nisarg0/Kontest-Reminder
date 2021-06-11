@@ -1,11 +1,5 @@
-import React, { Component, useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useEffect } from "react";
 import {
-	InputLabel,
-	Input,
-	Button,
-	Icon,
-	SvgIcon,
 	List,
 	ListItem,
 	ListItemAvatar,
@@ -14,13 +8,7 @@ import {
 	ListItemSecondaryAction,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
-import { blueGrey } from "@material-ui/core/colors";
 import "./Subscribe.css";
 import localforage from "localforage";
 

@@ -1,12 +1,7 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import localforage, { removeItem } from "localforage";
-import { getAllByPlaceholderText } from "@testing-library/dom";
+import localforage from "localforage";
 import "./Subscribe.css";
-import { Route } from "react-router";
-import { render } from "@testing-library/react";
-import NavigationBar from "./NavigationBar";
-import { Card, CardContent, Typography, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 let deletedContests = [];
 let AlarmContests = [];
@@ -201,7 +196,7 @@ export default function MyContest() {
 		return (
 			<div>
 				<div className="Sections">
-					<Button
+					<Button variant="contained"
 						className="sections"
 						onClick={() => {
 							setmycontest(ongoing(temp_contest));
@@ -222,7 +217,7 @@ export default function MyContest() {
 					>
 						Ongoing
 					</Button>
-					<Button
+					<Button variant="contained"
 						className="sections"
 						onClick={() => {
 							setmycontest(contests_in_24_hours(temp_contest));
@@ -243,7 +238,7 @@ export default function MyContest() {
 					>
 						In 24 hours
 					</Button>
-					<Button
+					<Button variant="contained"
 						className="sections"
 						onClick={() => {
 							setmycontest(upcoming(temp_contest));
@@ -287,6 +282,8 @@ export default function MyContest() {
 										type="button"
 										className="btn btn-primary btn-sm btn-circle"
 										onClick={() => openCalander(contest)}
+										data-toggle="tooltip" data-placement="bottom" 
+										title="Add to calendar"
 									>
 										<i className="bi bi-calendar-event"></i>
 									</button>
@@ -300,6 +297,8 @@ export default function MyContest() {
 											toggleAlarm(e, contest);
 											setcolour(contest);
 										}}
+										data-toggle="tooltip" data-placement="bottom" 
+										title="Add Reminder"
 									>
 										<i className="bi bi-alarm-fill"></i>
 									</button>
@@ -307,6 +306,8 @@ export default function MyContest() {
 										type="button"
 										className="btn btn-danger btn-sm btn-circle"
 										onClick={() => deleteContest(contest)}
+										data-toggle="tooltip" data-placement="bottom" 
+										title="Delete Contest"
 									>
 										<i className="bi bi-trash-fill"></i>
 									</button>

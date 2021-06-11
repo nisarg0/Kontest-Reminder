@@ -11,7 +11,7 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
 - Click `Load unpackaged`
 - Choose the unzipped folder and you are good to go.
 
-### What is new in Kontest-Remainder?
+### What is new in Kontest-Reminder?
 - **Home Page** is made up of 3 sections:
   1. Running
   2. In 24 hours

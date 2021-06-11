@@ -11,17 +11,14 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
 - Click `Load unpackaged`
 - Choose the unzipped folder and you are good to go.
 
-### How to use?
-- **Home page** has 3 sections:
-  1. Live
-  2. In 24 hours
-  3. Upcoming
-  
-- Each **Contest** has 4 options:
-  1. Go to Contest
-  2. Add to google calander
-  3. Set an alarm _which will open the contest tab 1 min prior to the contest_.
-  4. Delete
+### What is new in Kontest-Remainder?
+- Home Page is made up of 3 sections 1. Running
+                                     2. In 24 hours
+                                     3. Upcoming 
+- Each **Contest** has 4 options  1. Go to Contest
+                                  2. Add to google calander
+                                  3. Set an alarm _which will open the contest tab 1 min prior to the contest_.
+                                  4. Delete
 
 
 - **Subscribe page** We support following 8 sites:

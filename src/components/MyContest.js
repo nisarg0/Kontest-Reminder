@@ -44,7 +44,7 @@ export default function MyContest() {
 		setDeletedContests();
 		let delcontest = [...temp_contest];
 		for (var i = 0; i < temp_contest.length; i++) {
-			if (dcontest == delcontest[i]) {
+			if (dcontest === delcontest[i]) {
 				delcontest.splice(i, 1);
 				break;
 			}
@@ -63,6 +63,8 @@ export default function MyContest() {
 				setmycontest(upcoming(delcontest));
 				break;
 			}
+			default:
+			//do nothing
 		}
 		// console.log(delcontest);
 		saveMyContest(delcontest);
@@ -100,6 +102,7 @@ export default function MyContest() {
 		console.log(ISODateString(start));
 		chrome.tabs.create({ active: true, url: uri });
 	}
+
 	function toggleAlarm(event, contest) {
 		var isAlarmSet = -1;
 
@@ -121,14 +124,13 @@ export default function MyContest() {
 		} else {
 			AlarmContests.push(contest);
 			event.currentTarget.style.backgroundColor = "#ffe066";
-			//setcolour(contest)
-			// console.log("In ContestAlarm");
+
 			var date = new Date(contest.start_time);
-			// console.log(date);
+			console.log(date);
 			var now = new Date();
 
 			var time_diff = Math.abs(date.getTime() - now.getTime());
-			time_diff = time_diff - 1;
+			time_diff = time_diff - 1000;
 
 			localforage.setItem("AlarmContests", AlarmContests);
 			chrome.alarms.create(contest.name, {
@@ -143,7 +145,8 @@ export default function MyContest() {
 		//await getmyContests();
 		var in_24_hours = [];
 		for (var contest of myContests_db) {
-			if (contest.in_24_hours === "Yes") in_24_hours.push(contest);
+			if (contest.in_24_hours === "Yes" && contest.status === "BEFORE")
+				in_24_hours.push(contest);
 		}
 		return in_24_hours;
 	}
@@ -153,8 +156,8 @@ export default function MyContest() {
 		for (var contest of myContests_db) {
 			if (contest.status === "CODING") Ongoing.push(contest);
 		}
-		console.log(Ongoing);
-		console.log(mycontest);
+		// console.log(Ongoing);
+		// console.log(mycontest);
 		return Ongoing;
 	}
 	function upcoming(myContests_db) {
@@ -162,12 +165,12 @@ export default function MyContest() {
 
 		var Upcoming = [];
 		for (var contest of myContests_db) {
-			if (contest.status == "BEFORE" && contest.in_24_hours == "No")
+			if (contest.status === "BEFORE" && contest.in_24_hours === "No")
 				Upcoming.push(contest);
 		}
 
-		console.log(Upcoming);
-		console.log(mycontest);
+		// console.log(Upcoming);
+		// console.log(mycontest);
 		return Upcoming;
 	}
 
@@ -185,140 +188,135 @@ export default function MyContest() {
 	const setcolour = (contest) => {
 		let c;
 		for (let i = 0; i < AlarmContests.length; i++) {
-			if (AlarmContests[i].name == contest.name) {
-				c = "yellow";
+			if (AlarmContests[i].name === contest.name) {
+				c = "#ffe066";
 			}
 		}
 		return c;
 	};
 
-	{
-		return (
-			<div>
-				<div className="Sections">
-					<Button variant="contained"
-						className="sections"
-						onClick={() => {
-							setmycontest(ongoing(temp_contest));
-							setcurrentContest("ongoing");
-						}}
-						fontFamily="Helvetica Neue"
-						style={{
-							textTransform: "none",
-							backgroundColor:
-								currentContest === "ongoing"
-									? "#fff"
-									: "#343a40",
-							color:
-								currentContest === "ongoing" ? "#222" : "#fff",
-							borderRadius: 0,
-							outline: "none",
-						}}
-					>
-						Ongoing
-					</Button>
-					<Button variant="contained"
-						className="sections"
-						onClick={() => {
-							setmycontest(contests_in_24_hours(temp_contest));
-							setcurrentContest("24hours");
-						}}
-						fontFamily="Helvetica Neue"
-						style={{
-							textTransform: "none",
-							backgroundColor:
-								currentContest === "24hours"
-									? "#fff"
-									: "#343a40",
-							color:
-								currentContest === "24hours" ? "#222" : "#fff",
-							borderRadius: 0,
-							outline: "none",
-						}}
-					>
-						In 24 hours
-					</Button>
-					<Button variant="contained"
-						className="sections"
-						onClick={() => {
-							setmycontest(upcoming(temp_contest));
-							setcurrentContest("upcoming");
-						}}
-						fontFamily="Helvetica Neue"
-						style={{
-							textTransform: "none",
-							backgroundColor:
-								currentContest === "upcoming"
-									? "#fff"
-									: "#343a40",
-							color:
-								currentContest === "upcoming" ? "#222" : "#fff",
-							borderRadius: 0,
-							outline: "none",
-						}}
-					>
-						Upcoming
-					</Button>
-				</div>
+	return (
+		<div>
+			<div className="Sections">
+				<Button
+					variant="contained"
+					className="sections"
+					onClick={() => {
+						setmycontest(ongoing(temp_contest));
+						setcurrentContest("ongoing");
+					}}
+					fontFamily="Helvetica Neue"
+					style={{
+						textTransform: "none",
+						backgroundColor:
+							currentContest === "ongoing" ? "#fff" : "#343a40",
+						color: currentContest === "ongoing" ? "#222" : "#fff",
+						borderRadius: 0,
+						outline: "none",
+					}}
+				>
+					Ongoing
+				</Button>
+				<Button
+					variant="contained"
+					className="sections"
+					onClick={() => {
+						setmycontest(contests_in_24_hours(temp_contest));
+						setcurrentContest("24hours");
+					}}
+					fontFamily="Helvetica Neue"
+					style={{
+						textTransform: "none",
+						backgroundColor:
+							currentContest === "24hours" ? "#fff" : "#343a40",
+						color: currentContest === "24hours" ? "#222" : "#fff",
+						borderRadius: 0,
+						outline: "none",
+					}}
+				>
+					In 24 hours
+				</Button>
+				<Button
+					variant="contained"
+					className="sections"
+					onClick={() => {
+						setmycontest(upcoming(temp_contest));
+						setcurrentContest("upcoming");
+					}}
+					fontFamily="Helvetica Neue"
+					style={{
+						textTransform: "none",
+						backgroundColor:
+							currentContest === "upcoming" ? "#fff" : "#343a40",
+						color: currentContest === "upcoming" ? "#222" : "#fff",
+						borderRadius: 0,
+						outline: "none",
+					}}
+				>
+					Upcoming
+				</Button>
+			</div>
 
-				{mycontest.map((contest, key) => (
-					<div key={key}>
-						<div className="card text-center">
-							<div className="card-body">
-								<h6>{contest.name}</h6>
-								<h6 className="card-text">
-									Start:{getDate(contest.start_time)}
-								</h6>
-								<div className="buttons">
-									<button
-										type="button"
-										className="btn btn-primary btn-sm"
-										onClick={() => openLink(contest.url)}
-									>
-										Go to Contest
-									</button>
+			{mycontest.map((contest, key) => (
+				<div key={key}>
+					<div className="card text-center">
+						<div className="card-body">
+							<h6>{contest.name}</h6>
+							<h6 className="card-text">
+								Start:{getDate(contest.start_time)}
+							</h6>
+							<div className="buttons">
+								<button
+									type="button"
+									className="btn btn-primary btn-sm"
+									onClick={() => openLink(contest.url)}
+								>
+									Go to Contest
+								</button>
 
-									<button
-										type="button"
-										className="btn btn-primary btn-sm btn-circle"
-										onClick={() => openCalander(contest)}
-										data-toggle="tooltip" data-placement="bottom" 
-										title="Add to calendar"
-									>
-										<i className="bi bi-calendar-event"></i>
-									</button>
-									<button
-										style={{
-											backgroundColor: setcolour(contest),
-										}}
-										type="button"
-										className="btn btn-primary btn-sm btn-circle"
-										onClick={(e) => {
-											toggleAlarm(e, contest);
-											setcolour(contest);
-										}}
-										data-toggle="tooltip" data-placement="bottom" 
-										title="Add Reminder"
-									>
-										<i className="bi bi-alarm-fill"></i>
-									</button>
-									<button
-										type="button"
-										className="btn btn-danger btn-sm btn-circle"
-										onClick={() => deleteContest(contest)}
-										data-toggle="tooltip" data-placement="bottom" 
-										title="Delete Contest"
-									>
-										<i className="bi bi-trash-fill"></i>
-									</button>
-								</div>
+								<button
+									type="button"
+									className="btn btn-primary btn-sm btn-circle"
+									onClick={() => openCalander(contest)}
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Add to calendar"
+								>
+									<i className="bi bi-calendar-event"></i>
+								</button>
+								<button
+									style={{
+										backgroundColor: setcolour(contest),
+									}}
+									type="button"
+									className="btn btn-primary btn-sm btn-circle"
+									onClick={(e) => {
+										toggleAlarm(e, contest);
+										setcolour(contest);
+									}}
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Add Reminder"
+								>
+									<i className="bi bi-alarm-fill"></i>
+								</button>
+								<button
+									type="button"
+									className="btn btn-danger btn-sm btn-circle"
+									onClick={() => deleteContest(contest)}
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Delete Contest"
+								>
+									<i className="bi bi-trash-fill"></i>
+								</button>
 							</div>
 						</div>
 					</div>
-				))}
-			</div>
-		);
-	}
+				</div>
+			))}
+		</div>
+	);
 }
 
 // ============================ Helper =================================
@@ -327,5 +325,5 @@ function getDate(d) {
 	var date = date_temp.toLocaleString("en-US");
 	var datearray = date.split("/");
 	var newdate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-	return newdate;
+	return newdate.replace(",", "    ");
 }

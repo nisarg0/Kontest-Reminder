@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import MyContest from "./MyContest";
 function NavigationBar(props) {
 	return (
 		<div className="navigation">

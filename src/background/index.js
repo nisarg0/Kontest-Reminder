@@ -51,7 +51,7 @@ var platforms = [
 
 // Fetch Function
 async function fetchAllMyContests() {
-	console.log("In fetch all my contests");
+	// console.log("In fetch all my contests");
 	myContests = [];
 
 	// We delete an element in it if tit has occured in the fetch...
@@ -81,8 +81,8 @@ async function fetchAllMyContests() {
 // ================================= Recieve Alarm Request ============================
 
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-	console.log("Msg recieed");
-	if (request.data == "Update MyContests") {
+	// console.log("Msg recieed");
+	if (request.data === "Update MyContests") {
 		sendResponse({ data: "success" });
 		await getPlatforms();
 		await getDeletedContests();
@@ -97,43 +97,38 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
 // create alarm for fresh on installed/updated, and start fetch data
 chrome.runtime.onInstalled.addListener(() => {
-	console.log("onInstalled....");
+	// console.log("onInstalled....");
 	scheduleRequest();
 	startRequest();
 });
 
 // fetch and save data when chrome restarted, alarm will continue running when chrome is restarted
 chrome.runtime.onStartup.addListener(() => {
-	console.log("onStartup....");
+	// console.log("onStartup....");
 	startRequest();
 });
 
 // schedule a new fetch every 1440 minutes
 function scheduleRequest() {
-	console.log("schedule refresh alarm to 1440 minutes...");
+	console.log("schedule refresh alarm to 60 minutes...");
 	chrome.alarms.create("refresh", { periodInMinutes: 60 });
 }
 
-// NOT WORKING
-// function cancelAlarm() {
-// 	chrome.alarms.clear(alarmName);
-//   }
-
 chrome.alarms.onAlarm.addListener(async (alarm) => {
 	if (alarm.name === "refresh") {
+		console.log("in refresh");
 		await getPlatforms();
 		await getDeletedContests();
 		await fetchAllMyContests();
 		await setDeletedContests();
 		await setmyContests();
-	}
-	if (alarm.name === "ContestName") {
-		console.log("Contest Remainder Listened");
+	} else if (alarm.name === "ContestName") {
+		// console.log("Contest Remainder Listened");
 	} else {
 		var AlarmContests = [];
 		await localforage.getItem("AlarmContests", function (err, value) {
 			if (value === null) {
-				console.log("Err: No Alarm in DB");
+				// console.log("Err: No Alarm in DB");
 				return;
 			}
 			AlarmContests = value;
@@ -144,58 +139,54 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 					active: true,
 					url: AlarmContests[i].url,
 				});
-				await chrome.alarms.clear(alarm.name);
-				console.log("Created new tab with contest");
+				chrome.alarms.clear(alarm.name);
+				// console.log("Created new tab with contest");
+				break;
 			}
 		}
+		AlarmContests.splice(i, 1);
+		localforage.setItem("AlarmContests", AlarmContests);
 	}
+	console.log(AlarmContests);
 });
 
 // ========================================= DB ===================================================
 async function setmyContests() {
-	console.log("In setmyContests");
+	// console.log("In setmyContests");
 	await localforage.setItem("myContests", myContests);
 }
 
 async function setPlatforms() {
-	console.log("In setPlatforms");
+	// console.log("In setPlatforms");
 	await localforage.setItem("platforms", platforms);
 }
 
 async function setDeletedContests() {
-	console.log("In setDeletedContests");
+	// console.log("In setDeletedContests");
 	await localforage.setItem("deletedContests", deletedContests);
 }
 
-function getmyContests() {
-	console.log("In getmyContests");
-	localforage.getItem("myContests", function (err, value) {
-		if (err) throw err;
-		myContests = value;
-	});
-}
-
 async function getPlatforms() {
-	console.log("1. In getPlatforms");
+	// console.log("1. In getPlatforms");
 	await localforage.getItem("platforms", function (err, value) {
 		if (value === null) {
-			console.log("Err: No platforms array in DB");
+			// console.log("Err: No platforms array in DB");
 			return;
 		}
 		platforms = value;
-		console.log(value);
+		// console.log(value);
 	});
 }
 
 async function getDeletedContests() {
-	console.log("1. In get Deleted Contests");
+	// console.log("1. In get Deleted Contests");
 	await localforage.getItem("deletedContests", function (err, value) {
 		if (err || value === null) {
-			console.log("Err: No deletedContests array in DB");
+			// console.log("Err: No deletedContests array in DB");
 			return;
 		}
 		deletedContests = value;
-		console.log(value);
+		// console.log(value);
 	});
 }
 
@@ -219,7 +210,7 @@ async function fetchContestDetails(platform) {
 
 // fetch data and save to local storage
 async function startRequest() {
-	console.log("start HTTP Request...");
+	// console.log("start HTTP Request...");
 	// We need to get the array that user has stored previously if not then we use original one
 	await getPlatforms();
 	await getDeletedContests();

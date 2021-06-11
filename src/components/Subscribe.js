@@ -7,22 +7,11 @@ import {
 	ListItemText,
 	ListItemSecondaryAction,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import "./Subscribe.css";
 import localforage from "localforage";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: "flex",
-	},
-	formControl: {
-		margin: theme.spacing(3),
-	},
-}));
-
 export default function Subscribe() {
-	const classes = useStyles();
 	const [showWarning, setShowWarning] = useState(false);
 	const [platforms, setplatforms] = React.useState([]);
 	useEffect(() => {
@@ -134,6 +123,8 @@ function getLink(site) {
 			uri =
 				"https://images.ctfassets.net/b5f1djy59z3a/3MB1wM9Xuwca88AswIUwsK/dad472153bcb5f75ea1f3a193f25eee2/Topcoder_Logo_200px.png";
 			break;
+		default:
+		// Do nothing
 	}
 	return uri;
 }
@@ -165,6 +156,8 @@ function getSiteName(site) {
 		case "top_coder":
 			name = "Top Coder";
 			break;
+		default:
+		// Do nothing
 	}
 	return name;
 }

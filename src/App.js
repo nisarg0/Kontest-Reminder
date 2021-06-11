@@ -1,5 +1,4 @@
 import "./App.css";
-import React, { Component } from "react";
 import Subscribe from "./components/Subscribe";
 import NavigationBar from "./components/NavigationBar";
 import { MemoryRouter as Router, Switch, Route } from "react-router-dom";

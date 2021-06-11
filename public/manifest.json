@@ -2,8 +2,8 @@
 	"manifest_version": 2,
 	"version": "1.0.0",
 	"short_name": "React App",
-	"name": "Kontest Reminder",
-	"description": "This extension will help coder with upcoming coding contests.",
+	"name": "Kontest Schedular",
+	"description": "This extension will help you never forget about any coding contest",
 	"browser_action": {
 		"default_icon": "/Assets/card.png",
 		"default_title": "Click here to see your Coding Schedule.",

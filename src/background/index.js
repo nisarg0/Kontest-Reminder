@@ -150,6 +150,22 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 	console.log(AlarmContests);
 });
 
+chrome.runtime.onInstalled.addListener(function (details) {
+	if (details.reason == "install") {
+		var uri = "https://nisarg0.github.io/Kontest-Reminder/";
+		chrome.tabs.create({ active: true, url: uri });
+	} else if (details.reason == "update") {
+		var thisVersion = chrome.runtime.getManifest().version;
+		console.log(
+			"Updated from " +
+				details.previousVersion +
+				" to " +
+				thisVersion +
+				"!"
+		);
+	}
+});
+
 // ========================================= DB ===================================================
 async function setmyContests() {
 	// console.log("In setmyContests");

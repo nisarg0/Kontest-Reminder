@@ -1,6 +1,6 @@
 ## Welcome to Kontest Reminder
 
-We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to improve there CP skills. We wish you all the best on this intresting journy of Competitive Programming.
+We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to improve there CP skills. We wish you all the best on this interesting journey of Competitive Programming.
 
 ### How to download?
 
@@ -20,7 +20,7 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
 - Each **Contest** has 4 options:
   1. Go to Contest
   2. Add to google calander
-  3. Set an alarm _which will open th contest tab 1 min prior to the contest_.
+  3. Set an alarm _which will open the contest tab 1 min prior to the contest_.
   4. Delete
 
 
@@ -43,5 +43,5 @@ This extension is made with :heart: by:
 - Anjali - [anju218](https://github.com/anju218)
 
 Special thanks to:
-- Aksahy - [akashay-mali](https://github.com/akshay-mali)
+- Akshay - [akashay-mali](https://github.com/akshay-mali)
 - [kontest.net](https://www.kontests.net/) for free API's.

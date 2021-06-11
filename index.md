@@ -22,7 +22,7 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
   3. Set an alarm **Opens the contest tab 1 min prior to the contest**.
   4. Delete 
 
-- **Subscribe page** We support following 8 sites and **user can select or deselect depending on their choice**:
+- **Subscribe page** We support following 8 sites **User can select or deselect depending on their choice**:
   1. Codechef.
   2. Codeforces.
   3. Leet Code.

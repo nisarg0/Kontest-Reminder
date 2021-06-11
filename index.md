@@ -12,7 +12,7 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
 - Choose the unzipped folder and you are good to go.
 
 ### What is new in Kontest-Remainder?
-- Home Page is made up of 3 sections:
+- **Home Page** is made up of 3 sections:
   1. Running
   2. In 24 hours
   3. Upcoming 

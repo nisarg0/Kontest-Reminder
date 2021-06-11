@@ -18,8 +18,8 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
   3. Upcoming 
 - Each **Contest** has 4 options:
   1. Go to Contest
-  2. Add to google calander **Integration with google calander**
-  3. Set an alarm **which will open the contest tab 1 min prior to the contest**.
+  2. Add to calander **Integration with google calander**
+  3. Set an alarm **Opens the contest tab 1 min prior to the contest**.
   4. Delete 
 
 - **Subscribe page** We support following 8 sites:

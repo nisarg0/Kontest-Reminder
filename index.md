@@ -1,4 +1,4 @@
-## Welcome to Kontest Remainder
+## Welcome to Kontest Reminder
 
 We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to improve there CP skills. We wish you all the best on this intresting journy of Competitive Programming.
 
@@ -38,10 +38,10 @@ Please report bugs and suggest changes [here](https://forms.gle/VU4ge6wEmqKtzu7k
 
 ## About
 
-This site is made with :heart: by:
+This extension is made with :heart: by:
 - Nisarg - [nisarg_0](https://github.com/nisarg0)
 - Anjali - [anju218](https://github.com/anju218)
 
 Special thanks to:
-- Akashy - [akashay-mali](https://github.com/akshay-mali)
+- Aksahy - [akashay-mali](https://github.com/akshay-mali)
 - [kontest.net](https://www.kontests.net/) for free API's.

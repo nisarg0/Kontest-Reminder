@@ -7,7 +7,7 @@ function NavigationBar(props) {
 			<nav className="navbar navbar-expand navbar-dark bg-dark">
 				<div className="container">
 					<Link className="navbar-brand" to="/">
-						CP-Scheduler
+						Kontests
 					</Link>
 
 					<div>

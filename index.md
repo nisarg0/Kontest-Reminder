@@ -16,11 +16,13 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
   1. Running
   2. In 24 hours
   3. Upcoming 
+
 - Each **Contest** has 4 options:
   1. Go to Contest
   2. Add to calander **Integration with google calander**
   3. Set an alarm **Opens the contest tab 1 min prior to the contest**.
   4. Delete 
+![image](https://user-images.githubusercontent.com/60577767/121645931-6278b780-cab2-11eb-8c13-3729dcce67a8.png)
 
 - **Subscribe page** We support following 8 sites **User can select or deselect depending on their choice**:
   1. Codechef.
@@ -31,6 +33,8 @@ To download the zip click [here](https://drive.google.com/file/d/1OoFbfEaF5WhjGn
   6. Hacker Rank.
   7. Kick Start.
   8. Top Coder.
+![image](https://user-images.githubusercontent.com/60577767/121645790-39f0bd80-cab2-11eb-9161-95e8db33a7e5.png)
+
 
 Please report bugs and suggest changes [here](https://forms.gle/VU4ge6wEmqKtzu7k7)
 

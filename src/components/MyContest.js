@@ -25,6 +25,8 @@ export default function MyContest() {
 				setmycontest(contests_in_24_hours(value));
 				settemp_contest(value);
 				//settemp_contest(value)
+				console.log("DB MyContest :");
+				console.log(value);
 			});
 
 		localforage.getItem("AlarmContests", function (err, value) {
@@ -199,7 +201,7 @@ export default function MyContest() {
 		<div>
 			<div className="Sections">
 				<Button
-					variant="contained"
+					// variant="contained"
 					className="sections"
 					onClick={() => {
 						setmycontest(ongoing(temp_contest));
@@ -218,7 +220,7 @@ export default function MyContest() {
 					Ongoing
 				</Button>
 				<Button
-					variant="contained"
+					// variant="contained"
 					className="sections"
 					onClick={() => {
 						setmycontest(contests_in_24_hours(temp_contest));
@@ -237,7 +239,7 @@ export default function MyContest() {
 					In 24 hours
 				</Button>
 				<Button
-					variant="contained"
+					// variant="contained"
 					className="sections"
 					onClick={() => {
 						setmycontest(upcoming(temp_contest));

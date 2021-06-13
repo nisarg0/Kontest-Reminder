@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"short_name": "React App",
 	"name": "Kontest Reminder",
-	"description": "This extension will help you never forget about any coding contest",
+	"description": "This extension will never let you forget about any coding contest",
 	"browser_action": {
 		"default_icon": "/Assets/card.png",
 		"default_title": "Click here to see your Coding Schedule.",

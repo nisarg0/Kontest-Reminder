@@ -36,8 +36,6 @@ export default function MyContest() {
 		GetData();
 	}, []);
 
-	// 1. Add it to deleted and push it to storage
-	// 2. delete the element from myContests and push new myContests to the storage
 	const deleteContest = async (dcontest) => {
 		deletedContests.push(dcontest);
 
@@ -71,6 +69,147 @@ export default function MyContest() {
 		settemp_contest(delcontest);
 		// setmycontest(delcontest);
 	};
+
+	
+
+	return (
+		<div>
+			<div className="Sections">
+				<Button
+					variant="contained"
+					className="sections"
+					onClick={() => {
+						setmycontest(ongoing(temp_contest));
+						setcurrentContest("ongoing");
+					}}
+					fontFamily="Helvetica Neue"
+					style={{
+						textTransform: "none",
+						backgroundColor:
+							currentContest === "ongoing" ? "#fff" : "#343a40",
+						color: currentContest === "ongoing" ? "#222" : "#fff",
+						borderRadius: 0,
+						outline: "none",
+						display: "block"
+					}}
+				>
+					Ongoing
+				</Button>
+				<Button
+					variant="contained"
+					className="sections"
+					onClick={() => {
+						setmycontest(contests_in_24_hours(temp_contest));
+						setcurrentContest("24hours");
+					}}
+					fontFamily="Helvetica Neue"
+					style={{
+						textTransform: "none",
+						backgroundColor:
+							currentContest === "24hours" ? "#fff" : "#343a40",
+						color: currentContest === "24hours" ? "#222" : "#fff",
+						borderRadius: 0,
+						outline: "none",
+						display: "block"
+					}}
+				>
+					In 24 hours
+				</Button>
+				<Button
+					variant="contained"
+					className="sections"
+					onClick={() => {
+						setmycontest(upcoming(temp_contest));
+						setcurrentContest("upcoming");
+					}}
+					fontFamily="Helvetica Neue"
+					style={{
+						textTransform: "none",
+						backgroundColor:
+							currentContest === "upcoming" ? "#fff" : "#343a40",
+						color: currentContest === "upcoming" ? "#222" : "#fff",
+						borderRadius: 0,
+						outline: "none",
+						display: "block"
+					}}
+				>
+					Upcoming
+				</Button>
+			</div>
+
+			{mycontest.map((contest, key) => (
+				<div key={key}>
+					<div className="card text-center">
+						<div className="card-body">
+							<h6>{contest.name}</h6>
+							<h6 className="card-text">
+								Start:{getDate(contest.start_time)}
+							</h6>
+							<div className="buttons">
+								<button
+									type="button"
+									className="btn btn-primary btn-sm"
+									onClick={() => openLink(contest.url)}
+								>
+									Go to Contest
+								</button>
+
+								<button
+									type="button"
+									className="btn btn-primary btn-sm btn-circle"
+									onClick={() => openCalander(contest)}
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Add to calendar"
+								>
+									<i className="bi bi-calendar-event"></i>
+								</button>
+								<button
+									style={{
+										backgroundColor: setcolour(contest),
+									}}
+									type="button"
+									className="btn btn-primary btn-sm btn-circle"
+									onClick={(e) => {
+										toggleAlarm(e, contest);
+										setcolour(contest);
+									}}
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Add Reminder"
+								>
+									<i className="bi bi-alarm-fill"></i>
+								</button>
+								<button
+									type="button"
+									className="btn btn-danger btn-sm btn-circle"
+									onClick={() => deleteContest(contest)}
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Delete Contest"
+								>
+									<i className="bi bi-trash-fill"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+	);
+}
+
+// ============================ Helper =================================
+function getDate(d) {
+	var date_temp = new Date(d);
+	var date = date_temp.toLocaleString("en-US");
+	var datearray = date.split("/");
+	var newdate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+	return newdate.replace(",", "    ");
+}
+// 1. Add it to deleted and push it to storage
+	// 2. delete the element from myContests and push new myContests to the storage
+	
 
 	// Opens new tab with given uri
 	function openLink(uri) {
@@ -194,136 +333,3 @@ export default function MyContest() {
 		}
 		return c;
 	};
-
-	return (
-		<div>
-			<div className="Sections">
-				<Button
-					variant="contained"
-					className="sections"
-					onClick={() => {
-						setmycontest(ongoing(temp_contest));
-						setcurrentContest("ongoing");
-					}}
-					fontFamily="Helvetica Neue"
-					style={{
-						textTransform: "none",
-						backgroundColor:
-							currentContest === "ongoing" ? "#fff" : "#343a40",
-						color: currentContest === "ongoing" ? "#222" : "#fff",
-						borderRadius: 0,
-						outline: "none",
-					}}
-				>
-					Ongoing
-				</Button>
-				<Button
-					variant="contained"
-					className="sections"
-					onClick={() => {
-						setmycontest(contests_in_24_hours(temp_contest));
-						setcurrentContest("24hours");
-					}}
-					fontFamily="Helvetica Neue"
-					style={{
-						textTransform: "none",
-						backgroundColor:
-							currentContest === "24hours" ? "#fff" : "#343a40",
-						color: currentContest === "24hours" ? "#222" : "#fff",
-						borderRadius: 0,
-						outline: "none",
-					}}
-				>
-					In 24 hours
-				</Button>
-				<Button
-					variant="contained"
-					className="sections"
-					onClick={() => {
-						setmycontest(upcoming(temp_contest));
-						setcurrentContest("upcoming");
-					}}
-					fontFamily="Helvetica Neue"
-					style={{
-						textTransform: "none",
-						backgroundColor:
-							currentContest === "upcoming" ? "#fff" : "#343a40",
-						color: currentContest === "upcoming" ? "#222" : "#fff",
-						borderRadius: 0,
-						outline: "none",
-					}}
-				>
-					Upcoming
-				</Button>
-			</div>
-
-			{mycontest.map((contest, key) => (
-				<div key={key}>
-					<div className="card text-center">
-						<div className="card-body">
-							<h6>{contest.name}</h6>
-							<h6 className="card-text">
-								Start:{getDate(contest.start_time)}
-							</h6>
-							<div className="buttons">
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={() => openLink(contest.url)}
-								>
-									Go to Contest
-								</button>
-
-								<button
-									type="button"
-									className="btn btn-primary btn-sm btn-circle"
-									onClick={() => openCalander(contest)}
-									data-toggle="tooltip"
-									data-placement="bottom"
-									title="Add to calendar"
-								>
-									<i className="bi bi-calendar-event"></i>
-								</button>
-								<button
-									style={{
-										backgroundColor: setcolour(contest),
-									}}
-									type="button"
-									className="btn btn-primary btn-sm btn-circle"
-									onClick={(e) => {
-										toggleAlarm(e, contest);
-										setcolour(contest);
-									}}
-									data-toggle="tooltip"
-									data-placement="bottom"
-									title="Add Reminder"
-								>
-									<i className="bi bi-alarm-fill"></i>
-								</button>
-								<button
-									type="button"
-									className="btn btn-danger btn-sm btn-circle"
-									onClick={() => deleteContest(contest)}
-									data-toggle="tooltip"
-									data-placement="bottom"
-									title="Delete Contest"
-								>
-									<i className="bi bi-trash-fill"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			))}
-		</div>
-	);
-}
-
-// ============================ Helper =================================
-function getDate(d) {
-	var date_temp = new Date(d);
-	var date = date_temp.toLocaleString("en-US");
-	var datearray = date.split("/");
-	var newdate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-	return newdate.replace(",", "    ");
-}

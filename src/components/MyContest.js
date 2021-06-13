@@ -141,26 +141,25 @@ export default function MyContest() {
 				<div key={key}>
 					<div className="card text-center">
 						<div className="card-body">
-						<div className="card-info">
-							<img
-								style={{ height: '60px', width: '60px' }}
-								src={getImage(contest.site)}
-								alt="{contest.site}"
-								
-							/>
-							<div>
-							<h6>{contest.name}</h6>
-							
-							
-							<h6 className="card-text">
-								
+							<div className="card-info">
+								<img
+									style={{ height: "60px", width: "60px" }}
+									src={getImage(contest.site)}
+									alt="{contest.site}"
+								/>
 								<div>
-								Start:{getDate(contest.start_time)}
-								<p>End:{getDate(contest.end_time)}</p>
+									<h6>{contest.name}</h6>
+
+									<h6 className="card-text">
+										<div>
+											Start:{getDate(contest.start_time)}
+											<p>
+												End:{getDate(contest.end_time)}
+											</p>
+										</div>
+									</h6>
 								</div>
-							</h6>
 							</div>
-						</div>	
 							<div className="buttons">
 								<button
 									type="button"
@@ -293,7 +292,7 @@ function toggleAlarm(event, contest) {
 		var now = new Date();
 
 		var time_diff = Math.abs(date.getTime() - now.getTime());
-		time_diff = time_diff - 1000;
+		time_diff = time_diff - 60000;
 
 		localforage.setItem("AlarmContests", AlarmContests);
 		chrome.alarms.create(contest.name, {

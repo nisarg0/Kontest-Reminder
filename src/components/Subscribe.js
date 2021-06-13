@@ -56,7 +56,7 @@ export default function Subscribe() {
 						textAlign: "center",
 					}}
 				>
-					This may take upto 10 sec to come into effect
+					This may take upto 5 sec to come into effect
 				</h2>
 			)}
 			<div>

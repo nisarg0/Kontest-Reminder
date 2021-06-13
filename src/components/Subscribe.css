@@ -53,10 +53,16 @@
 	border: black;
 }
 .card-text {
+	display: flex;
+	justify-content: space-evenly;
 	color: grey;
 	font-size: 14px;
-	margin-bottom: 16px;
+	
 }
 .card-header {
 	background-color: white;
+}
+.card-info{
+	display: flex;
+	justify-content: space-between;
 }

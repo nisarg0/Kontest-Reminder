@@ -64,7 +64,7 @@ export default function Subscribe() {
 					{platforms.map((platform, index) => (
 						<ListItem button key={index}>
 							<ListItemAvatar>
-								<Avatar src={getImage(platform.platform)} />
+								<Avatar variant="square" src={getImage(platform.platform)} />
 							</ListItemAvatar>
 							<ListItemText
 								primary={getSiteName(platform.platform)}
@@ -109,7 +109,7 @@ function getImage(site) {
 			break;
 		case "hacker_earth":
 			uri =
-				"https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png";
+				"https://yt3.ggpht.com/ytc/AAUvwngkLcuAWLtda6tQBsFi3tU9rnSSwsrK1Si7eYtx0A=s176-c-k-c0x00ffffff-no-rj";
 			break;
 		case "kick_start":
 			uri =

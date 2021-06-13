@@ -141,16 +141,31 @@ export default function MyContest() {
 				<div key={key}>
 					<div className="card text-center">
 						<div className="card-body">
-							<h6>{contest.name}</h6>
+						<div className="card-info">
 							<img
-								class="card-img-left"
+								className="img"
+								style={{ height: '60px', width: '60px' }}
 								src={getImage(contest.site)}
 								alt="{contest.site}"
-							></img>
+								
+							/>
+							<div>
+							<h6>{contest.name}</h6>
+							
+							
+									
+							{/* <img className="logo"
+									
+								></img> */}
 							<h6 className="card-text">
+								
+								<div>
 								Start:{getDate(contest.start_time)}
 								<p>End:{getDate(contest.end_time)}</p>
+								</div>
 							</h6>
+							</div>
+						</div>	
 							<div className="buttons">
 								<button
 									type="button"
@@ -370,7 +385,7 @@ function getImage(site) {
 			break;
 		case "hacker_earth":
 			uri =
-				"https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png";
+				"https://yt3.ggpht.com/ytc/AAUvwngkLcuAWLtda6tQBsFi3tU9rnSSwsrK1Si7eYtx0A=s176-c-k-c0x00ffffff-no-rj";
 			break;
 		case "kick_start":
 			uri =

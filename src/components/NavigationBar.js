@@ -5,12 +5,17 @@ function NavigationBar(props) {
 		<div className="navigation">
 			<nav className="navbar navbar-expand navbar-dark bg-dark">
 				<div className="container">
-					<Link className="navbar-brand"  to="\" onClick={openSite}>
+					<Link className="navbar-brand"  
+						to="\#" onClick={openSite} 
+						data-toggle="tooltip"
+						data-placement="bottom"
+						title="Open Website">
 						Kontests
 					</Link>
 
 					<div>
 						<ul className="navbar-nav ml-auto">
+
 							<li
 								className={`nav-item  ${
 									props.location.pathname === "/"
@@ -18,7 +23,10 @@ function NavigationBar(props) {
 										: ""
 								}`}
 							>
-								<Link className="nav-link" to="/">
+								<Link className="nav-link" to="/"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="See Contests">
 									Home
 									<span className="sr-only">(current)</span>
 								</Link>
@@ -30,7 +38,10 @@ function NavigationBar(props) {
 										: ""
 								}`}
 							>
-								<Link className="nav-link" to="/Subscribe">
+								<Link className="nav-link" to="/Subscribe"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Subscribe/Unsubscribe Websites">
 									Subscribe
 								</Link>
 							</li>

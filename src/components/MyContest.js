@@ -197,7 +197,9 @@ export default function MyContest() {
 										}}
 										data-toggle="tooltip"
 										data-placement="bottom"
-										title="Add Reminder"
+										title={
+											setcolour(contest)==="" ? "Add reminder" : "Remove Reminder"
+										}
 									>
 										<i className="bi bi-alarm-fill"></i>
 									</button>
@@ -347,7 +349,7 @@ async function setDeletedContests() {
 }
 
 const setcolour = (contest) => {
-	let c;
+	let c="";
 	for (let i = 0; i < AlarmContests.length; i++) {
 		if (AlarmContests[i].name === contest.name) {
 			c = "#ffe066";

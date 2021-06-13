@@ -143,7 +143,6 @@ export default function MyContest() {
 						<div className="card-body">
 						<div className="card-info">
 							<img
-								className="img"
 								style={{ height: '60px', width: '60px' }}
 								src={getImage(contest.site)}
 								alt="{contest.site}"
@@ -153,10 +152,6 @@ export default function MyContest() {
 							<h6>{contest.name}</h6>
 							
 							
-									
-							{/* <img className="logo"
-									
-								></img> */}
 							<h6 className="card-text">
 								
 								<div>

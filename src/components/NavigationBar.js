@@ -18,7 +18,13 @@ function NavigationBar(props) {
 										: ""
 								}`}
 							>
-								<Link className="nav-link" to="/">
+								<Link
+									className="nav-link"
+									to="/"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="See Contests"
+								>
 									Home
 									<span className="sr-only">(current)</span>
 								</Link>
@@ -30,7 +36,13 @@ function NavigationBar(props) {
 										: ""
 								}`}
 							>
-								<Link className="nav-link" to="/Subscribe">
+								<Link
+									className="nav-link"
+									to="/Subscribe"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Subscribe/Unsubscribe Websites"
+								>
 									Subscribe
 								</Link>
 							</li>

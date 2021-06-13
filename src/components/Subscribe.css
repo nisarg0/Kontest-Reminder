@@ -30,10 +30,6 @@
 	padding: 0.5rem;
 	background-color: #fff;
 }
-.card-body {
-	margin-top: -5%;
-	margin-bottom: -2%;
-}
 .buttons {
 	display: flex;
 	justify-content: space-between;

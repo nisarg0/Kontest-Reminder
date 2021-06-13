@@ -43,3 +43,8 @@ function NavigationBar(props) {
 }
 
 export default withRouter(NavigationBar);
+
+function openSIte() {
+	var uri = "https://nisarg0.github.io/Kontest-Reminder/";
+	chrome.tabs.create({ active: true, url: uri });
+}

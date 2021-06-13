@@ -13,6 +13,5 @@
 		"scripts": ["background.bundle.js"]
 	},
 	"options_page": "options.html",
-	"permissions": ["activeTab", "storage", "alarms"],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+	"permissions": ["storage", "alarms"]
 }

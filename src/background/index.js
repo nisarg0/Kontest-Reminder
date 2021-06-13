@@ -53,28 +53,59 @@ var platforms = [
 async function fetchAllMyContests() {
 	// console.log("In fetch all my contests");
 	myContests = [];
+	var subscribe = {};
 
+	for (var pl of platforms) {
+		subscribe[pl.platform] = pl.isSubscribed;
+	}
 	// We delete an element in it if tit has occured in the fetch...
 	var usedDeletedContests = [];
 
-	for (var i = 0; i < platforms.length; i++) {
-		if (!platforms[i].isSubscribed) continue;
+	var contests = await fetchContestDetails();
 
-		var contests = await fetchContestDetails(platforms[i].platform);
-		for (var contest of contests) {
-			if (contest.duration <= 864001) {
-				var contest_name = contest.name;
-				var isDeleted = false;
-				for (var deletedContest of deletedContests) {
-					if (deletedContest.name === contest_name) {
-						isDeleted = true;
-						usedDeletedContests.push(contest);
-					}
+	for (var contest of contests) {
+		switch (contest.site) {
+			case "CodeForces":
+				contest.site = "codeforces";
+				break;
+			case "HackerEarth":
+				contest.site = "hacker_earth";
+				break;
+			case "TopCoder":
+				contest.site = "top_coder";
+				break;
+			case "Kick Start":
+				contest.site = "kick_start";
+				break;
+			case "LeetCode":
+				contest.site = "leet_code";
+				break;
+			case "AtCoder":
+				contest.site = "at_coder";
+				break;
+			case "HackerRank":
+				contest.site = "hacker_rank";
+				break;
+			case "CodeChef":
+				contest.site = "code_chef";
+				break;
+			default:
+			// do nothing
+		}
+
+		if (contest.duration <= 864001 && subscribe[contest.site]) {
+			var contest_name = contest.name;
+			var isDeleted = false;
+			for (var deletedContest of deletedContests) {
+				if (deletedContest.name === contest_name) {
+					isDeleted = true;
+					usedDeletedContests.push(contest);
 				}
-				if (!isDeleted) myContests.push(contest);
 			}
+			if (!isDeleted) myContests.push(contest);
 		}
 	}
+
 	deletedContests = usedDeletedContests;
 }
 
@@ -207,7 +238,7 @@ async function getDeletedContests() {
 // ========================================== Helper ==================================================
 
 async function fetchContestDetails(platform) {
-	const res = await fetch(`https://www.kontests.net/api/v1/${platform}`, {
+	const res = await fetch(`https://www.kontests.net/api/v1/all`, {
 		method: "GET",
 		headers: {
 			"Content-type": "application/json; charset=UTF-8",

@@ -64,17 +64,13 @@ export default function Subscribe() {
 					{platforms.map((platform, index) => (
 						<ListItem button key={index}>
 							<ListItemAvatar>
-								<Avatar
-									alt={"Codechef"}
-									src={getLink(platform.platform)}
-								/>
+								<Avatar src={getImage(platform.platform)} />
 							</ListItemAvatar>
 							<ListItemText
 								primary={getSiteName(platform.platform)}
 							/>
 							<ListItemSecondaryAction>
 								<Checkbox
-									name="code_chef"
 									checked={platform.isSubscribed}
 									onChange={(e) => handleChange(e, index)}
 								/>
@@ -89,7 +85,7 @@ export default function Subscribe() {
 
 // ======================================= Helper =====================================
 
-function getLink(site) {
+function getImage(site) {
 	var uri = "";
 	switch (site) {
 		case "code_chef":

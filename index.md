@@ -43,9 +43,9 @@ Please report bugs and suggest changes [here](https://forms.gle/VU4ge6wEmqKtzu7k
 ## About
 
 This extension is made with :heart: by:
-- Nisarg - [nisarg_0](https://github.com/nisarg0)
-- Anjali - [anju218](https://github.com/anju218)
+- Nisarg Gogate - [nisarg_0](https://github.com/nisarg0)
+- Anjali Rengade- [anju218](https://github.com/anju218)
 
 Special thanks to:
-- Akshay - [akashay-mali](https://github.com/akshay-mali)
+- Akshay Mali- [akashay-mali](https://github.com/akshay-mali)
 - [kontest.net](https://www.kontests.net/) for free API's.

@@ -32,7 +32,7 @@
 }
 .buttons {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 .Sections {
 	display: flex;

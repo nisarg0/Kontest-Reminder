@@ -146,6 +146,7 @@ export default function MyContest() {
 							<h6>{contest.name}</h6>
 							<h6 className="card-text">
 								Start:{getDate(contest.start_time)}
+								<p>End:{getDate(contest.end_time)}</p>
 							</h6>
 							<div className="buttons">
 								<button
@@ -155,8 +156,8 @@ export default function MyContest() {
 								>
 									Go to Contest
 								</button>
-
-								<button
+								{(currentContest==="24hours" || currentContest==="upcoming") &&
+									<button
 									type="button"
 									className="btn btn-primary btn-sm btn-circle"
 									onClick={() => openCalander(contest)}
@@ -166,7 +167,11 @@ export default function MyContest() {
 								>
 									<i className="bi bi-calendar-event"></i>
 								</button>
-								<button
+								}
+
+								
+								{(currentContest==="24hours" || currentContest==="upcoming") &&
+									<button
 									style={{
 										backgroundColor: setcolour(contest),
 									}}
@@ -182,6 +187,8 @@ export default function MyContest() {
 								>
 									<i className="bi bi-alarm-fill"></i>
 								</button>
+								}
+								
 								<button
 									type="button"
 									className="btn btn-danger btn-sm btn-circle"

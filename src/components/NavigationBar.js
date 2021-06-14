@@ -5,7 +5,11 @@ function NavigationBar(props) {
 		<div className="navigation">
 			<nav className="navbar navbar-expand navbar-dark bg-dark">
 				<div className="container">
-					<Link className="navbar-brand" to="\#" onClick={openSite}>
+					<Link className="navbar-brand" to="\#" 
+						onClick={openSite}
+						data-toggle="tooltip"
+						data-placement="bottom"
+						title="Open Website">
 						Kontests
 					</Link>
 

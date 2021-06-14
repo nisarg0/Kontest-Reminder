@@ -196,9 +196,7 @@ export default function MyContest() {
 										}}
 										data-toggle="tooltip"
 										data-placement="bottom"
-										title={
-											setcolour(contest)==="" ? "Add reminder" : "Remove Reminder"
-										}
+										title="Reminder"
 									>
 										<i className="bi bi-alarm-fill"></i>
 									</button>

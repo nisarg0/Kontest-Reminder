@@ -19,7 +19,7 @@ export default function MyContest() {
 	//setmycontest(contest24 => contest24= myContests_db)
 	useEffect(() => {
 		// console.log("here in useEffect");
-		const GetData = async () =>
+		const GetData = () =>
 			localforage.getItem("myContests", function (err, value) {
 				if (err) console.log(err);
 				setmycontest(contests_in_24_hours(value));
@@ -136,101 +136,110 @@ export default function MyContest() {
 					Upcoming
 				</Button>
 			</div>
-			{
-				mycontest?.length<1 &&
+			{mycontest?.length < 1 && (
 				<div className="blank">
-					{currentContest==="24hours" ? "No contests in 24 hours" : `No ${currentContest} Contests` }
-				</div> 
-			}
-			{mycontest?.length>0 && 
+					{currentContest === "24hours"
+						? "No contests in 24 hours"
+						: `No ${currentContest} Contests`}
+				</div>
+			)}
+			{mycontest?.length > 0 &&
 				mycontest.map((contest, key) => (
-				<div key={key}>
-					<div className="card text-center">
-						<div className="card-body">
-							<div className="card-info">
-								<img
-									style={{ height: "60px", width: "60px" }}
-									src={getImage(contest.site)}
-									alt="{contest.site}"
-								/>
-								<div
-									style={{
-										flex: 1,
-										alignSelf: "center",
-									}}
-								>
-									<h6>{contest.name}</h6>
-
-									<h6 className="card-text">
-										<div>
-											Start:{getDate(contest.start_time)}
-											<p>
-												End:{getDate(contest.end_time)}
-											</p>
-										</div>
-									</h6>
-								</div>
-							</div>
-							<div className="buttons">
-								<button
-									type="button"
-									className="btn btn-primary btn-sm"
-									onClick={() => openLink(contest.url)}
-								>
-									Go to Contest
-								</button>
-								{(currentContest === "24hours" ||
-									currentContest === "upcoming") && (
-									<button
-										type="button"
-										className="btn btn-primary btn-sm btn-circle"
-										onClick={() => openCalander(contest)}
-										data-toggle="tooltip"
-										data-placement="bottom"
-										title="Add to calendar"
-									>
-										<i className="bi bi-calendar-event"></i>
-									</button>
-								)}
-
-								{(currentContest === "24hours" ||
-									currentContest === "upcoming") && (
-									<button
+					<div key={key}>
+						<div className="card text-center">
+							<div className="card-body">
+								<div className="card-info">
+									<img
 										style={{
-											backgroundColor: setcolour(contest),
+											height: "60px",
+											width: "60px",
 										}}
+										src={getImage(contest.site)}
+										alt="{contest.site}"
+									/>
+									<div
+										style={{
+											flex: 1,
+											alignSelf: "center",
+										}}
+									>
+										<h6>{contest.name}</h6>
+
+										<h6 className="card-text">
+											<div>
+												Start:
+												{getDate(contest.start_time)}
+												<p>
+													End:
+													{getDate(contest.end_time)}
+												</p>
+											</div>
+										</h6>
+									</div>
+								</div>
+								<div className="buttons">
+									<button
 										type="button"
-										className="btn btn-primary btn-sm btn-circle"
-										onClick={(e) => {
-											toggleAlarm(e, contest);
-										}}
+										className="btn btn-primary btn-sm"
+										onClick={() => openLink(contest.url)}
+									>
+										Go to Contest
+									</button>
+									{(currentContest === "24hours" ||
+										currentContest === "upcoming") && (
+										<button
+											type="button"
+											className="btn btn-primary btn-sm btn-circle"
+											onClick={() =>
+												openCalander(contest)
+											}
+											data-toggle="tooltip"
+											data-placement="bottom"
+											title="Add to calendar"
+										>
+											<i className="bi bi-calendar-event"></i>
+										</button>
+									)}
+
+									{(currentContest === "24hours" ||
+										currentContest === "upcoming") && (
+										<button
+											style={{
+												backgroundColor:
+													setcolour(contest),
+											}}
+											type="button"
+											className="btn btn-primary btn-sm btn-circle"
+											onClick={(e) => {
+												toggleAlarm(e, contest);
+											}}
+											data-toggle="tooltip"
+											data-placement="bottom"
+											title={
+												setcolour(contest) === ""
+													? "Add Reminder"
+													: "Remove Reminder"
+											}
+										>
+											<i className="bi bi-alarm-fill"></i>
+										</button>
+									)}
+
+									<button
+										type="button"
+										className="btn btn-danger btn-sm btn-circle"
+										onClick={() => deleteContest(contest)}
 										data-toggle="tooltip"
 										data-placement="bottom"
-										title={
-											setcolour(contest) === ""
-												? "Add Reminder"
-												: "Remove Reminder"
-										}
+										title="Delete Contest"
 									>
-										<i className="bi bi-alarm-fill"></i>
+										<i className="bi bi-trash-fill"></i>
 									</button>
-								)}
-
-								<button
-									type="button"
-									className="btn btn-danger btn-sm btn-circle"
-									onClick={() => deleteContest(contest)}
-									data-toggle="tooltip"
-									data-placement="bottom"
-									title="Delete Contest"
-								>
-									<i className="bi bi-trash-fill"></i>
-								</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			))}
+				))}
 		</div>
 	);
 }

@@ -49,3 +49,6 @@ This extension is made with :heart: by:
 Special thanks to:
 - Akshay Mali- [akashay-mali](https://github.com/akshay-mali)
 - [kontest.net](https://www.kontests.net/) for free API's.
+
+
+[Privacy Policy](https://anju218.github.io/Kontest_Reminder/)

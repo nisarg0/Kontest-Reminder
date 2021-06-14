@@ -136,8 +136,14 @@ export default function MyContest() {
 					Upcoming
 				</Button>
 			</div>
-
-			{mycontest.map((contest, key) => (
+			{
+				mycontest?.length<1 &&
+				<div className="blank">
+					{currentContest==="24hours" ? "No contests in 24 hours" : `No ${currentContest} Contests` }
+				</div> 
+			}
+			{mycontest?.length>0 && 
+				mycontest.map((contest, key) => (
 				<div key={key}>
 					<div className="card text-center">
 						<div className="card-body">
@@ -147,7 +153,12 @@ export default function MyContest() {
 									src={getImage(contest.site)}
 									alt="{contest.site}"
 								/>
-								<div>
+								<div
+									style={{
+										flex: 1,
+										alignSelf: "center",
+									}}
+								>
 									<h6>{contest.name}</h6>
 
 									<h6 className="card-text">
@@ -192,11 +203,14 @@ export default function MyContest() {
 										className="btn btn-primary btn-sm btn-circle"
 										onClick={(e) => {
 											toggleAlarm(e, contest);
-											setcolour(contest);
 										}}
 										data-toggle="tooltip"
 										data-placement="bottom"
-										title="Reminder"
+										title={
+											setcolour(contest) === ""
+												? "Add Reminder"
+												: "Remove Reminder"
+										}
 									>
 										<i className="bi bi-alarm-fill"></i>
 									</button>
@@ -277,14 +291,14 @@ function toggleAlarm(event, contest) {
 		// Remove alarm
 		AlarmContests.splice(isAlarmSet, 1);
 		event.currentTarget.style.backgroundColor = "";
-
+		event.currentTarget.title = "Add Reminder";
 		localforage.setItem("AlarmContests", AlarmContests);
 		chrome.alarms.clear(contest.name);
 		console.log("Alarm Cleared");
 	} else {
 		AlarmContests.push(contest);
 		event.currentTarget.style.backgroundColor = "#ffe066";
-
+		event.currentTarget.title = "Remove Reminder";
 		var date = new Date(contest.start_time);
 		console.log(date);
 		var now = new Date();
@@ -346,7 +360,7 @@ async function setDeletedContests() {
 }
 
 const setcolour = (contest) => {
-	let c="";
+	let c = "";
 	for (let i = 0; i < AlarmContests.length; i++) {
 		if (AlarmContests[i].name === contest.name) {
 			c = "#ffe066";

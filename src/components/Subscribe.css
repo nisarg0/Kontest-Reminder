@@ -57,12 +57,17 @@
 	justify-content: space-evenly;
 	color: grey;
 	font-size: 14px;
-	
 }
 .card-header {
 	background-color: white;
 }
-.card-info{
+.card-info {
 	display: flex;
-	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+.blank{
+	display: flex;
+	justify-content: center;
+	color:gray;
 }

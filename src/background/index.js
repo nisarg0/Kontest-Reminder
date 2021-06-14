@@ -237,7 +237,7 @@ async function getDeletedContests() {
 
 // ========================================== Helper ==================================================
 
-async function fetchContestDetails(platform) {
+async function fetchContestDetails() {
 	const res = await fetch(`https://www.kontests.net/api/v1/all`, {
 		method: "GET",
 		headers: {

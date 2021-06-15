@@ -274,15 +274,12 @@ function openCalander(contest) {
 	var start = new Date(contest.start_time);
 	var end = new Date(contest.end_time);
 	// console.log(start.toISOString());
-	var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${
+
+	var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(
 		contest.name
-	}&dates=${ISODateString(start)}/${ISODateString(
+	)}&dates=${ISODateString(start)}/${ISODateString(
 		end
-	)}&details=Your remainder is set by CP-Schedular. Contest URL : ${
-		contest.url
-	}`;
-	console.log(uri);
-	console.log(ISODateString(start));
+	)}&details=Your remainder is set by Kontests. Contest URL : ${contest.url}`;
 	chrome.tabs.create({ active: true, url: uri });
 }
 

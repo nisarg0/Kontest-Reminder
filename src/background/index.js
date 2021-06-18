@@ -133,12 +133,6 @@ chrome.runtime.onInstalled.addListener(() => {
 	startRequest();
 });
 
-// fetch and save data when chrome restarted, alarm will continue running when chrome is restarted
-chrome.runtime.onStartup.addListener(() => {
-	// console.log("onStartup....");
-	startRequest();
-});
-
 // schedule a new fetch every 1440 minutes
 function scheduleRequest() {
 	console.log("schedule refresh alarm to 60 minutes...");
@@ -146,6 +140,7 @@ function scheduleRequest() {
 }
 
 chrome.alarms.onAlarm.addListener(async (alarm) => {
+	console.log("alarm listened" + alarm.name);
 	if (alarm.name === "refresh") {
 		console.log("in refresh");
 		await getPlatforms();
@@ -175,8 +170,8 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 		}
 		AlarmContests.splice(i, 1);
 		localforage.setItem("AlarmContests", AlarmContests);
+		console.log(AlarmContests);
 	}
-	console.log(AlarmContests);
 });
 
 chrome.runtime.onInstalled.addListener(function (details) {
@@ -263,7 +258,4 @@ async function startRequest() {
 	await setDeletedContests();
 	await setmyContests();
 	await setPlatforms();
-	// getmyContests();
-	// console.log(myContests);
-	// console.log(deletedContests);
 }

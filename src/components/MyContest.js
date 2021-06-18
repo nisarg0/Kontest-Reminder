@@ -311,7 +311,6 @@ function toggleAlarm(event, contest) {
 
 		var time_diff = Math.abs(date.getTime() - now.getTime());
 		time_diff = time_diff - 60000;
-
 		localforage.setItem("AlarmContests", AlarmContests);
 		chrome.alarms.create(contest.name, {
 			when: Date.now() + time_diff,

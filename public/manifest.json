@@ -13,5 +13,5 @@
 		"scripts": ["background.bundle.js"]
 	},
 	"options_page": "options.html",
-	"permissions": ["storage", "alarms"]
+	"permissions": ["alarms"]
 }

@@ -3,13 +3,9 @@
 We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to improve there CP skills. We wish you all the best on this interesting journey of Competitive Programming.
 
 ### How to download?
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg" title="Flaticon">www.flaticon.com</a></div>
 
-To download the zip click [here](https://drive.google.com/file/d/1NqIpS5g93z7NLYd9N-A4xoDLnRNpmwJZ/view?usp=sharing) 
-- Download and unzip the folder.
-- Open `chrome://extensions/` in new tab
-- Toggle developer option on.
-- Click `Load unpackaged`
-- Choose the unzipped folder and you are good to go.
+Just **click on download** and you are good to go!!!
 
 ### What is new in Kontest-Reminder?
 - **Home Page** is made up of 3 sections:

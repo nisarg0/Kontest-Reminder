@@ -37,6 +37,16 @@ Just **click on** &nbsp;&nbsp;&nbsp;<a href = "https://chrome.google.com/webstor
 Please report bugs and suggest changes [here](https://forms.gle/VU4ge6wEmqKtzu7k7)
 
 ## About
+<div>
+<span class="text-muted">
+"Designed and built with all the &nbsp;"
+<span class="heart">
+
+<img draggable="false" title=":heart:" alt="❤" src="https://twemoji.maxcdn.com/2/svg/2764.svg" class="emoji" style="height: 1.3em;">
+</span>
+"&nbsp; in the world"
+</span>
+</div>
 
 This extension is made with <i class="fa fa-heart" style="font-size:24px;color:red"></i> by:
 - Nisarg Gogate - [nisarg_0](https://github.com/nisarg0)

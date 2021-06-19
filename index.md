@@ -43,7 +43,6 @@ Designed and built with all the
 ❤️
 </span>
 in the world by:
-</span>
 </div>
 
 - Nisarg Gogate - [nisarg_0](https://github.com/nisarg0)

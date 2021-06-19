@@ -38,7 +38,7 @@ Please report bugs and suggest changes [here](https://forms.gle/VU4ge6wEmqKtzu7k
 
 ## About
 
-This extension is made with :heart: by:
+This extension is made with <i class="fa fa-heart" style="font-size:24px;color:red"></i> by:
 - Nisarg Gogate - [nisarg_0](https://github.com/nisarg0)
 - Anjali Rengade- [anju218](https://github.com/anju218)
 

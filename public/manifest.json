@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"short_name": "React App",
 	"name": "Kontest Reminder",
 	"description": "This extension will never let you forget about any coding contest",

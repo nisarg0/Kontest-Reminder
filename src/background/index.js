@@ -127,10 +127,24 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 // =============================Alarms, startup, instaleed functions =======================
 
 // create alarm for fresh on installed/updated, and start fetch data
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener((details) => {
 	// console.log("onInstalled....");
 	scheduleRequest();
 	startRequest();
+
+	if (details.reason === "install") {
+		var uri = "https://nisarg0.github.io/Kontest-Reminder/";
+		chrome.tabs.create({ active: true, url: uri });
+	} else if (details.reason === "update") {
+		var thisVersion = chrome.runtime.getManifest().version;
+		console.log(
+			"Updated from " +
+				details.previousVersion +
+				" to " +
+				thisVersion +
+				"!"
+		);
+	}
 });
 
 // schedule a new fetch every 1440 minutes
@@ -171,22 +185,6 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 		AlarmContests.splice(i, 1);
 		localforage.setItem("AlarmContests", AlarmContests);
 		console.log(AlarmContests);
-	}
-});
-
-chrome.runtime.onInstalled.addListener(function (details) {
-	if (details.reason === "install") {
-		var uri = "https://nisarg0.github.io/Kontest-Reminder/";
-		chrome.tabs.create({ active: true, url: uri });
-	} else if (details.reason === "update") {
-		var thisVersion = chrome.runtime.getManifest().version;
-		console.log(
-			"Updated from " +
-				details.previousVersion +
-				" to " +
-				thisVersion +
-				"!"
-		);
 	}
 });
 

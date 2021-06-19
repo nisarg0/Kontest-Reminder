@@ -34,8 +34,8 @@ To download the zip click [here](https://drive.google.com/file/d/1NqIpS5g93z7NLY
   7. Kick Start.
   8. Top Coder.
 
-<image src = "https://user-images.githubusercontent.com/60577767/122635742-3fc64e80-d103-11eb-814f-cfb5cc08126b.png" width="260px" height="520px"/>
-<image src = "https://user-images.githubusercontent.com/60577767/122635711-24f3da00-d103-11eb-9dab-801218742329.png" width="280px" height="520px"/>
+<image src = "https://user-images.githubusercontent.com/60577767/122635742-3fc64e80-d103-11eb-814f-cfb5cc08126b.png"/>
+<image src = "https://user-images.githubusercontent.com/60577767/122635711-24f3da00-d103-11eb-9dab-801218742329.png"/>
 
 
   

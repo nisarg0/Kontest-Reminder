@@ -1,6 +1,6 @@
 # Kontest Reminder
 
-This is a chrome extension which will never let you forget about upcoming coding contest. Download it from [abc](https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg)
+This is a chrome extension which will never let you forget about upcoming coding contest. To download click [here](https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg)
 
 
 ## Authors

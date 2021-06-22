@@ -35,7 +35,7 @@ Install kontest-reminder with npm
 
 Running kontest-reminder with npm
  
-For development:
+For **development:**
 ```bash 
   npm run start
   open chrome://extensions/ in chrome
@@ -44,7 +44,7 @@ For development:
   select newly created dev folder.
 ```
 
-For production build:
+For **production build:**
 ```bash 
   npm run build
   open chrome://extensions/ in chrome

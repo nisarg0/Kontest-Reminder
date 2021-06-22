@@ -1,4 +1,3 @@
-
 # Kontest Reminder
 
 This is a chrome extension which will never let you forget about upcoming coding contest.
@@ -14,7 +13,7 @@ This is a chrome extension which will never let you forget about upcoming coding
   
 ## Demo
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![demo images](https://user-images.githubusercontent.com/60577767/122977158-af159a00-d3b2-11eb-8f82-720516945a20.gif)
 
 
 ## Features

@@ -64,7 +64,10 @@ export default function Subscribe() {
 					{platforms.map((platform, index) => (
 						<ListItem button key={index}>
 							<ListItemAvatar>
-								<Avatar variant="square" src={getImage(platform.platform)} />
+								<Avatar
+									variant="square"
+									src={getImage(platform.platform)}
+								/>
 							</ListItemAvatar>
 							<ListItemText
 								primary={getSiteName(platform.platform)}

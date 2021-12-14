@@ -3,6 +3,8 @@ import localforage from "localforage";
 import "./Subscribe.css";
 import { Button } from "@material-ui/core";
 
+var browser = require("webextension-polyfill");
+
 let deletedContests = [];
 let AlarmContests = [];
 

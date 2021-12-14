@@ -1,4 +1,7 @@
 import localforage from "localforage";
+
+var browser = require("webextension-polyfill");
+
 console.log("IN background");
 
 /**

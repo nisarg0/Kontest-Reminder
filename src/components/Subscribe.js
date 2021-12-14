@@ -11,6 +11,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import "./Subscribe.css";
 import localforage from "localforage";
 
+var browser = require("webextension-polyfill");
+
 export default function Subscribe() {
 	const [showWarning, setShowWarning] = useState(false);
 	const [platforms, setplatforms] = React.useState([]);

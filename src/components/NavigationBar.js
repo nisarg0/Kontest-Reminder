@@ -5,11 +5,14 @@ function NavigationBar(props) {
 		<div className="navigation">
 			<nav className="navbar navbar-expand navbar-dark bg-dark">
 				<div className="container">
-					<Link className="navbar-brand" to="\#" 
+					<Link
+						className="navbar-brand"
+						to="\#"
 						onClick={openSite}
 						data-toggle="tooltip"
 						data-placement="bottom"
-						title="Open Website">
+						title="Open Website"
+					>
 						Kontests
 					</Link>
 
@@ -62,5 +65,5 @@ export default withRouter(NavigationBar);
 
 function openSite() {
 	var uri = "https://nisarg0.github.io/Kontest-Reminder/";
-	chrome.tabs.create({ active: true, url: uri });
+	browser.tabs.create({ active: true, url: uri });
 }

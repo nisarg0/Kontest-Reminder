@@ -111,7 +111,7 @@ async function fetchAllMyContests() {
 
 // ================================= Recieve Alarm Request ============================
 
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 	// console.log("Msg recieed");
 	if (request.data === "Update MyContests") {
 		sendResponse({ data: "success" });
@@ -127,16 +127,16 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 // =============================Alarms, startup, instaleed functions =======================
 
 // create alarm for fresh on installed/updated, and start fetch data
-chrome.runtime.onInstalled.addListener((details) => {
+browser.runtime.onInstalled.addListener((details) => {
 	// console.log("onInstalled....");
 	scheduleRequest();
 	startRequest();
 
 	if (details.reason === "install") {
 		var uri = "https://nisarg0.github.io/Kontest-Reminder/";
-		chrome.tabs.create({ active: true, url: uri });
+		browser.tabs.create({ active: true, url: uri });
 	} else if (details.reason === "update") {
-		var thisVersion = chrome.runtime.getManifest().version;
+		var thisVersion = browser.runtime.getManifest().version;
 		console.log(
 			"Updated from " +
 				details.previousVersion +
@@ -150,10 +150,10 @@ chrome.runtime.onInstalled.addListener((details) => {
 // schedule a new fetch every 1440 minutes
 function scheduleRequest() {
 	console.log("schedule refresh alarm to 60 minutes...");
-	chrome.alarms.create("refresh", { periodInMinutes: 60 });
+	browser.alarms.create("refresh", { periodInMinutes: 60 });
 }
 
-chrome.alarms.onAlarm.addListener(async (alarm) => {
+browser.alarms.onAlarm.addListener(async (alarm) => {
 	console.log("alarm listened" + alarm.name);
 	if (alarm.name === "refresh") {
 		console.log("in refresh");
@@ -173,11 +173,11 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 		});
 		for (var i = 0; i < AlarmContests.length; i++) {
 			if (alarm.name === AlarmContests[i].name) {
-				await chrome.tabs.create({
+				await browser.tabs.create({
 					active: true,
 					url: AlarmContests[i].url,
 				});
-				chrome.alarms.clear(alarm.name);
+				browser.alarms.clear(alarm.name);
 				// console.log("Created new tab with contest");
 				break;
 			}

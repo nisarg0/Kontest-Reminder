@@ -3,6 +3,8 @@ import localforage from "localforage";
 import "./Subscribe.css";
 import { Button } from "@material-ui/core";
 
+var browser = require("webextension-polyfill");
+
 let deletedContests = [];
 let AlarmContests = [];
 
@@ -257,7 +259,7 @@ function getDate(d) {
 
 // Opens new tab with given uri
 function openLink(uri) {
-	chrome.tabs.create({ active: true, url: uri });
+	browser.tabs.create({ active: true, url: uri });
 }
 
 // Open Calander
@@ -280,7 +282,7 @@ function openCalander(contest) {
 	)}&dates=${ISODateString(start)}/${ISODateString(
 		end
 	)}&details=Your remainder is set by Kontests. Contest URL : ${contest.url}`;
-	chrome.tabs.create({ active: true, url: uri });
+	browser.tabs.create({ active: true, url: uri });
 }
 
 function toggleAlarm(event, contest) {
@@ -299,7 +301,7 @@ function toggleAlarm(event, contest) {
 		event.currentTarget.style.backgroundColor = "";
 		event.currentTarget.title = "Add Reminder";
 		localforage.setItem("AlarmContests", AlarmContests);
-		chrome.alarms.clear(contest.name);
+		browser.alarms.clear(contest.name);
 		console.log("Alarm Cleared");
 	} else {
 		AlarmContests.push(contest);
@@ -312,7 +314,7 @@ function toggleAlarm(event, contest) {
 		var time_diff = Math.abs(date.getTime() - now.getTime());
 		time_diff = time_diff - 60000;
 		localforage.setItem("AlarmContests", AlarmContests);
-		chrome.alarms.create(contest.name, {
+		browser.alarms.create(contest.name, {
 			when: Date.now() + time_diff,
 		});
 		console.log("reminderSet after " + time_diff);

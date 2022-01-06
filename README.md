@@ -1,7 +1,9 @@
 # Kontest Reminder
 
 This is a cross-browser extension which will never let you forget about upcoming coding contests.
-To download click [here for the Chrome extension.](https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg)
+To download from your respective web browser stores:
+1. [Chrome](https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg?hl=en)
+2. [Firefox - awaiting store review](https://addons.mozilla.org/en-US/firefox/addon/kontest-reminder/)
 
 ## Authors
 

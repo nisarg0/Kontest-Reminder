@@ -9,6 +9,7 @@ To download from your respective web browser stores:
 
 - [Nisarg](https://github.com/nisarg0)
 - [Anjali](https://github.com/anju218)
+- [Rishikesh](https://github.com/rishi255)
 
 ## Demo
 

@@ -1,34 +1,34 @@
 {
-    "name": "Kontest Reminder",
-    "version": "1.0.1",
-    "description": "This extension will never let you forget about any coding contest",
-    "homepage_url": "https://nisarg0.github.io/Kontest-Reminder/",
-    "manifest_version": 2,
-    "minimum_chrome_version": "74",
-    "applications": {
-        "gecko": {
-            "id": "kontest_reminder@nisarg_0",
-            "strict_min_version": "67.0"
-        }
-    },
-    "icons": {
-        "48": "Assets/card.png"
-    },
-    "permissions": ["alarms"],
-    "options_ui": {
-        "browser_style": true,
-        "page": "options.html"
-    },
-    "background": {
-        "scripts": ["browser-polyfill.js", "background.bundle.js"]
-    },
-    "browser_action": {
-        "default_icon": "Assets/card.png",
-        "default_title": "Click here to see your Coding Schedule.",
-        "default_popup": "popup.html"
-    },
-    "developer": {
-        "name": "Nisarg Gogate",
-        "url": "https://github.com/nisarg0"
-    }
+	"name": "Kontest Reminder",
+	"version": "1.0.3",
+	"description": "This extension will never let you forget about any coding contest",
+	"homepage_url": "https://nisarg0.github.io/Kontest-Reminder/",
+	"manifest_version": 2,
+	"minimum_chrome_version": "74",
+	"applications": {
+		"gecko": {
+			"id": "kontest_reminder@nisarg_0",
+			"strict_min_version": "67.0"
+		}
+	},
+	"icons": {
+		"48": "Assets/card.png"
+	},
+	"permissions": ["alarms"],
+	"options_ui": {
+		"browser_style": true,
+		"page": "options.html"
+	},
+	"background": {
+		"scripts": ["browser-polyfill.js", "background.bundle.js"]
+	},
+	"browser_action": {
+		"default_icon": "Assets/card.png",
+		"default_title": "Click here to see your Coding Schedule.",
+		"default_popup": "popup.html"
+	},
+	"developer": {
+		"name": "Nisarg Gogate",
+		"url": "https://github.com/nisarg0"
+	}
 }

@@ -87,8 +87,7 @@ export default function MyContest() {
 					fontFamily="Helvetica Neue"
 					style={{
 						textTransform: "none",
-						backgroundColor:
-							currentContest === "ongoing" ? "#fff" : "#343a40",
+						backgroundColor: currentContest === "ongoing" ? "#fff" : "#343a40",
 						color: currentContest === "ongoing" ? "#222" : "#fff",
 						borderRadius: 0,
 						outline: "none",
@@ -107,8 +106,7 @@ export default function MyContest() {
 					fontFamily="Helvetica Neue"
 					style={{
 						textTransform: "none",
-						backgroundColor:
-							currentContest === "24hours" ? "#fff" : "#343a40",
+						backgroundColor: currentContest === "24hours" ? "#fff" : "#343a40",
 						color: currentContest === "24hours" ? "#222" : "#fff",
 						borderRadius: 0,
 						outline: "none",
@@ -127,8 +125,7 @@ export default function MyContest() {
 					fontFamily="Helvetica Neue"
 					style={{
 						textTransform: "none",
-						backgroundColor:
-							currentContest === "upcoming" ? "#fff" : "#343a40",
+						backgroundColor: currentContest === "upcoming" ? "#fff" : "#343a40",
 						color: currentContest === "upcoming" ? "#222" : "#fff",
 						borderRadius: 0,
 						outline: "none",
@@ -170,10 +167,16 @@ export default function MyContest() {
 										<h6 className="card-text">
 											<div>
 												Start:
-												{getDate(contest.start_time)}
+												{getDate(
+													contest.start_time,
+													contest.site === "code_chef"
+												)}
 												<p>
 													End:
-													{getDate(contest.end_time)}
+													{getDate(
+														contest.end_time,
+														contest.site === "code_chef"
+													)}
 												</p>
 											</div>
 										</h6>
@@ -192,9 +195,7 @@ export default function MyContest() {
 										<button
 											type="button"
 											className="btn btn-primary btn-sm btn-circle"
-											onClick={() =>
-												openCalander(contest)
-											}
+											onClick={() => openCalander(contest)}
 											data-toggle="tooltip"
 											data-placement="bottom"
 											title="Add to calendar"
@@ -207,8 +208,7 @@ export default function MyContest() {
 										currentContest === "upcoming") && (
 										<button
 											style={{
-												backgroundColor:
-													setcolour(contest),
+												backgroundColor: setcolour(contest),
 											}}
 											type="button"
 											className="btn btn-primary btn-sm btn-circle"
@@ -247,7 +247,23 @@ export default function MyContest() {
 }
 
 // ============================ Helper =================================
-function getDate(d) {
+function getDate(d, isCodeChef = false) {
+	// CodeChef's parsing format is different and is of the form:
+	// 2022-01-10 09:30:00 UTC
+	// YYYY-MM-DD HH:MM:SS XXX
+	// where XXX is the 3-letter time zone code.
+
+	// The normal ISO format is:
+	// 2022-01-10T05:30:00.000Z
+
+	if (isCodeChef) {
+		// if the end of the string contains a time zone code like "UTC"
+		// then we need to remove it
+		// remove last 4 letters of the string d
+		d = d.substring(0, d.length - 4);
+		// console.log("CodeChef date string d:");
+		// console.log(d);
+	}
 	var date_temp = new Date(d);
 	var date = date_temp.toLocaleString("en-US");
 	var datearray = date.split("/");

@@ -12,6 +12,7 @@ coverage
 # development
 dev
 dev.*
+web-ext-artifacts
 
 # production
 build

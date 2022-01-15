@@ -2,8 +2,9 @@
 
 This is a cross-browser extension which will never let you forget about upcoming coding contests.
 To download from your respective web browser stores:
+
 1. [Chrome](https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg?hl=en)
-2. [Firefox - awaiting store review](https://addons.mozilla.org/en-US/firefox/addon/kontest-reminder/)
+2. [Firefox](https://addons.mozilla.org/en-US/firefox/addon/kontest-reminder/)
 
 ## Authors
 
@@ -24,7 +25,7 @@ One click :
 - Subscription.
 - Reminder one 1-min before contest.
 
-## Installation For Developers
+## Developer quickstart
 
 Install the required dependencies listed in `package-lock.json` using npm:
 
@@ -36,7 +37,7 @@ Install the required dependencies listed in `package-lock.json` using npm:
 
 Running kontest-reminder with npm:
 
-For **development:**
+### For development build
 
 ```bash
 npm install -g web-ext
@@ -60,7 +61,7 @@ If you don't want to install web-ext, you can perform the following steps:
   select the newly created "dev" folder.
 ```
 
-For **production build:**
+### For production build
 
 ```bash
 npm install -g web-ext

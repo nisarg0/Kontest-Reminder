@@ -52,7 +52,7 @@ in the world by:
 
 Special thanks to:
 - Akshay Mali- [akashay-mali](https://github.com/akshay-mali)
-- Rishikesh Rachh - [rishikesh-rachh](https://github.com/rishi255)
+- Rishikesh Rachh - [rishi255](https://github.com/rishi255)
 - [kontest.net](https://www.kontests.net/) for free API's.
 
 

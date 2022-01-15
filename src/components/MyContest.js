@@ -144,7 +144,7 @@ export default function MyContest() {
 			)}
 			{mycontest?.length > 0 &&
 				mycontest.map((contest, key) => (
-					<div key={key}>
+					<div key={key} className="form">
 						<div className="card text-center">
 							<div className="card-body">
 								<div className="card-info">
@@ -257,12 +257,10 @@ function getDate(d, isCodeChef = false) {
 	// 2022-01-10T05:30:00.000Z
 
 	if (isCodeChef) {
-		// if the end of the string contains a time zone code like "UTC"
-		// then we need to remove it
-		// remove last 4 letters of the string d
-		d = d.substring(0, d.length - 4);
-		// console.log("CodeChef date string d:");
-		// console.log(d);
+		// the end of the string contains a time zone code like "UTC",
+		// so we need to replace it with ".000Z"
+		d = d.replace(" UTC", ".000Z");
+		// console.log("CodeChef date string d: " + d);
 	}
 	var date_temp = new Date(d);
 	var date = date_temp.toLocaleString("en-US");
@@ -282,22 +280,30 @@ function openLink(uri) {
 function openCalander(contest) {
 	console.log("In Calander");
 	function ISODateString(d) {
-		var isoDate = d.toISOString();
+		console.log("In ISODateString");
+		// var isoDate = d.toISOString();
+		var isoDate = d;
+		console.log("ISO Date initial: " + isoDate);
 		isoDate = isoDate.replaceAll(":", "");
 		isoDate = isoDate.replaceAll("-", "");
-		var retval = isoDate.split(".")[0];
-		return retval + "Z";
+		console.log("ISO Date later: " + isoDate);
+		var retval = isoDate.split(".")[0] + "Z";
+		console.log("ISO Date retval: " + retval);
+		return retval;
+		// return retval + "Z";
 	}
 
-	var start = new Date(contest.start_time);
-	var end = new Date(contest.end_time);
-	// console.log(start.toISOString());
+	var start = contest.start_time;
+	var end = contest.end_time;
+	console.log("start:" + start);
+	console.log("end:" + end);
 
 	var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(
 		contest.name
 	)}&dates=${ISODateString(start)}/${ISODateString(
 		end
-	)}&details=Your remainder is set by Kontests. Contest URL : ${contest.url}`;
+	)}&details=Your reminder is set by Kontests. Contest URL: ${contest.url}`;
+	console.log("uri: " + uri);
 	browser.tabs.create({ active: true, url: uri });
 }
 
@@ -323,7 +329,7 @@ function toggleAlarm(event, contest) {
 		AlarmContests.push(contest);
 		event.currentTarget.style.backgroundColor = "#ffe066";
 		event.currentTarget.title = "Remove Reminder";
-		var date = new Date(contest.start_time);
+		var date = getDate(contest.start_time, contest.site === "code_chef");
 		console.log(date);
 		var now = new Date();
 

@@ -19,6 +19,8 @@ build
 build.*
 distribution
 
+*.zip
+
 # misc
 .cache
 .DS_Store

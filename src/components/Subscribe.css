@@ -66,8 +66,8 @@
 	align-items: center;
 	margin-bottom: 8px;
 }
-.blank{
+.blank {
 	display: flex;
 	justify-content: center;
-	color:gray;
+	color: gray;
 }

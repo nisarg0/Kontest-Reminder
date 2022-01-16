@@ -6,6 +6,8 @@ We have made this chrome-extension as a challenge to ourselves and we hope it wi
 ### How to download?
 Just **click on** &nbsp;&nbsp;<a href = "https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg"> <img src = "https://user-images.githubusercontent.com/60577767/122635964-58833400-d104-11eb-9bcd-4f78a6810f88.png" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Chrome** and you are good to go!!! 
 
+Just **click on** &nbsp;&nbsp;<a href = "https://addons.mozilla.org/en-GB/firefox/addon/kontest-reminder/"> <img src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Ffreebiesupply.com%2Flogos%2Ffirefox-logo%2F&psig=AOvVaw0WpnUf_-lmNLLf_aZX0pzb&ust=1642411992655000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIDVyc37tfUCFQAAAAAdAAAAABAD" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Firefox** and you are good to go!!! 
+
 
 
 ### What is new in Kontest-Reminder?

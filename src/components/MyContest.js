@@ -3,6 +3,8 @@ import localforage from "localforage";
 import "./Subscribe.css";
 import { Button } from "@material-ui/core";
 
+var browser = require("webextension-polyfill");
+
 let deletedContests = [];
 let AlarmContests = [];
 
@@ -85,8 +87,7 @@ export default function MyContest() {
 					fontFamily="Helvetica Neue"
 					style={{
 						textTransform: "none",
-						backgroundColor:
-							currentContest === "ongoing" ? "#fff" : "#343a40",
+						backgroundColor: currentContest === "ongoing" ? "#fff" : "#343a40",
 						color: currentContest === "ongoing" ? "#222" : "#fff",
 						borderRadius: 0,
 						outline: "none",
@@ -105,8 +106,7 @@ export default function MyContest() {
 					fontFamily="Helvetica Neue"
 					style={{
 						textTransform: "none",
-						backgroundColor:
-							currentContest === "24hours" ? "#fff" : "#343a40",
+						backgroundColor: currentContest === "24hours" ? "#fff" : "#343a40",
 						color: currentContest === "24hours" ? "#222" : "#fff",
 						borderRadius: 0,
 						outline: "none",
@@ -125,8 +125,7 @@ export default function MyContest() {
 					fontFamily="Helvetica Neue"
 					style={{
 						textTransform: "none",
-						backgroundColor:
-							currentContest === "upcoming" ? "#fff" : "#343a40",
+						backgroundColor: currentContest === "upcoming" ? "#fff" : "#343a40",
 						color: currentContest === "upcoming" ? "#222" : "#fff",
 						borderRadius: 0,
 						outline: "none",
@@ -145,7 +144,7 @@ export default function MyContest() {
 			)}
 			{mycontest?.length > 0 &&
 				mycontest.map((contest, key) => (
-					<div key={key}>
+					<div key={key} className="form">
 						<div className="card text-center">
 							<div className="card-body">
 								<div className="card-info">
@@ -168,10 +167,16 @@ export default function MyContest() {
 										<h6 className="card-text">
 											<div>
 												Start:
-												{getDate(contest.start_time)}
+												{getDate(
+													contest.start_time,
+													contest.site === "code_chef"
+												)}
 												<p>
 													End:
-													{getDate(contest.end_time)}
+													{getDate(
+														contest.end_time,
+														contest.site === "code_chef"
+													)}
 												</p>
 											</div>
 										</h6>
@@ -190,9 +195,7 @@ export default function MyContest() {
 										<button
 											type="button"
 											className="btn btn-primary btn-sm btn-circle"
-											onClick={() =>
-												openCalander(contest)
-											}
+											onClick={() => openCalander(contest)}
 											data-toggle="tooltip"
 											data-placement="bottom"
 											title="Add to calendar"
@@ -205,8 +208,7 @@ export default function MyContest() {
 										currentContest === "upcoming") && (
 										<button
 											style={{
-												backgroundColor:
-													setcolour(contest),
+												backgroundColor: setcolour(contest),
 											}}
 											type="button"
 											className="btn btn-primary btn-sm btn-circle"
@@ -245,7 +247,21 @@ export default function MyContest() {
 }
 
 // ============================ Helper =================================
-function getDate(d) {
+function getDate(d, isCodeChef = false) {
+	// CodeChef's parsing format is different and is of the form:
+	// 2022-01-10 09:30:00 UTC
+	// YYYY-MM-DD HH:MM:SS XXX
+	// where XXX is the 3-letter time zone code.
+
+	// The normal ISO format is:
+	// 2022-01-10T05:30:00.000Z
+
+	if (isCodeChef) {
+		// the end of the string contains a time zone code like "UTC",
+		// so we need to replace it with ".000Z"
+		d = d.replace(" UTC", ".000Z");
+		// console.log("CodeChef date string d: " + d);
+	}
 	var date_temp = new Date(d);
 	var date = date_temp.toLocaleString("en-US");
 	var datearray = date.split("/");
@@ -257,30 +273,38 @@ function getDate(d) {
 
 // Opens new tab with given uri
 function openLink(uri) {
-	chrome.tabs.create({ active: true, url: uri });
+	browser.tabs.create({ active: true, url: uri });
 }
 
 // Open Calander
 function openCalander(contest) {
 	console.log("In Calander");
 	function ISODateString(d) {
-		var isoDate = d.toISOString();
+		console.log("In ISODateString");
+		// var isoDate = d.toISOString();
+		var isoDate = d;
+		console.log("ISO Date initial: " + isoDate);
 		isoDate = isoDate.replaceAll(":", "");
 		isoDate = isoDate.replaceAll("-", "");
-		var retval = isoDate.split(".")[0];
-		return retval + "Z";
+		console.log("ISO Date later: " + isoDate);
+		var retval = isoDate.split(".")[0] + "Z";
+		console.log("ISO Date retval: " + retval);
+		return retval;
+		// return retval + "Z";
 	}
 
-	var start = new Date(contest.start_time);
-	var end = new Date(contest.end_time);
-	// console.log(start.toISOString());
+	var start = contest.start_time;
+	var end = contest.end_time;
+	console.log("start:" + start);
+	console.log("end:" + end);
 
 	var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(
 		contest.name
 	)}&dates=${ISODateString(start)}/${ISODateString(
 		end
-	)}&details=Your remainder is set by Kontests. Contest URL : ${contest.url}`;
-	chrome.tabs.create({ active: true, url: uri });
+	)}&details=Your reminder is set by Kontests. Contest URL: ${contest.url}`;
+	console.log("uri: " + uri);
+	browser.tabs.create({ active: true, url: uri });
 }
 
 function toggleAlarm(event, contest) {
@@ -299,20 +323,20 @@ function toggleAlarm(event, contest) {
 		event.currentTarget.style.backgroundColor = "";
 		event.currentTarget.title = "Add Reminder";
 		localforage.setItem("AlarmContests", AlarmContests);
-		chrome.alarms.clear(contest.name);
+		browser.alarms.clear(contest.name);
 		console.log("Alarm Cleared");
 	} else {
 		AlarmContests.push(contest);
 		event.currentTarget.style.backgroundColor = "#ffe066";
 		event.currentTarget.title = "Remove Reminder";
-		var date = new Date(contest.start_time);
+		var date = getDate(contest.start_time, contest.site === "code_chef");
 		console.log(date);
 		var now = new Date();
 
 		var time_diff = Math.abs(date.getTime() - now.getTime());
 		time_diff = time_diff - 60000;
 		localforage.setItem("AlarmContests", AlarmContests);
-		chrome.alarms.create(contest.name, {
+		browser.alarms.create(contest.name, {
 			when: Date.now() + time_diff,
 		});
 		console.log("reminderSet after " + time_diff);

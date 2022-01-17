@@ -11,6 +11,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import "./Subscribe.css";
 import localforage from "localforage";
 
+var browser = require("webextension-polyfill");
+
 export default function Subscribe() {
 	const [showWarning, setShowWarning] = useState(false);
 	const [platforms, setplatforms] = React.useState([]);
@@ -40,7 +42,7 @@ export default function Subscribe() {
 		localforage.setItem("platforms", newPlatforms);
 		console.log(newPlatforms);
 
-		chrome.runtime.sendMessage({ data: "Update MyContests" });
+		browser.runtime.sendMessage({ data: "Update MyContests" });
 	};
 
 	return (
@@ -69,9 +71,7 @@ export default function Subscribe() {
 									src={getImage(platform.platform)}
 								/>
 							</ListItemAvatar>
-							<ListItemText
-								primary={getSiteName(platform.platform)}
-							/>
+							<ListItemText primary={getSiteName(platform.platform)} />
 							<ListItemSecondaryAction>
 								<Checkbox
 									checked={platform.isSubscribed}
@@ -132,7 +132,7 @@ function getSiteName(site) {
 	var name = "";
 	switch (site) {
 		case "code_chef":
-			name = "Code Chef";
+			name = "CodeChef";
 			break;
 		case "codeforces":
 			name = "Codeforces";

@@ -17,10 +17,13 @@
 		"react-icons": "^4.2.0",
 		"react-router-dom": "^5.2.0",
 		"styled-components": "^5.3.0",
-		"web-vitals": "^1.1.2"
+		"web-ext": "^6.6.0",
+		"web-vitals": "^1.1.2",
+		"webext-options-sync": "^2.0.1",
+		"webextension-polyfill": "^0.8.0"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "react-scripts --max_old_space_size=8128 start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
@@ -35,18 +38,10 @@
 			"webextensions": true
 		}
 	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
+	"browserslist": [
+		"last 1 Chrome version",
+		"last 1 Firefox version"
+	],
 	"devDependencies": {
 		"@iconify-icons/simple-icons": "^1.1.27",
 		"@iconify/react": "^1.1.4"

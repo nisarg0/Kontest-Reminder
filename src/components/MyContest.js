@@ -75,8 +75,8 @@ export default function MyContest() {
 	};
 
 	return (
-		<div>
-			<div className="Sections">
+		<div className="scrollbar-hidden">
+			<div className="Sections scrollbar-hidden">
 				<Button
 					// variant="contained"
 					className="sections"
@@ -329,7 +329,16 @@ function toggleAlarm(event, contest) {
 		AlarmContests.push(contest);
 		event.currentTarget.style.backgroundColor = "#ffe066";
 		event.currentTarget.title = "Remove Reminder";
-		var date = getDate(contest.start_time, contest.site === "code_chef");
+
+		var d = contest.start_time;
+		if (contest.site === "code_chef") {
+			// the end of the string contains a time zone code like "UTC",
+			// so we need to replace it with ".000Z"
+			d = d.replace(" UTC", ".000Z");
+			// console.log("CodeChef date string d: " + d);
+		}
+		var date = new Date(d);
+
 		console.log(date);
 		var now = new Date();
 

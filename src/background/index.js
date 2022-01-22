@@ -141,11 +141,7 @@ browser.runtime.onInstalled.addListener((details) => {
 	} else if (details.reason === "update") {
 		var thisVersion = browser.runtime.getManifest().version;
 		console.log(
-			"Updated from " +
-				details.previousVersion +
-				" to " +
-				thisVersion +
-				"!"
+			"Updated from " + details.previousVersion + " to " + thisVersion + "!"
 		);
 	}
 });
@@ -169,7 +165,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 		var AlarmContests = [];
 		await localforage.getItem("AlarmContests", function (err, value) {
 			if (value === null) {
-				// console.log("Err: No Alarm in DB");
+				console.log("Err: No Alarm in DB");
 				return;
 			}
 			AlarmContests = value;
@@ -187,6 +183,7 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 		}
 		AlarmContests.splice(i, 1);
 		localforage.setItem("AlarmContests", AlarmContests);
+		console.log("Printing AlarmContests:");
 		console.log(AlarmContests);
 	}
 });
@@ -194,6 +191,11 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 // ========================================= DB ===================================================
 async function setmyContests() {
 	// console.log("In setmyContests");
+	// console.log(myContests[0]);
+	// myContests[0].start_time = "2022-01-22T18:26:00.000Z";
+	// console.log("After changing: ");
+	// console.log(myContests[0]);
+
 	await localforage.setItem("myContests", myContests);
 }
 
@@ -245,7 +247,7 @@ async function fetchContestDetails() {
 		throw new Error(message);
 	}
 
-	const contestDetails = await res.json();
+	var contestDetails = await res.json();
 	return contestDetails;
 }
 

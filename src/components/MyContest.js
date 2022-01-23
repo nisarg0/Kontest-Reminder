@@ -402,8 +402,6 @@ const setcolour = (contest) => {
 	for (let i = 0; i < AlarmContests.length; i++) {
 		if (AlarmContests[i].name === contest.name) {
 			c = "#ffe066";
-		} else {
-			c = "";
 		}
 	}
 	return c;

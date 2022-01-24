@@ -5,7 +5,7 @@ We have made this chrome-extension as a challenge to ourselves and we hope it wi
 ### How to download?
 Just **click on** &nbsp;&nbsp;<a href = "https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg"> <img src = "https://user-images.githubusercontent.com/60577767/122635964-58833400-d104-11eb-9bcd-4f78a6810f88.png" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Chrome** and you are good to go!!! 
 
-Just **click on** &nbsp;&nbsp;<a href = "https://user-images.githubusercontent.com/60577767/150777088-dc16423f-0061-455c-8f36-7ff665b29425.png" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Firefox** and you are good to go!!! 
+Just **click on** &nbsp;&nbsp;<a href = "https://cdn.freebiesupply.com/logos/large/2x/firefox-4-logo-png-transparent.png" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Firefox** and you are good to go!!! 
 
 
 

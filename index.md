@@ -2,11 +2,10 @@
 
 We have made this chrome-extension as a challenge to ourselves and we hope it will help hundreds to improve there CP skills. We wish you all the best on this interesting journey of Competitive Programming.
 
-
 ### How to download?
 Just **click on** &nbsp;&nbsp;<a href = "https://chrome.google.com/webstore/detail/kontest-reminder/imdlnagpdjhelkapllclmdogjobpoihg"> <img src = "https://user-images.githubusercontent.com/60577767/122635964-58833400-d104-11eb-9bcd-4f78a6810f88.png" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Chrome** and you are good to go!!! 
 
-Just **click on** &nbsp;&nbsp;<a href = "https://addons.mozilla.org/en-GB/firefox/addon/kontest-reminder/"> <img src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AMozilla_Firefox_logo_2013.svg&psig=AOvVaw3PqQpWK9NRDjx1bMD8Nsh6&ust=1643110922263000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIj_-qinyvUCFQAAAAAdAAAAABAD" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Firefox** and you are good to go!!! 
+Just **click on** &nbsp;&nbsp;<a href = "https://user-images.githubusercontent.com/60577767/150777088-dc16423f-0061-455c-8f36-7ff665b29425.png" width="50" height="50" /></a> &nbsp;&nbsp; followed with **Add to Firefox** and you are good to go!!! 
 
 
 

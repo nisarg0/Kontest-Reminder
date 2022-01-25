@@ -362,6 +362,7 @@ function contests_in_24_hours(myContests_db) {
 	}
 	return in_24_hours;
 }
+
 function ongoing(myContests_db) {
 	//await getmyContests();
 	var Ongoing = [];
@@ -377,7 +378,16 @@ function upcoming(myContests_db) {
 
 	var Upcoming = [];
 	for (var contest of myContests_db) {
-		if (contest.status === "BEFORE" && contest.in_24_hours === "No")
+		console.log(Date(contest.start_time));
+		var d = new Date(contest.start_time);
+		var now = new Date();
+		console.log(d.getTime());
+		// console.log(Date());
+		if (
+			contest.status === "BEFORE" &&
+			contest.in_24_hours === "No" &&
+			d - now > 0
+		)
 			Upcoming.push(contest);
 	}
 

@@ -37,7 +37,7 @@ Install the required dependencies listed in `package-lock.json` using npm:
 
 Running kontest-reminder with npm:
 
-### NOTE: Rename chrome-manifest / firefox-manifest as manifest depending on which browser you want to work with.
+#### NOTE: Rename chrome-manifest / firefox-manifest as manifest depending on which browser you want to work with.
 
 ### For development build
 

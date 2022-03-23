@@ -1,20 +1,30 @@
 import "./App.css";
-import Subscribe from "./components/Subscribe";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+
 import NavigationBar from "./components/NavigationBar";
-import { MemoryRouter as Router, Switch, Route } from "react-router-dom";
-import MyContest from "./components/MyContest";
+import { Switch, Route } from "react-router-dom";
+// import MyContest from "./components/MyContest";
+
+import Contests from "./pages/Contests";
+import Subscribe from "./pages/Subscribe";
+import ContestProvider from "./context/contestContext";
 
 function App() {
+	const theme = createTheme({
+		typography: {
+			fontFamily: ["Montserrat", "sans-serif"].join(","),
+		},
+	});
 	return (
-		<div>
-			<Router>
+		<ThemeProvider theme={theme}>
+			<ContestProvider>
 				<NavigationBar />
 				<Switch>
-					<Route path="/" exact component={MyContest} />
+					<Route path="/" exact component={Contests} />
 					<Route path="/Subscribe" component={Subscribe} />
 				</Switch>
-			</Router>
-		</div>
+			</ContestProvider>
+		</ThemeProvider>
 	);
 }
 

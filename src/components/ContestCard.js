@@ -12,19 +12,29 @@ import calIcon from "../assets/Calander.png";
 import openIcon from "../assets/auto-open.png";
 
 // For browser apis
-// var browser = require("webextension-polyfill");
+var browser = require("webextension-polyfill");
 
-export default function MediaControlCard({ contest, onDelete }) {
+export default function ContestCard({ contest, onDelete }) {
 	const calanderIcon = <img alt="calander" src={calIcon} />;
 	const autoopenIcon = <img alt="auto-open" src={openIcon} />;
 	const BinIcon = () => <img alt="bin" src={delIcon} />;
-	console.log(mapping);
-	console.log(contest.site);
-	console.log(mapping[contest.site]);
 	const color = mapping[contest.site].color;
-	console.log(color);
+
+	const handleCalanderClick = (event) => {
+		event.stopPropagation();
+		console.log("start_time: ", contest.start_time);
+	};
+
 	return (
-		<>
+		<Box
+			sx={{
+				position: "relative",
+				overflow: "visible",
+				":hover .bin": {
+					display: "block",
+				},
+			}}
+		>
 			<Card
 				sx={{
 					display: "flex",
@@ -38,15 +48,10 @@ export default function MediaControlCard({ contest, onDelete }) {
 					":hover": {
 						"box-shadow": "0px 0px 10px 3px rgba(0, 0, 0, 0.2)",
 					},
-					position: "relative",
-					overflow: "visible",
-					":hover .bin": {
-						display: "block",
-					},
 				}}
-				// onClick={() => {
-				// 	browser.tabs.create({ active: true, url: contest.url });
-				// }}
+				onClick={() => {
+					browser.tabs.create({ active: true, url: contest.url });
+				}}
 			>
 				<CardMedia
 					component="img"
@@ -126,12 +131,13 @@ export default function MediaControlCard({ contest, onDelete }) {
 							sx={{
 								fontSize: 8,
 								textTransform: "none",
-								backgroundColor: "#67D6FA",
+								backgroundColor: "#1FA0DB",
 								":hover": {
 									bgcolor: color,
 								},
 							}}
 							startIcon={calanderIcon}
+							onClick={handleCalanderClick}
 						>
 							Add to Calendar
 						</Button>
@@ -142,7 +148,7 @@ export default function MediaControlCard({ contest, onDelete }) {
 							sx={{
 								fontSize: 8,
 								textTransform: "none",
-								backgroundColor: "#67D6FA",
+								backgroundColor: "#1FA0DB",
 								":hover": {
 									bgcolor: color,
 								},
@@ -153,42 +159,41 @@ export default function MediaControlCard({ contest, onDelete }) {
 						</Button>
 					</Box>
 				</Box>
-
-				<Box
-					sx={{
-						position: "absolute",
-						top: "-10px",
-						right: "-10px",
-						display: "None",
-					}}
-					className="bin"
-				>
-					<Button
-						sx={{
-							borderRadius: "50%",
-							width: "28px",
-							height: "28px",
-							margin: 0,
-							padding: 0,
-							minWidth: "28px",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-							backgroundColor: "#FFFFFF",
-							boxShadow: "0px 5px 12px rgba(0, 0, 0, 0.25)",
-							":hover": {
-								backgroundColor: "#F5F5F5",
-								borderColor: "#F5F5F5",
-							},
-						}}
-						variant="contained"
-						onClick={onDelete}
-					>
-						<BinIcon />
-					</Button>
-				</Box>
 			</Card>
-		</>
+			<Box
+				sx={{
+					position: "absolute",
+					top: "-10px",
+					right: "0px",
+					display: "None",
+				}}
+				className="bin"
+			>
+				<Button
+					sx={{
+						borderRadius: "50%",
+						width: "28px",
+						height: "28px",
+						margin: 0,
+						padding: 0,
+						minWidth: "28px",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						backgroundColor: "#FFFFFF",
+						boxShadow: "0px 5px 12px rgba(0, 0, 0, 0.25)",
+						":hover": {
+							backgroundColor: "#F5F5F5",
+							borderColor: "#F5F5F5",
+						},
+					}}
+					variant="contained"
+					onClick={onDelete}
+				>
+					<BinIcon />
+				</Button>
+			</Box>
+		</Box>
 	);
 }
 
@@ -205,7 +210,7 @@ const mapping = {
 	},
 	CodeChef: {
 		logo: "https://i.pinimg.com/originals/c5/d9/fc/c5d9fc1e18bcf039f464c2ab6cfb3eb6.jpg",
-		color: "#D1C3A3",
+		color: "#D0C3AD",
 	},
 	LeetCode: {
 		logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
@@ -213,7 +218,7 @@ const mapping = {
 	},
 	"Kick Start": {
 		logo: "https://images.theconversation.com/files/93616/original/image-20150902-6700-t2axrz.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1000&fit=clip",
-		color: "#FBBC05",
+		color: "#34A853",
 	},
 	CodeForces: {
 		logo: "https://i.pinimg.com/736x/b4/6e/54/b46e546a3ee4d410f961e81d4a8cae0f.jpg",

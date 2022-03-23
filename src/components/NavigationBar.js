@@ -1,72 +1,36 @@
-// import React from "react";
-// import { Link, withRouter } from "react-router-dom";
+import * as React from "react";
+import { Toolbar, Box, AppBar, Typography } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 
-// var browser = require("webextension-polyfill");
+export default function NavigationBar() {
+	let location = useLocation().pathname;
 
-// function NavigationBar(props) {
-// 	return (
-// 		<div className="navigation">
-// 			<nav className="navbar navbar-expand navbar-dark bg-dark">
-// 				<div className="container">
-// 					<Link
-// 						className="navbar-brand"
-// 						to="\#"
-// 						onClick={openSite}
-// 						data-toggle="tooltip"
-// 						data-placement="bottom"
-// 						title="Open Website"
-// 					>
-// 						Kontests
-// 					</Link>
-
-// 					<div>
-// 						<ul className="navbar-nav ml-auto">
-// 							<li
-// 								className={`nav-item  ${
-// 									props.location.pathname === "/"
-// 										? "active"
-// 										: ""
-// 								}`}
-// 							>
-// 								<Link
-// 									className="nav-link"
-// 									to="/"
-// 									data-toggle="tooltip"
-// 									data-placement="bottom"
-// 									title="See Contests"
-// 								>
-// 									Home
-// 									<span className="sr-only">(current)</span>
-// 								</Link>
-// 							</li>
-// 							<li
-// 								className={`nav-item  ${
-// 									props.location.pathname === "/Subscribe"
-// 										? "active"
-// 										: ""
-// 								}`}
-// 							>
-// 								<Link
-// 									className="nav-link"
-// 									to="/Subscribe"
-// 									data-toggle="tooltip"
-// 									data-placement="bottom"
-// 									title="Subscribe/Unsubscribe Websites"
-// 								>
-// 									Subscribe
-// 								</Link>
-// 							</li>
-// 						</ul>
-// 					</div>
-// 				</div>
-// 			</nav>
-// 		</div>
-// 	);
-// }
-
-// export default withRouter(NavigationBar);
-
-// function openSite() {
-// 	var uri = "https://nisarg0.github.io/Kontest-Reminder/";
-// 	browser.tabs.create({ active: true, url: uri });
-// }
+	return (
+		<Box sx={{ flexGrow: 1 }}>
+			<AppBar position="static" sx={{ backgroundColor: "#4D4847" }}>
+				<Toolbar>
+					<Typography
+						variant="h6"
+						component="div"
+						sx={{ flexGrow: 1, fontWeight: "650" }}
+					>
+						Kontest Reminder
+					</Typography>
+					{location === "/" && (
+						<Link
+							style={{ color: "white", textDecoration: "none" }}
+							to="/Subscribe"
+						>
+							Subscribe
+						</Link>
+					)}
+					{location === "/Subscribe" && (
+						<Link style={{ color: "white", textDecoration: "none" }} to="/">
+							Home
+						</Link>
+					)}
+				</Toolbar>
+			</AppBar>
+		</Box>
+	);
+}

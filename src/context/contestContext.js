@@ -855,7 +855,21 @@ const defaultContest = [
 	},
 ];
 
-const filterContest = (contests) => {
+const defaultSubscribtion = {
+	// 1: CP 2: Luv baber 0. Unsubscribe
+	dailyChallenge: 1,
+	HackerEarth: true,
+	AtCoder: true,
+	CodeChef: true,
+	LeetCode: true,
+	"Kick Start": true,
+	CodeForces: true,
+	TopCoder: true,
+	HackerRank: true,
+};
+
+// Add condition for is subscribed here and we can maintain the list of subscribed sites
+const filterContest = (contests, subscribed) => {
 	const ongoing = [],
 		upcoming = [],
 		today = [];
@@ -864,12 +878,14 @@ const filterContest = (contests) => {
 		const start_time = new Date(contest.start_time);
 		const end_time = new Date(contest.end_time);
 
-		if (now < start_time && start_time - now < 86400000) {
-			today.push(contest);
-		} else if (now < start_time) {
-			upcoming.push(contest);
-		} else if (now <= end_time && now >= start_time) {
-			ongoing.push(contest);
+		if (subscribed[contest.site]) {
+			if (now < start_time && start_time - now < 86400000) {
+				today.push(contest);
+			} else if (now < start_time) {
+				upcoming.push(contest);
+			} else if (now <= end_time && now >= start_time) {
+				ongoing.push(contest);
+			}
 		}
 	});
 
@@ -878,7 +894,8 @@ const filterContest = (contests) => {
 
 const ContestProvider = ({ children }) => {
 	// const [contests, setContests] = useState(defaultContest);
-	const filteredContests = filterContest(defaultContest);
+	const [subscribed, setSubscribed] = useState(defaultSubscribtion);
+	const filteredContests = filterContest(defaultContest, subscribed);
 	const [ongoing, setOngoing] = useState(filteredContests.ongoing);
 	const [upcoming, setUpcoming] = useState(filteredContests.upcoming);
 	const [today, setToday] = useState(filteredContests.today);
@@ -895,13 +912,24 @@ const ContestProvider = ({ children }) => {
 			setToday(newContests);
 		}
 	};
+	const changeSubStatus = (site) => {
+		subscribed.site = !subscribed.site;
+		setSubscribed(subscribed);
+	};
+	const changeDailyChallenge = (new_status) => {
+		subscribed.dailyChallenge = new_status;
+		setSubscribed(subscribed);
+	};
 	return (
 		<ContestContext.Provider
 			value={{
 				ongoing,
 				upcoming,
 				today,
+				subscribed,
 				deleteContest,
+				changeSubStatus,
+				changeDailyChallenge,
 			}}
 		>
 			{children}

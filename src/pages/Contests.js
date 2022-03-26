@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import ContestCard from "../components/ContestCard";
+import ChallengeCard from "../components/ChallengeCard";
 // import ContestConsumer from "../context/contestContext";
 import { ContestContext } from "../context/contestContext";
 import { Tabs, Tab, AppBar } from "@mui/material";
@@ -79,9 +80,10 @@ export default function Contests() {
 					)}
 				</TabPanel>
 				<TabPanel className={classes.tabPanel} value={value} index={1}>
+					{<ChallengeCard />}
 					{today.length === 0 ? (
 						<Box sx={{ textAlign: "center", color: "white" }}>
-							No Today's Contests
+							No Contest Today
 						</Box>
 					) : (
 						today.map((contest) => (

@@ -13,16 +13,16 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 		<Card
 			sx={{
 				display: "flex",
-				border: 1,
 				borderRadius: 2,
-				borderColor: "grey.500",
 				padding: 1,
+				boxShadow: "none",
 				":hover": {
-					"box-shadow": "0px 0px 10px 3px rgba(0, 0, 0, 0.2)",
+					"box-shadow": "0px 0px 8px 3px rgba(50, 100, 150, 0.16)",
 				},
 				alignItems: "center",
 				width: "100%",
-				backgroundColor: value ? "#b3e0ff" : "white",
+				backgroundColor: "white",
+				border: value ? "2px solid #1FA0DB" : "none"
 			}}
 			onClick={() => changeSubStatus(platform)}
 		>
@@ -40,7 +40,7 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 			<Typography
 				component="div"
 				color="text.primary"
-				sx={{ flex: 1, fontSize: 14, textAlign: "center", cursor: "default" }}
+				sx={{ flex: 1, fontSize: 14, textAlign: "center", cursor: "default", color: value ? "#1FA0DB" : "#222" }}
 				fontWeight="550"
 			>
 				{platform}

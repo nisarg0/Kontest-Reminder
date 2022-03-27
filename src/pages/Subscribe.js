@@ -10,8 +10,8 @@ export default function Subscribe() {
 		useContext(ContestContext);
 
 	return (
-		<Box sx={{ width: "100%", marginTop: "20px", padding: "8px" }}>
-			<Grid container spacing={1}>
+		<Box sx={{ width: "100%", marginTop: "8px", padding: "8px" }}>
+			<Grid container spacing={1.5}>
 				<Grid item xs={12}>
 					<SubChallenge />
 				</Grid>

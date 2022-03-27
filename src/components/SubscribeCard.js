@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 
 export default function SubscribeCard({ platform, value, changeSubStatus }) {
-	console.log(platform);
-	console.log(value);
+	// console.log(platform);
+	// console.log(value);
 	return (
 		<Card
 			sx={{

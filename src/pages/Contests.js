@@ -33,10 +33,6 @@ export default function Contests() {
 		useContext(ContestContext);
 	const classes = styles();
 
-	console.log("ongoing", ongoing);
-	console.log("upcoming", upcoming);
-	console.log("today", today);
-
 	const [value, setValue] = React.useState(1);
 	const handleTab = (event, newValue) => {
 		setValue(newValue);
@@ -52,7 +48,6 @@ export default function Contests() {
 						></Box>
 						<Tabs
 							className={classes.tabs}
-							indicatorColor="#F2F2F2"
 							value={value}
 							onChange={handleTab}
 						>
@@ -74,7 +69,7 @@ export default function Contests() {
 							<ContestCard
 								key={contest.name}
 								contest={contest}
-								onDelete={() => deleteContest(contest.name, "ongoing")}
+								onDelete={() => deleteContest(contest.name)}
 							/>
 						))
 					)}
@@ -90,7 +85,7 @@ export default function Contests() {
 							<ContestCard
 								key={contest.name}
 								contest={contest}
-								onDelete={() => deleteContest(contest.name, "today")}
+								onDelete={() => deleteContest(contest.name)}
 							/>
 						))
 					)}
@@ -105,7 +100,7 @@ export default function Contests() {
 							<ContestCard
 								key={contest.name}
 								contest={contest}
-								onDelete={() => deleteContest(contest.name, "upcoming")}
+								onDelete={() => deleteContest(contest.name)}
 							/>
 						))
 					)}

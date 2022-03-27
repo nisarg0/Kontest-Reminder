@@ -23,6 +23,7 @@ function App() {
 					<Route path="/" exact component={Contests} />
 					<Route path="/Subscribe" component={Subscribe} />
 				</Switch>
+				{/* <Subscribe /> */}
 			</ContestProvider>
 		</ThemeProvider>
 	);

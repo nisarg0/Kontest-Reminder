@@ -46,7 +46,8 @@ export default function ContestCard({ contest, onDelete }) {
 					marginLeft: 1.5,
 					padding: 1,
 					":hover": {
-						"box-shadow": "0px 0px 10px 3px rgba(0, 0, 0, 0.2)",
+						borderColor: "#3CC5F3",
+						borderWidth: 1.5,
 					},
 				}}
 				onClick={() => {
@@ -60,7 +61,7 @@ export default function ContestCard({ contest, onDelete }) {
 						height: 70,
 						borderRadius: 2,
 						alignSelf: "center",
-						paddingLeft: 1,
+						marginLeft: 1,
 					}}
 					image={mapping[contest.site].logo}
 					alt={contest.name}
@@ -75,6 +76,7 @@ export default function ContestCard({ contest, onDelete }) {
 				>
 					<CardContent sx={{ flex: "1 0 auto", padding: 0 }}>
 						<Typography
+							className="contest-name"
 							component="div"
 							color="text.primary"
 							sx={{ fontSize: 14 }}

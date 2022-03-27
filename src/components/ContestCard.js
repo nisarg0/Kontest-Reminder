@@ -38,16 +38,16 @@ export default function ContestCard({ contest, onDelete }) {
 			<Card
 				sx={{
 					display: "flex",
-					border: 1,
 					borderRadius: 2,
-					borderColor: "grey.500",
 					marginBottom: 1.5,
 					marginRight: 1.5,
 					marginLeft: 1.5,
 					padding: 1,
+					boxShadow: "none",
 					":hover": {
-						borderColor: "#3CC5F3",
-						borderWidth: 1.5,
+						":hover": {
+							boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.16)",
+						},
 					},
 				}}
 				onClick={() => {

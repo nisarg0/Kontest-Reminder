@@ -5,7 +5,7 @@ import {
 	Card,
 	Switch,
 	FormGroup,
-	Stack,
+	Box,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -48,7 +48,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 		backgroundColor:
 			theme.palette.mode === "dark"
 				? "rgba(255,255,255,.35)"
-				: "rgba(0,0,0,.25)",
+				: "rgba(0,0,0,1)",
 		boxSizing: "border-box",
 	},
 }));
@@ -83,18 +83,17 @@ export default function ContestCard() {
 					Daily Challenge
 				</Typography>
 				<FormGroup>
-					<Stack direction="row" spacing="space-between" alignItems="center">
+					<Box sx={{display: 'flex', alignItems: "center", justifyContent: "center"}}>
 						<Typography sx={{ fontWeight: "medium" }}>
 							Competitive Programming
 						</Typography>
 						<AntSwitch
 							defaultChecked
-							inputProps={{ "aria-label": "ant design" }}
 						/>
-						<Typography sx={{ paddingLeft: "16px", fontWeight: "medium" }}>
+						<Typography sx={{ fontWeight: "medium", textAlign: 'right' }}>
 							Placement Practice
 						</Typography>
-					</Stack>
+					</Box>
 				</FormGroup>
 			</CardContent>
 		</Card>

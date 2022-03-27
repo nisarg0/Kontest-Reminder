@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const ContestContext = React.createContext();
 
 const defaultContest = [
@@ -858,18 +858,19 @@ const defaultContest = [
 const defaultSubscribtion = {
 	// 1: CP 2: Luv baber 0. Unsubscribe
 	dailyChallenge: 1,
-	HackerEarth: true,
-	AtCoder: true,
-	CodeChef: true,
-	LeetCode: true,
+	"HackerEarth": true,
+	"AtCoder": true,
+	"CodeChef": false,
+	"LeetCode": true,
 	"Kick Start": false,
-	CodeForces: true,
-	TopCoder: true,
-	HackerRank: true,
+	"CodeForces": true,
+	"TopCoder": true,
+	"HackerRank": true,
 };
 
 // Add condition for is subscribed here and we can maintain the list of subscribed sites
-const filterContest = (contests, subscribed) => {
+const handleFilterContests = (contests, subscribed) => {
+	// console.log("Function called");
 	const ongoing = [],
 		upcoming = [],
 		today = [];
@@ -893,24 +894,20 @@ const filterContest = (contests, subscribed) => {
 };
 
 const ContestProvider = ({ children }) => {
-	// const [contests, setContests] = useState(defaultContest);
+	const [contests, setContests] = useState(defaultContest);
 	const [subscribed, setSubscribed] = useState(defaultSubscribtion);
-	const filteredContests = filterContest(defaultContest, subscribed);
-	const [ongoing, setOngoing] = useState(filteredContests.ongoing);
-	const [upcoming, setUpcoming] = useState(filteredContests.upcoming);
-	const [today, setToday] = useState(filteredContests.today);
+	const [filteredContests, setFilteredContests] = useState({ ongoing: [], upcoming: [], today: [] });
+
+	useEffect(() => {
+		setFilteredContests(handleFilterContests(contests, subscribed));
+	}, [subscribed, contests]);
+
 	// Delete contest if it is in the past
-	const deleteContest = (name, type) => {
-		if (type === "ongoing") {
-			const newContests = ongoing.filter((contest) => contest.name !== name);
-			setOngoing(newContests);
-		} else if (type === "upcoming") {
-			const newContests = upcoming.filter((contest) => contest.name !== name);
-			setUpcoming(newContests);
-		} else {
-			const newContests = today.filter((contest) => contest.name !== name);
-			setToday(newContests);
-		}
+	const deleteContest = (name) => {
+		const newContests = [...contests];
+		const index = newContests.findIndex((contest) => contest.name === name);
+		newContests.splice(index, 1);
+		setContests(newContests);
 	};
 
 	const changeSubStatus = (site) => {
@@ -927,9 +924,9 @@ const ContestProvider = ({ children }) => {
 	return (
 		<ContestContext.Provider
 			value={{
-				ongoing,
-				upcoming,
-				today,
+				ongoing: filteredContests.ongoing,
+				upcoming: filteredContests.upcoming,
+				today: filteredContests.today,
 				subscribed,
 				deleteContest,
 				changeSubStatus,

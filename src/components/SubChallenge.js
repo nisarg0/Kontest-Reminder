@@ -3,7 +3,6 @@ import {
 	Typography,
 	CardContent,
 	Card,
-	Box,
 	Switch,
 	FormGroup,
 	Stack,
@@ -56,65 +55,48 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 
 export default function ContestCard() {
 	return (
-		<Box
+		<Card
 			sx={{
-				position: "relative",
-				overflow: "visible",
-				":hover .bin": {
-					display: "block",
+				display: "flex",
+				border: 1,
+				borderRadius: 2,
+				borderColor: "grey.500",
+				padding: 1,
+				":hover": {
+					":hover": {
+						borderColor: "#3CC5F3",
+						borderWidth: 1.5,
+					},
 				},
 			}}
+			onClick={() => {
+				browser.tabs.create({ active: true, url: "www.google.in" });
+			}}
 		>
-			<Card
-				sx={{
-					display: "flex",
-					border: 1,
-					borderRadius: 2,
-					borderColor: "grey.500",
-					padding: 1,
-					":hover": {
-						":hover": {
-							borderColor: "#3CC5F3",
-							borderWidth: 1.5,
-						},
-					},
-				}}
-				onClick={() => {
-					browser.tabs.create({ active: true, url: "www.google.in" });
-				}}
-			>
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						padding: "8px",
-						width: "100%",
-					}}
+			<CardContent>
+				<Typography
+					component="div"
+					color="text.primary"
+					sx={{ fontSize: 16, fontWeight: "bold", marginBottom: "8px" }}
+					textAlign="center"
 				>
-					<CardContent sx={{ flex: "1 0 auto", padding: 0 }}>
-						<Typography
-							component="div"
-							color="text.primary"
-							sx={{ fontSize: 14 }}
-							textAlign="center"
-							fontWeight="600"
-							paddingBottom="8px"
-						>
-							Daily Challenge
+					Daily Challenge
+				</Typography>
+				<FormGroup>
+					<Stack direction="row" spacing="space-between" alignItems="center">
+						<Typography sx={{ fontWeight: "medium" }}>
+							Competitive Programming
 						</Typography>
-						<FormGroup>
-							<Stack direction="row" spacing={1} alignItems="center">
-								<Typography>Competitive Programming</Typography>
-								<AntSwitch
-									defaultChecked
-									inputProps={{ "aria-label": "ant design" }}
-								/>
-								<Typography>Placement Practice</Typography>
-							</Stack>
-						</FormGroup>
-					</CardContent>
-				</Box>
-			</Card>
-		</Box>
+						<AntSwitch
+							defaultChecked
+							inputProps={{ "aria-label": "ant design" }}
+						/>
+						<Typography sx={{ paddingLeft: "16px", fontWeight: "medium" }}>
+							Placement Practice
+						</Typography>
+					</Stack>
+				</FormGroup>
+			</CardContent>
+		</Card>
 	);
 }

@@ -7,25 +7,25 @@ export default function NavigationBar() {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" sx={{ backgroundColor: "#4D4847" }}>
+			<AppBar position="static" sx={{ backgroundColor: "white" }}>
 				<Toolbar>
 					<Typography
 						variant="h6"
 						component="div"
-						sx={{ flexGrow: 1, fontWeight: "650" }}
+						sx={{ flexGrow: 1, fontWeight: "650", color: "black" }}
 					>
 						Kontest Reminder
 					</Typography>
 					{location === "/" && (
 						<Link
-							style={{ color: "white", textDecoration: "none" }}
+							style={{ color: "black", textDecoration: "none" }}
 							to="/Subscribe"
 						>
 							Subscribe
 						</Link>
 					)}
 					{location === "/Subscribe" && (
-						<Link style={{ color: "white", textDecoration: "none" }} to="/">
+						<Link style={{ color: "black", textDecoration: "none" }} to="/">
 							Home
 						</Link>
 					)}

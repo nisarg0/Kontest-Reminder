@@ -862,7 +862,7 @@ const defaultSubscribtion = {
 	AtCoder: true,
 	CodeChef: true,
 	LeetCode: true,
-	"Kick Start": true,
+	"Kick Start": false,
 	CodeForces: true,
 	TopCoder: true,
 	HackerRank: true,
@@ -912,9 +912,13 @@ const ContestProvider = ({ children }) => {
 			setToday(newContests);
 		}
 	};
+
 	const changeSubStatus = (site) => {
-		subscribed.site = !subscribed.site;
-		setSubscribed(subscribed);
+		console.log("site", site);
+		var temp = { ...subscribed };
+		temp[site] = !temp[site];
+		console.log(temp);
+		setSubscribed(temp);
 	};
 	const changeDailyChallenge = (new_status) => {
 		subscribed.dailyChallenge = new_status;

@@ -7,6 +7,8 @@ import {
 } from "@mui/material";
 
 export default function SubscribeCard({ platform, value, changeSubStatus }) {
+	console.log(platform);
+	console.log(value);
 	return (
 		<Card
 			sx={{
@@ -20,7 +22,9 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 				},
 				alignItems: "center",
 				width: "100%",
+				backgroundColor: value ? "#b3e0ff" : "white",
 			}}
+			onClick={() => changeSubStatus(platform)}
 		>
 			<CardMedia
 				component="img"
@@ -36,7 +40,7 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 			<Typography
 				component="div"
 				color="text.primary"
-				sx={{ flex: 1, fontSize: 14, textAlign: "center" }}
+				sx={{ flex: 1, fontSize: 14, textAlign: "center", cursor: "default" }}
 				fontWeight="550"
 			>
 				{platform}

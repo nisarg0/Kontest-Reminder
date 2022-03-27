@@ -19,9 +19,8 @@ export default function Subscribe() {
 				{Object.keys(subscribed).map(
 					(key) =>
 						key !== "dailyChallenge" && (
-							<Grid item xs={6}>
+							<Grid item key={key} xs={6}>
 								<SubscribeCard
-									key={key}
 									platform={key}
 									value={subscribed[key]}
 									changeSubStatus={changeSubStatus}

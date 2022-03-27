@@ -14,9 +14,9 @@ const styles = makeStyles({
 	},
 	tabs: {
 		"& .Mui-selected": {
-			backgroundColor: "#4D4847 !important",
+			backgroundColor: "#C4C4C4 !important",
 		},
-		backgroundColor: "#4D4847",
+		backgroundColor: "#C4C4C4",
 	},
 	tabBtn: {
 		textTransform: "none !important",
@@ -119,7 +119,7 @@ function TabPanel(props) {
 	const { children, value, index } = props;
 	if (value === index) {
 		return (
-			<Box sx={{ paddingTop: 1.5, backgroundColor: "#4D4847" }}>{children}</Box>
+			<Box sx={{ paddingTop: 1.5, backgroundColor: "#C4C4C4" }}>{children}</Box>
 		);
 	} else return null;
 }

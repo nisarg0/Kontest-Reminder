@@ -42,11 +42,11 @@ export default function ContestCard({ contest, onDelete }) {
 					marginBottom: 1.5,
 					marginRight: 1.5,
 					marginLeft: 1.5,
-					padding: 1,
+					p: 2,
 					boxShadow: "none",
 					":hover": {
 						":hover": {
-							boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.16)",
+							boxShadow: "0px 4px 8px rgba(25, 50, 75, 0.10)",
 						},
 					},
 				}}
@@ -61,7 +61,6 @@ export default function ContestCard({ contest, onDelete }) {
 						height: 70,
 						borderRadius: 2,
 						alignSelf: "center",
-						marginLeft: 1,
 					}}
 					image={mapping[contest.site].logo}
 					alt={contest.name}
@@ -81,7 +80,7 @@ export default function ContestCard({ contest, onDelete }) {
 							color="text.primary"
 							sx={{ fontSize: 14 }}
 							textAlign="center"
-							fontWeight="550"
+							fontWeight="600"
 						>
 							{contest.name}
 						</Typography>
@@ -92,17 +91,17 @@ export default function ContestCard({ contest, onDelete }) {
 							<Box sx={{ marginLeft: "8px" }}>
 								<Typography
 									variant="caption"
-									color="text.secondary"
+									color="#919191"
 									component="div"
-									sx={{ fontSize: "0.55rem", fontWeight: "600" }}
+									sx={{ fontSize: "9px", fontWeight: "600" }}
 								>
 									{"Start: " + beautifyDate(contest.start_time)}
 								</Typography>
 								<Typography
 									variant="caption"
-									color="text.secondary"
+									color="#919191"
 									component="div"
-									sx={{ fontSize: "0.55rem", fontWeight: "600" }}
+									sx={{ fontSize: "9px", fontWeight: "600" }}
 								>
 									{"End:  " + beautifyDate(contest.end_time)}
 								</Typography>
@@ -131,9 +130,10 @@ export default function ContestCard({ contest, onDelete }) {
 							variant="contained"
 							size="small"
 							sx={{
-								fontSize: 8,
+								fontSize: 9,
 								textTransform: "none",
-								backgroundColor: "#1FA0DB",
+								backgroundColor: "#67D6FA",
+								boxShadow: "none",
 								":hover": {
 									bgcolor: color,
 								},
@@ -148,9 +148,10 @@ export default function ContestCard({ contest, onDelete }) {
 							variant="contained"
 							size="small"
 							sx={{
-								fontSize: 8,
+								fontSize: 9,
 								textTransform: "none",
-								backgroundColor: "#1FA0DB",
+								backgroundColor: "#67D6FA",
+								boxShadow: "none",
 								":hover": {
 									bgcolor: color,
 								},

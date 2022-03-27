@@ -22,11 +22,11 @@ export default function ContestCard() {
 					marginBottom: 1.5,
 					marginRight: 1.5,
 					marginLeft: 1.5,
-					padding: 1,
+					p: 2,
 					boxShadow: "none",
 					":hover": {
 						":hover": {
-							boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.16)",
+							boxShadow: "0px 4px 8px rgba(25, 50, 75, 0.10)",
 						},
 					},
 				}}

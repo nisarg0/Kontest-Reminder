@@ -58,14 +58,12 @@ export default function ContestCard() {
 		<Card
 			sx={{
 				display: "flex",
-				border: 1,
 				borderRadius: 2,
-				borderColor: "grey.500",
-				padding: 1,
+				marginBottom: 1.5,
+				boxShadow: "none",
 				":hover": {
 					":hover": {
-						borderColor: "#3CC5F3",
-						borderWidth: 1.5,
+						boxShadow: "0px 4px 8px rgba(25, 50, 75, 0.12)",
 					},
 				},
 			}}
@@ -83,14 +81,14 @@ export default function ContestCard() {
 					Daily Challenge
 				</Typography>
 				<FormGroup>
-					<Box sx={{display: 'flex', alignItems: "center", justifyContent: "center"}}>
-						<Typography sx={{ fontWeight: "medium" }}>
+					<Box sx={{ display: 'flex', alignItems: "center", justifyContent: "center" }}>
+						<Typography sx={{ fontWeight: "medium", fontSize: '14px' }}>
 							Competitive Programming
 						</Typography>
 						<AntSwitch
 							defaultChecked
 						/>
-						<Typography sx={{ fontWeight: "medium", textAlign: 'right' }}>
+						<Typography sx={{ fontWeight: "medium", fontSize: '14px', textAlign: 'right' }}>
 							Placement Practice
 						</Typography>
 					</Box>

@@ -17,7 +17,7 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 				padding: 1,
 				boxShadow: "none",
 				":hover": {
-					"box-shadow": "0px 0px 8px 3px rgba(50, 100, 150, 0.16)",
+					"box-shadow": "0px 4px 8px rgba(50, 100, 150, 0.10)",
 				},
 				alignItems: "center",
 				width: "100%",

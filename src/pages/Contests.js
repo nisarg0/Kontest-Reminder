@@ -28,17 +28,17 @@ const tabBorders = {
 const styles = makeStyles({
 	root: {},
 	tabPanel: {
-		backgroundColor: "#F2F2F2",
+		backgroundColor: "#E5E5E5",
 	},
 	tabs: {
 		"& .Mui-selected": { 
 			color: "#222222"
 		},
 		"& .Mui-selected .MuiTouchRipple-root": {
-			backgroundColor: "#C4C4C4 !important",
+			backgroundColor: "#F5F5F5 !important",
 		},
 		"& .Mui-selected::before": {
-			backgroundColor: "#F2F2F2 !important"
+			backgroundColor: "#E5E5E5 !important"
 		}
 	},
 	tabBtn: {
@@ -51,7 +51,7 @@ const styles = makeStyles({
 
 		"& .MuiTouchRipple-root": {
 			zIndex: "-1",
-			backgroundColor: '#F2F2F2',
+			backgroundColor: '#E5E5E5',
 		},
 
 		overflow: "visible !important",
@@ -62,7 +62,7 @@ const styles = makeStyles({
 			left: "0",
 			width: "100%",
 			height: "100%",
-			backgroundColor: "#C4C4C4",
+			backgroundColor: "#F5F5F5",
 			zIndex: "-1"
 		}
 	},
@@ -82,9 +82,9 @@ export default function Contests() {
 		<>
 			<Box sx={{ width: "100%" }}>
 				<Box>
-					<AppBar position="static" sx={{ backgroundColor: "#F2F2F2" }}>
+					<AppBar position="static" sx={{ backgroundColor: "#E5E5E5" }}>
 						<Box
-							sx={{ width: "100%", height: "8px", backgroundColor: "#F2F2F2" }}
+							sx={{ width: "100%", height: "8px", backgroundColor: "#E5E5E5" }}
 						></Box>
 						<Tabs
 							className={classes.tabs}
@@ -101,7 +101,7 @@ export default function Contests() {
 				</Box>
 				<TabPanel className={classes.tabPanel} value={value} index={0}>
 					{ongoing.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
+						<Box sx={{ textAlign: "center", color: "#333" }}>
 							No Ongoing Contests
 						</Box>
 					) : (
@@ -117,7 +117,7 @@ export default function Contests() {
 				<TabPanel className={classes.tabPanel} value={value} index={1}>
 					{<ChallengeCard />}
 					{today.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
+						<Box sx={{ textAlign: "center", color: "#333" }}>
 							No Contest Today
 						</Box>
 					) : (
@@ -132,7 +132,7 @@ export default function Contests() {
 				</TabPanel>
 				<TabPanel className={classes.tabPanel} value={value} index={2}>
 					{upcoming.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
+						<Box sx={{ textAlign: "center", color: "#333" }}>
 							No Upcoming Contests
 						</Box>
 					) : (
@@ -154,7 +154,7 @@ function TabPanel(props) {
 	const { children, value, index } = props;
 	if (value === index) {
 		return (
-			<Box sx={{ paddingTop: 1.5, backgroundColor: "#C4C4C4" }}>{children}</Box>
+			<Box sx={{ paddingTop: 1.5, backgroundColor: "#F5F5F5" }}>{children}</Box>
 		);
 	} else return null;
 }

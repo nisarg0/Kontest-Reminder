@@ -1,4 +1,3 @@
-import "./App.css";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 
 import NavigationBar from "./components/NavigationBar";
@@ -23,7 +22,6 @@ function App() {
 					<Route path="/" exact component={Contests} />
 					<Route path="/Subscribe" component={Subscribe} />
 				</Switch>
-				{/* <Subscribe /> */}
 			</ContestProvider>
 		</ThemeProvider>
 	);

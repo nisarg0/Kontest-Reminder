@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 
 import NavigationBar from "./components/NavigationBar";
 import { Switch, Route } from "react-router-dom";
-// import MyContest from "./components/MyContest";
 
 import Contests from "./pages/Contests";
 import Subscribe from "./pages/Subscribe";

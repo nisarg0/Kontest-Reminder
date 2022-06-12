@@ -1,51 +1,51 @@
 import * as React from "react";
-import {
-	Typography,
-	CardMedia,
-	Card,
-	// Button,
-} from "@mui/material";
+import { Typography, CardMedia, Card } from "@mui/material";
 
 export default function SubscribeCard({ platform, value, changeSubStatus }) {
-	// console.log(platform);
-	// console.log(value);
 	return (
-		<Card
-			sx={{
-				display: "flex",
-				borderRadius: 2,
-				padding: 1,
-				boxShadow: "none",
-				":hover": {
-					"box-shadow": "0px 0px 8px 3px rgba(50, 100, 150, 0.16)",
-				},
-				alignItems: "center",
-				width: "100%",
-				backgroundColor: "white",
-				border: value ? "2px solid #1FA0DB" : "none"
-			}}
-			onClick={() => changeSubStatus(platform)}
-		>
-			<CardMedia
-				component="img"
+		<>
+			<Card
 				sx={{
-					width: 35,
-					height: 35,
+					display: "flex",
 					borderRadius: 2,
-					alignSelf: "center",
+					padding: 1,
+					boxShadow: "none",
+					":hover": {
+						"box-shadow": "0px 0px 8px 3px rgba(50, 100, 150, 0.16)",
+					},
+					alignItems: "center",
+					width: "100%",
+					borderLeft: value ? "5px solid #1FA0DB" : "5px solid black",
 				}}
-				image={mapping[platform].logo}
-			/>
-
-			<Typography
-				component="div"
-				color="text.primary"
-				sx={{ flex: 1, fontSize: 14, textAlign: "center", cursor: "default", color: value ? "#1FA0DB" : "#222" }}
-				fontWeight="550"
+				onClick={() => changeSubStatus(platform)}
 			>
-				{platform}
-			</Typography>
-		</Card>
+				<CardMedia
+					component="img"
+					sx={{
+						width: 35,
+						height: 35,
+						borderRadius: 2,
+						alignSelf: "center",
+					}}
+					image={mapping[platform].logo}
+				/>
+
+				<Typography
+					component="div"
+					color="text.primary"
+					sx={{
+						flex: 1,
+						fontSize: 14,
+						textAlign: "center",
+						cursor: "default",
+						color: value ? "#1FA0DB" : "#222",
+					}}
+					fontWeight="550"
+				>
+					{platform}
+				</Typography>
+			</Card>
+		</>
 	);
 }
 

@@ -46,31 +46,29 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 		borderRadius: 16 / 2,
 		opacity: 1,
 		backgroundColor:
-			theme.palette.mode === "dark"
-				? "rgba(255,255,255,.35)"
-				: "rgba(0,0,0,1)",
+			theme.palette.mode === "dark" ? "rgba(255,255,255,.35)" : "rgba(0,0,0,1)",
 		boxSizing: "border-box",
 	},
 }));
 
-export default function ContestCard() {
+export default function SubChallengeCard(input) {
+	console.log("Input", input);
+	console.log("Here1");
+	var Challenge = input.Challenge;
+	var changeDailyChallenge = input.changeDailyChallenge;
 	return (
 		<Card
 			sx={{
 				display: "flex",
-				border: 1,
 				borderRadius: 2,
-				borderColor: "grey.500",
+				borderLeft: Challenge !== 0 ? "5px solid #1FA0DB" : "5px solid black",
 				padding: 1,
 				":hover": {
-					":hover": {
-						borderColor: "#3CC5F3",
-						borderWidth: 1.5,
-					},
+					"box-shadow": "0px 0px 8px 3px rgba(50, 100, 150, 0.16)",
 				},
 			}}
 			onClick={() => {
-				browser.tabs.create({ active: true, url: "www.google.in" });
+				Challenge === 1 ? changeDailyChallenge(2) : changeDailyChallenge(1);
 			}}
 		>
 			<CardContent>
@@ -83,14 +81,18 @@ export default function ContestCard() {
 					Daily Challenge
 				</Typography>
 				<FormGroup>
-					<Box sx={{display: 'flex', alignItems: "center", justifyContent: "center"}}>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
 						<Typography sx={{ fontWeight: "medium" }}>
 							Competitive Programming
 						</Typography>
-						<AntSwitch
-							defaultChecked
-						/>
-						<Typography sx={{ fontWeight: "medium", textAlign: 'right' }}>
+						<AntSwitch defaultChecked variant="contained" />
+						<Typography sx={{ fontWeight: "medium", textAlign: "right" }}>
 							Placement Practice
 						</Typography>
 					</Box>

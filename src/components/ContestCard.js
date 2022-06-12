@@ -14,15 +14,35 @@ import openIcon from "../assets/auto-open.png";
 // For browser apis
 var browser = require("webextension-polyfill");
 
-export default function ContestCard({ contest, onDelete }) {
+export default function ContestCard({
+	contest,
+	onDelete,
+	autoOpenState,
+	onAutoOpen,
+}) {
 	const calanderIcon = <img alt="calander" src={calIcon} />;
 	const autoopenIcon = <img alt="auto-open" src={openIcon} />;
 	const BinIcon = () => <img alt="bin" src={delIcon} />;
 	const color = mapping[contest.site].color;
-
 	const handleCalanderClick = (event) => {
 		event.stopPropagation();
-		console.log("start_time: ", contest.start_time);
+		console.log("In Calander");
+
+		var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(
+			contest.name
+		)}&dates=${ISODateString(contest.start_time)}/${ISODateString(
+			contest.end_time
+		)}&location=${encodeURIComponent(
+			contest.url
+		)}&details=Don't forget to go through the editorial after contest. Happy coding! - Kontest Reminder`;
+		console.log("uri: " + uri);
+		browser.tabs.create({ active: true, url: uri });
+	};
+
+	const handleAutoOpen = (event) => {
+		event.stopPropagation();
+		console.log("In Auto Open");
+		onAutoOpen(contest);
 	};
 
 	return (
@@ -74,7 +94,9 @@ export default function ContestCard({ contest, onDelete }) {
 						width: "100%",
 					}}
 				>
-					<CardContent sx={{ flex: "1 0 auto", padding: 0 }}>
+					<CardContent
+						sx={{ flex: "1 0 auto", padding: 0, cursor: "context-menu" }}
+					>
 						<Typography
 							className="contest-name"
 							component="div"
@@ -86,7 +108,7 @@ export default function ContestCard({ contest, onDelete }) {
 							{contest.name}
 						</Typography>
 						<Box
-							sx={{ display: "flex", padding: "10px" }}
+							sx={{ display: "flex", padding: "10px", cursor: "context-menu" }}
 							justifyContent="space-evenly"
 						>
 							<Box sx={{ marginLeft: "8px" }}>
@@ -94,7 +116,11 @@ export default function ContestCard({ contest, onDelete }) {
 									variant="caption"
 									color="text.secondary"
 									component="div"
-									sx={{ fontSize: "0.55rem", fontWeight: "600" }}
+									sx={{
+										fontSize: "0.55rem",
+										fontWeight: "600",
+										cursor: "context-menu",
+									}}
 								>
 									{"Start: " + beautifyDate(contest.start_time)}
 								</Typography>
@@ -102,7 +128,11 @@ export default function ContestCard({ contest, onDelete }) {
 									variant="caption"
 									color="text.secondary"
 									component="div"
-									sx={{ fontSize: "0.55rem", fontWeight: "600" }}
+									sx={{
+										fontSize: "0.55rem",
+										fontWeight: "600",
+										cursor: "context-menu",
+									}}
 								>
 									{"End:  " + beautifyDate(contest.end_time)}
 								</Typography>
@@ -150,12 +180,13 @@ export default function ContestCard({ contest, onDelete }) {
 							sx={{
 								fontSize: 8,
 								textTransform: "none",
-								backgroundColor: "#1FA0DB",
+								backgroundColor: autoOpenState ? color : "#1FA0DB",
 								":hover": {
-									bgcolor: color,
+									bgcolor: autoOpenState ? "#1FA0DB" : color,
 								},
 							}}
 							startIcon={autoopenIcon}
+							onClick={handleAutoOpen}
 						>
 							Auto open
 						</Button>
@@ -249,6 +280,20 @@ const beautifyDate = (date) => {
 		.toLocaleString("en-IN", date_options)
 		.replaceAll("-", " ");
 };
+
+//  Converts date string to the format needed by Google calnder api
+function ISODateString(d) {
+	console.log("In ISODateString");
+
+	var isoDate = d;
+	console.log("ISO Date initial: " + isoDate);
+	isoDate = isoDate.replaceAll(":", "");
+	isoDate = isoDate.replaceAll("-", "");
+	console.log("ISO Date later: " + isoDate);
+	var retval = isoDate.split(".")[0] + "Z";
+	console.log("ISO Date retval: " + retval);
+	return retval;
+}
 
 const findContestLength = (start, end) => {
 	let start_date = new Date(start);

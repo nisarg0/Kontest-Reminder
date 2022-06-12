@@ -8,12 +8,14 @@ import { ContestContext } from "../context/contestContext";
 export default function Subscribe() {
 	const { subscribed, changeSubStatus, changeDailyChallenge } =
 		useContext(ContestContext);
-
 	return (
 		<Box sx={{ width: "100%", marginTop: "8px", padding: "8px" }}>
 			<Grid container spacing={1.5}>
 				<Grid item xs={12}>
-					<SubChallenge />
+					<SubChallenge
+						Challenge={subscribed.dailyChallenge}
+						changeDailyChallenge={changeDailyChallenge}
+					/>
 				</Grid>
 
 				{Object.keys(subscribed).map(
@@ -24,7 +26,6 @@ export default function Subscribe() {
 									platform={key}
 									value={subscribed[key]}
 									changeSubStatus={changeSubStatus}
-									changeDailyChallenge={changeDailyChallenge}
 								/>
 							</Grid>
 						)

@@ -4,7 +4,9 @@ import { Typography, CardMedia, CardContent, Card, Box } from "@mui/material";
 // For browser apis
 var browser = require("webextension-polyfill");
 
-export default function ContestCard() {
+export default function ContestCard(input) {
+	var Challenge = input.Challenge;
+	console.log("Challenge", Challenge);
 	return (
 		<Box
 			sx={{

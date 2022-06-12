@@ -6,6 +6,7 @@ import { ContestContext } from "../context/contestContext";
 import { Tabs, Tab, AppBar } from "@mui/material";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
+import cat from "../assets/cat.png";
 
 const tabBorders = {
 	0: {
@@ -23,7 +24,7 @@ const tabBorders = {
 		today: "0px 0px 12px 0px !important",
 		upcoming: "12px 12px 0px 0px !important",
 	},
-}
+};
 
 const styles = makeStyles({
 	root: {},
@@ -31,18 +32,18 @@ const styles = makeStyles({
 		backgroundColor: "#F2F2F2",
 	},
 	tabs: {
-		"& .Mui-selected": { 
-			color: "#222222"
+		"& .Mui-selected": {
+			color: "#222222",
 		},
 		"& .Mui-selected .MuiTouchRipple-root": {
 			backgroundColor: "#C4C4C4 !important",
 		},
 		"& .Mui-selected::before": {
-			backgroundColor: "#F2F2F2 !important"
-		}
+			backgroundColor: "#F2F2F2 !important",
+		},
 	},
 	tabBtn: {
-		color: '#222222',
+		color: "#222222",
 		textTransform: "none !important",
 		position: "relative",
 		flex: 1,
@@ -51,7 +52,7 @@ const styles = makeStyles({
 
 		"& .MuiTouchRipple-root": {
 			zIndex: "-1",
-			backgroundColor: '#F2F2F2',
+			backgroundColor: "#F2F2F2",
 		},
 
 		overflow: "visible !important",
@@ -63,17 +64,25 @@ const styles = makeStyles({
 			width: "100%",
 			height: "100%",
 			backgroundColor: "#C4C4C4",
-			zIndex: "-1"
-		}
+			zIndex: "-1",
+		},
 	},
 });
 
 export default function Contests() {
-	const { ongoing, upcoming, today, deleteContest } =
-		useContext(ContestContext);
+	const {
+		ongoing,
+		upcoming,
+		today,
+		deleteContest,
+		autoOpen,
+		changeAutoOpen,
+		subscribed,
+	} = useContext(ContestContext);
 	const classes = styles();
 
 	const [value, setValue] = React.useState(1);
+
 	const handleTab = (event, newValue) => {
 		setValue(newValue);
 	};
@@ -86,23 +95,32 @@ export default function Contests() {
 						<Box
 							sx={{ width: "100%", height: "8px", backgroundColor: "#F2F2F2" }}
 						></Box>
-						<Tabs
-							className={classes.tabs}
-							value={value}
-							onChange={handleTab}
-						>
-							<Tab sx={{ borderRadius: tabBorders[value].ongoing}} className={classes.tabBtn} label="Ongoing" />
+						<Tabs className={classes.tabs} value={value} onChange={handleTab}>
+							<Tab
+								sx={{ borderRadius: tabBorders[value].ongoing }}
+								className={classes.tabBtn}
+								label="Ongoing"
+							/>
 
-							<Tab sx={{ borderRadius: tabBorders[value].today}} className={classes.tabBtn} label="Today" />
+							<Tab
+								sx={{ borderRadius: tabBorders[value].today }}
+								className={classes.tabBtn}
+								label="Today"
+							/>
 
-							<Tab sx={{ borderRadius: tabBorders[value].upcoming}} className={classes.tabBtn} label="Upcoming" />
+							<Tab
+								sx={{ borderRadius: tabBorders[value].upcoming }}
+								className={classes.tabBtn}
+								label="Upcoming"
+							/>
 						</Tabs>
 					</AppBar>
 				</Box>
 				<TabPanel className={classes.tabPanel} value={value} index={0}>
 					{ongoing.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
+						<Box sx={{ textAlign: "center", color: "black" }}>
 							No Ongoing Contests
+							<img src={cat} width={360} alt="sleeping-cat" />
 						</Box>
 					) : (
 						ongoing.map((contest) => (
@@ -110,15 +128,18 @@ export default function Contests() {
 								key={contest.name}
 								contest={contest}
 								onDelete={() => deleteContest(contest.name)}
+								onAutoOpen={() => changeAutoOpen(contest)}
+								autoOpenState={autoOpen.indexOf(contest.name) !== -1}
 							/>
 						))
 					)}
 				</TabPanel>
 				<TabPanel className={classes.tabPanel} value={value} index={1}>
-					{<ChallengeCard />}
+					{<ChallengeCard Challenge={subscribed.dailyChallenge} />}
 					{today.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
-							No Contest Today
+						<Box sx={{ textAlign: "center", color: "black" }}>
+							No Contests Today
+							<img src={cat} width={360} alt="sleeping-cat" />
 						</Box>
 					) : (
 						today.map((contest) => (
@@ -126,21 +147,26 @@ export default function Contests() {
 								key={contest.name}
 								contest={contest}
 								onDelete={() => deleteContest(contest.name)}
+								onAutoOpen={() => changeAutoOpen(contest)}
+								autoOpenState={autoOpen.indexOf(contest.name) !== -1}
 							/>
 						))
 					)}
 				</TabPanel>
 				<TabPanel className={classes.tabPanel} value={value} index={2}>
 					{upcoming.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
+						<Box sx={{ textAlign: "center", color: "black" }}>
 							No Upcoming Contests
+							<img src={cat} width={360} alt="sleeping-cat" />
 						</Box>
 					) : (
 						upcoming.map((contest) => (
 							<ContestCard
 								key={contest.name}
 								contest={contest}
+								autoOpenState={autoOpen.indexOf(contest.name) !== -1}
 								onDelete={() => deleteContest(contest.name)}
+								onAutoOpen={() => changeAutoOpen(contest)}
 							/>
 						))
 					)}

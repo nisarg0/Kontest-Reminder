@@ -4,7 +4,10 @@ import { Typography, CardMedia, CardContent, Card, Box } from "@mui/material";
 // For browser apis
 var browser = require("webextension-polyfill");
 
-export default function ContestCard() {
+export default function ContestCard(dailyChallenge) {
+	console.log("Daily Challenge: ", dailyChallenge);
+	dailyChallenge = dailyChallenge.dailyChallenge;
+	console.log("Daily Challenge: ", dailyChallenge);
 	return (
 		<Box
 			sx={{
@@ -33,7 +36,7 @@ export default function ContestCard() {
 					},
 				}}
 				onClick={() => {
-					browser.tabs.create({ active: true, url: "www.google.in" });
+					browser.tabs.create({ active: true, url: dailyChallenge.link });
 				}}
 			>
 				<CardMedia
@@ -45,8 +48,8 @@ export default function ContestCard() {
 						alignSelf: "center",
 						marginLeft: 1,
 					}}
-					image="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png"
-					alt="GFG"
+					image={profilePic[dailyChallenge.platform]}
+					alt={dailyChallenge.platform}
 				/>
 				<Box
 					sx={{
@@ -75,7 +78,7 @@ export default function ContestCard() {
 							justifyContent="center"
 							fontWeight="525"
 						>
-							Beautiful Tries Beautiful Tries Beautiful Tries
+							{dailyChallenge.title}
 						</Typography>
 
 						<Typography
@@ -90,7 +93,7 @@ export default function ContestCard() {
 								right: 22,
 							}}
 						>
-							CF Rating 1800
+							{dailyChallenge.difficulty}
 						</Typography>
 					</CardContent>
 				</Box>
@@ -98,6 +101,13 @@ export default function ContestCard() {
 		</Box>
 	);
 }
+
+const profilePic = {
+	geeksforgeeks:
+		"https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png",
+	leetcode:
+		"https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
+};
 
 // ************************************************* Helper Functions **************************************************
 

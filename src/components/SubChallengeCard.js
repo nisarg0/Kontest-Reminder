@@ -6,6 +6,7 @@ import {
 	Switch,
 	FormGroup,
 	Stack,
+	CardMedia,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -53,7 +54,11 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 	},
 }));
 
-export default function ContestCard() {
+export default function SubChallengeCard({
+	dailyChallenge,
+	changeDailyChallenge,
+}) {
+	console.log("DailyChallenge: " + dailyChallenge);
 	return (
 		<Card
 			sx={{
@@ -68,6 +73,7 @@ export default function ContestCard() {
 						borderWidth: 1.5,
 					},
 				},
+				justifyContent: "center",
 			}}
 			onClick={() => {
 				browser.tabs.create({ active: true, url: "www.google.in" });
@@ -77,22 +83,44 @@ export default function ContestCard() {
 				<Typography
 					component="div"
 					color="text.primary"
-					sx={{ fontSize: 16, fontWeight: "bold", marginBottom: "8px" }}
+					sx={{ fontSize: 16, fontWeight: "bold", marginBottom: "10px" }}
 					textAlign="center"
 				>
 					Daily Challenge
 				</Typography>
 				<FormGroup>
-					<Stack direction="row" spacing="space-between" alignItems="center">
+					<Stack direction="row" spacing={3} alignItems="center">
 						<Typography sx={{ fontWeight: "medium" }}>
-							Competitive Programming
+							<Card>
+								<CardMedia
+									component="img"
+									sx={{
+										width: 70,
+										height: 70,
+										alignSelf: "center",
+									}}
+									image={dailyChallengePlatformList.leetCode}
+								/>
+							</Card>
 						</Typography>
 						<AntSwitch
-							defaultChecked
+							checked={dailyChallenge}
+							onChange={changeDailyChallenge}
+							name="dailyChallengeSwitch"
 							inputProps={{ "aria-label": "ant design" }}
 						/>
-						<Typography sx={{ paddingLeft: "16px", fontWeight: "medium" }}>
-							Placement Practice
+						<Typography sx={{ fontWeight: "medium" }}>
+							<Card>
+								<CardMedia
+									component="img"
+									sx={{
+										width: 70,
+										height: 70,
+										alignSelf: "center",
+									}}
+									image={dailyChallengePlatformList.gfg}
+								/>
+							</Card>
 						</Typography>
 					</Stack>
 				</FormGroup>
@@ -100,3 +128,9 @@ export default function ContestCard() {
 		</Card>
 	);
 }
+
+const dailyChallengePlatformList = {
+	leetCode:
+		"https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
+	gfg: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png",
+};

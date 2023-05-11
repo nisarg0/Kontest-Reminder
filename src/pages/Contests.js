@@ -29,9 +29,10 @@ const styles = makeStyles({
 });
 
 export default function Contests() {
-	const { ongoing, upcoming, today, deleteContest } =
+	const { ongoing, upcoming, today, deleteContest, dailyChallenge } =
 		useContext(ContestContext);
 	const classes = styles();
+	// console.log("dailyChallenge", dailyChallenge);
 
 	console.log("ongoing", ongoing);
 	console.log("upcoming", upcoming);
@@ -80,7 +81,7 @@ export default function Contests() {
 					)}
 				</TabPanel>
 				<TabPanel className={classes.tabPanel} value={value} index={1}>
-					{<ChallengeCard />}
+					{<ChallengeCard dailyChallenge={dailyChallenge} />}
 					{today.length === 0 ? (
 						<Box sx={{ textAlign: "center", color: "white" }}>
 							No Contest Today

@@ -236,7 +236,7 @@
 // // ========================================== Helper ==================================================
 
 // async function fetchContestDetails() {
-// 	const res = await fetch(`https://www.kontests.net/api/v1/all`, {
+// 	const res = await fetch(`https://kontests.net/api/v1/all`, {
 // 		method: "GET",
 // 		headers: {
 // 			"Content-type": "application/json; charset=UTF-8",

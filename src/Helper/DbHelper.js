@@ -12,7 +12,6 @@ export const getDeletedContestsDB = async () => {
 	});
 };
 export const getMyContestsDB = async () => {
-	console.log("getMyContestDB");
 	var res = await localforage.getItem("myContests");
 	if (res === null) return [];
 	console.log("getMyContestDB: ", res);
@@ -27,6 +26,7 @@ export const getSubscriptionStatusDB = async () => {
 	var res = await localforage.getItem("platforms");
 	if (res === null)
 		return {
+			dailyChallenge: true,
 			CodeChef: true,
 			CodeForces: true,
 			LeetCode: true,
@@ -54,8 +54,8 @@ export const setDailyChallengeDB = async (dailyChallenge) => {
 	);
 };
 export const getDailyChallengeDB = async () => {
-	return await localforage.getItem("dailyChallenge", function (err, value) {
-		if (err) console.log(err);
-		return value;
-	});
+	var res = await localforage.getItem("dailyChallenge");
+	console.log("getDailyChallengeDB: ", res);
+	if (res === null) return {};
+	return res;
 };

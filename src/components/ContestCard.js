@@ -23,6 +23,35 @@ export default function ContestCard({ contest, onDelete }) {
 	const handleCalanderClick = (event) => {
 		event.stopPropagation();
 		console.log("start_time: ", contest.start_time);
+		// function openCalander(contest) {
+		// 	console.log("In Calander");
+		function ISODateString(d) {
+			console.log("In ISODateString");
+			// var isoDate = d.toISOString();
+			var isoDate = d;
+			console.log("ISO Date initial: " + isoDate);
+			isoDate = isoDate.replaceAll(":", "");
+			isoDate = isoDate.replaceAll("-", "");
+			console.log("ISO Date later: " + isoDate);
+			var retval = isoDate.split(".")[0] + "Z";
+			console.log("ISO Date retval: " + retval);
+			return retval;
+		}
+
+		var start = contest.start_time;
+		var end = contest.end_time;
+		console.log("start:" + start);
+		console.log("end:" + end);
+
+		var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(
+			contest.name
+		)}&dates=${ISODateString(start)}/${ISODateString(
+			end
+		)}&location=${encodeURIComponent(
+			contest.url
+		)}&details=Your reminder is set by Kontest Reminder. We wish you all the success in the world ❤️`;
+		console.log("uri: " + uri);
+		browser.tabs.create({ active: true, url: uri });
 	};
 
 	return (

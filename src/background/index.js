@@ -1,5 +1,12 @@
 import localforage from "localforage";
-import { setMyContestsDB, getSubscriptionStatusDB } from "../Helper/DbHelper";
+import {
+	setMyContestsDB,
+	getSubscriptionStatusDB,
+	setSubscriptionStatusDB,
+	setDeletedContestsDB,
+	getDeletedContestsDB,
+	setDailyChallengeDB,
+} from "../Helper/DbHelper";
 
 var browser = require("webextension-polyfill");
 
@@ -17,16 +24,21 @@ console.log("IN background");
 
 var myContests = [];
 var deletedContests = [];
+var subscriptionStatus = {};
 
-var subscriptionStatus = {
-	CodeChef: true,
-	CodeForces: true,
-	LeetCode: true,
-	AtCoder: true,
-	HackerEarth: true,
-	HackerRank: true,
-	"Kick Start": true,
-	TopCoder: true,
+var defaultDailyChallenge = {
+	leetcode: {
+		title: "Daily Challenge",
+		difficulty: "",
+		link: "",
+		platform: "leetcode",
+	},
+	geeksforgeeks: {
+		title: "Challenge of the Day",
+		difficulty: "",
+		link: "https://practice.geeksforgeeks.org/problem-of-the-day",
+		platform: "geeksforgeeks",
+	},
 };
 
 // Fetch Function
@@ -35,9 +47,7 @@ async function fetchAllMyContests() {
 
 	// We delete an element in it if tit has occured in the fetch...
 	var usedDeletedContests = [];
-
 	var contests = await fetchContestDetails();
-
 	for (var contest of contests) {
 		if (contest.duration <= 864001 && subscriptionStatus[contest.site]) {
 			var contest_name = contest.name;
@@ -60,15 +70,14 @@ async function fetchAllMyContests() {
 // ================================= Recieve Alarm Request ============================
 
 browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-	// console.log("Msg recieed");
 	if (request.data === "Update MyContests") {
 		sendResponse({ data: "success" });
-		await getSubscriptionStatusDB();
-		await getDeletedContests();
+		subscriptionStatus = await getSubscriptionStatusDB();
+		deletedContests = await getDeletedContestsDB();
 		await fetchAllMyContests();
-		await setDeletedContests();
+		await setDeletedContestsDB(deletedContests);
 		await setMyContestsDB(myContests);
-		await setSubscriptionStatus();
+		await setSubscriptionStatusDB(subscriptionStatus);
 	}
 });
 
@@ -101,10 +110,11 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 	console.log("alarm listened" + alarm.name);
 	if (alarm.name === "refresh") {
 		console.log("in refresh");
-		await getSubscriptionStatusDB();
-		await getDeletedContests();
+		subscriptionStatus = await getSubscriptionStatusDB();
+		deletedContests = await getDeletedContestsDB();
 		await fetchAllMyContests();
-		await setDeletedContests();
+		await updateDailyChallenge();
+		await setDeletedContestsDB(deletedContests);
 		await setMyContestsDB(myContests);
 	} else {
 		var AlarmContests = [];
@@ -132,30 +142,6 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 		console.log(AlarmContests);
 	}
 });
-
-// ========================================= DB ===================================================
-
-async function setSubscriptionStatus() {
-	// console.log("In setSubscriptionStatus");
-	await localforage.setItem("subsciptionStatus", subscriptionStatus);
-}
-
-async function setDeletedContests() {
-	// console.log("In setDeletedContests");
-	await localforage.setItem("deletedContests", deletedContests);
-}
-
-async function getDeletedContests() {
-	// console.log("1. In get Deleted Contests");
-	await localforage.getItem("deletedContests", function (err, value) {
-		if (err || value === null) {
-			// console.log("Err: No deletedContests array in DB");
-			return;
-		}
-		deletedContests = value;
-		// console.log(value);
-	});
-}
 
 // ========================================== Helper ==================================================
 
@@ -206,21 +192,27 @@ async function fetchLeetCodeDailyQuestion() {
 			"https://leetcode.com" + res.data.activeDailyCodingChallengeQuestion.link,
 		difficulty: res.data.activeDailyCodingChallengeQuestion.question.difficulty,
 		title: res.data.activeDailyCodingChallengeQuestion.question.title,
+		platform: "leetcode",
 	};
-	console.log(res);
 	return res;
 }
 
-fetchLeetCodeDailyQuestion();
+const updateDailyChallenge = async () => {
+	var leetcodeChallenge = await fetchLeetCodeDailyQuestion();
+	defaultDailyChallenge.leetcode = leetcodeChallenge;
+
+	await setDailyChallengeDB(defaultDailyChallenge);
+};
 
 // fetch data and save to local storage
 async function startRequest() {
 	// console.log("start HTTP Request...");
 	// We need to get the array that user has stored previously if not then we use original one
-	await getSubscriptionStatusDB();
-	await getDeletedContests();
+	subscriptionStatus = (await getSubscriptionStatusDB()) || {};
+	deletedContests = (await getDeletedContestsDB()) || [];
 	await fetchAllMyContests();
-	await setDeletedContests();
+	await updateDailyChallenge();
+	await setDeletedContestsDB(deletedContests);
 	await setMyContestsDB(myContests);
-	await setSubscriptionStatus();
+	await setSubscriptionStatusDB(subscriptionStatus);
 }

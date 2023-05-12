@@ -4,31 +4,19 @@ import {
 	setDeletedContestsDB,
 	getDeletedContestsDB,
 	// getMyContestDB,
-	// getPlatformsDB,
 	getSubscriptionStatusDB,
 	setMyContestsDB,
 	getMyContestsDB,
 	setSubscriptionStatusDB,
+	getDailyChallengeDB,
+	// setDailyChallengeDB,
 } from "../Helper/DbHelper.js";
 
 const ContestContext = React.createContext();
 
 // const defaultSubscribtion = getSubscriptionStatusDB() || {};
 
-const defaultDailyChallenge = {
-	leetcode: {
-		title: "cross-lines",
-		difficulty: "Medium",
-		link: "https://leetcode.com/problems/uncrossed-lines//",
-		platform: "leetcode",
-	},
-	geeksforgeeks: {
-		title: "Challenge of the Day",
-		difficulty: "",
-		link: "https://practice.geeksforgeeks.org/problem-of-the-day",
-		platform: "geeksforgeeks",
-	},
-};
+var defaultDailyChallenge = {};
 
 // Add condition for is subscribed here and we can maintain the list of subscribed sites
 const filterContest = (contests, subscribed) => {
@@ -41,7 +29,6 @@ const filterContest = (contests, subscribed) => {
 		const start_time = new Date(contest.start_time);
 		const end_time = new Date(contest.end_time);
 		const contestSite = contest.site;
-		console.log("subscribed: ", subscribed);
 		if (subscribed[contestSite]) {
 			if (now < start_time && start_time - now < 86400000) {
 				today.push(contest);
@@ -56,25 +43,30 @@ const filterContest = (contests, subscribed) => {
 	return { ongoing, upcoming, today };
 };
 
-// console.log("defaultSubscribtion: ", defaultSubscribtion);
-
 const ContestProvider = ({ children }) => {
 	const [contests, setContests] = useState([]);
 	const [subscribed, setSubscribed] = useState([]);
+	const [deletedContests, setDeletedContests] = useState([]);
+	const [dailyChallenge, setDailyChallenge] = useState({});
 
 	const filteredContests = filterContest(contests, subscribed);
 	const ongoing = filteredContests.ongoing;
 	const upcoming = filteredContests.upcoming;
 	const today = filteredContests.today;
-	console.log("ongoing1: ", ongoing);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const defaultContest = (await getMyContestsDB()) || [];
 			const deletedContests = (await getDeletedContestsDB()) || [];
 			const defaultSubscribtion = (await getSubscriptionStatusDB()) || {};
+			defaultDailyChallenge = (await getDailyChallengeDB()) || {};
 
-			console.log("defaultContest: ", defaultContest);
+			setDailyChallenge(
+				defaultDailyChallenge[
+					defaultSubscribtion["dailyChallenge"] ? "geeksforgeeks" : "leetcode"
+				]
+			);
+
 			setContests(defaultContest);
 			setSubscribed(defaultSubscribtion);
 			setDeletedContestsDB(deletedContests);
@@ -82,18 +74,17 @@ const ContestProvider = ({ children }) => {
 		fetchData();
 	}, []);
 
-	const [dailyChallenge, setDailyChallenge] = useState(
-		defaultDailyChallenge.geeksforgeeks
-	);
-
 	// Delete contest if it is in the past
 	const deleteContest = (name) => {
 		const newContests = contests.filter((contest) => contest.name !== name);
 		setContests(newContests);
-		// deletedContests.push(name);
+		var tempDeletedContests = deletedContests;
+		tempDeletedContests.push(name);
 
+		setDeletedContests(tempDeletedContests);
+
+		setDeletedContestsDB(tempDeletedContests);
 		setMyContestsDB(newContests);
-		setDeletedContestsDB(deleteContest);
 	};
 
 	const changeSubStatus = (site) => {
@@ -103,6 +94,7 @@ const ContestProvider = ({ children }) => {
 		setSubscriptionStatusDB(temp);
 		setSubscribed(temp);
 	};
+
 	const changeDailyChallenge = () => {
 		var temp = { ...subscribed };
 		temp.dailyChallenge = !temp.dailyChallenge;
@@ -111,8 +103,9 @@ const ContestProvider = ({ children }) => {
 			? defaultDailyChallenge.geeksforgeeks
 			: defaultDailyChallenge.leetcode;
 
-		// console.log("tempDailyChallengeData: ", tempDailyChallengeData);
+		var updatedDefaultDailyChallengeData = tempDailyChallengeData.platform;
 
+		setSubscriptionStatusDB(temp);
 		setDailyChallenge(tempDailyChallengeData);
 		setSubscribed(temp);
 	};

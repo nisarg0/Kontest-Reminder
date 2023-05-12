@@ -5,9 +5,7 @@ import { Typography, CardMedia, CardContent, Card, Box } from "@mui/material";
 var browser = require("webextension-polyfill");
 
 export default function ContestCard(dailyChallenge) {
-	console.log("Daily Challenge: ", dailyChallenge);
 	dailyChallenge = dailyChallenge.dailyChallenge;
-	console.log("Daily Challenge: ", dailyChallenge);
 	return (
 		<Box
 			sx={{

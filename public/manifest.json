@@ -8,7 +8,7 @@
 	"icons": {
 		"48": "Assets/card.png"
 	},
-	"permissions": ["alarms"],
+	"permissions": ["alarms", "https://leetcode.com/graphql"],
 	"options_ui": {
 		"browser_style": true,
 		"page": "options.html"

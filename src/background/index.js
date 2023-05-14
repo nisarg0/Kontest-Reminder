@@ -1,4 +1,3 @@
-import localforage from "localforage";
 import {
 	setMyContestsDB,
 	getSubscriptionStatusDB,
@@ -6,6 +5,7 @@ import {
 	setDeletedContestsDB,
 	getDeletedContestsDB,
 	setDailyChallengeDB,
+	getMyContestsDB,
 } from "../Helper/DbHelper";
 
 var browser = require("webextension-polyfill");
@@ -44,16 +44,16 @@ var defaultDailyChallenge = {
 // Fetch Function
 async function fetchAllMyContests() {
 	myContests = [];
-
-	// We delete an element in it if tit has occured in the fetch...
+	console.log("deletedContests in fetch All Contests", deletedContests);
+	// We delete an element in it if it has occured in the fetch...
 	var usedDeletedContests = [];
 	var contests = await fetchContestDetails();
 	for (var contest of contests) {
-		if (contest.duration <= 864001 && subscriptionStatus[contest.site]) {
+		if (subscriptionStatus[contest.site]) {
 			var contest_name = contest.name;
 			var isDeleted = false;
 			for (var deletedContest of deletedContests) {
-				if (deletedContest.name === contest_name) {
+				if (deletedContest === contest_name) {
 					isDeleted = true;
 					usedDeletedContests.push(contest);
 				}
@@ -62,7 +62,19 @@ async function fetchAllMyContests() {
 		}
 	}
 
-	console.log("myContests in fetch All Contests", myContests);
+	// add alarm for each contests as we want to store the status of alarm
+	var oldMyContests = (await getMyContestsDB()) || [];
+	console.log("oldMyContests", oldMyContests);
+	for (contest of myContests) {
+		contest.autoOpen = false;
+
+		for (var oldContest of oldMyContests) {
+			if (oldContest.name === contest.name) {
+				console.log("oldContest");
+			}
+		}
+	}
+	console.log("myContests", myContests);
 
 	deletedContests = usedDeletedContests;
 }
@@ -100,7 +112,7 @@ browser.runtime.onInstalled.addListener((details) => {
 	}
 });
 
-// schedule a new fetch every 1440 minutes
+// schedule a new fetch every 1 hour
 function scheduleRequest() {
 	console.log("schedule refresh alarm to 60 minutes...");
 	browser.alarms.create("refresh", { periodInMinutes: 60 });
@@ -117,29 +129,22 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 		await setDeletedContestsDB(deletedContests);
 		await setMyContestsDB(myContests);
 	} else {
-		var AlarmContests = [];
-		await localforage.getItem("AlarmContests", function (err, value) {
-			if (value === null) {
-				console.log("Err: No Alarm in DB");
-				return;
-			}
-			AlarmContests = value;
-		});
-		for (var i = 0; i < AlarmContests.length; i++) {
-			if (alarm.name === AlarmContests[i].name) {
+		myContests = await getMyContestsDB();
+		for (var i = 0; i < myContests.length; i++) {
+			if (alarm.name === myContests[i].name) {
 				await browser.tabs.create({
 					active: true,
-					url: AlarmContests[i].url,
+					url: myContests[i].url,
 				});
 				browser.alarms.clear(alarm.name);
 				// console.log("Created new tab with contest");
 				break;
 			}
 		}
-		AlarmContests.splice(i, 1);
-		localforage.setItem("AlarmContests", AlarmContests);
+		myContests[i].autoOpen = false;
+		await setMyContestsDB(myContests);
 		console.log("Printing AlarmContests:");
-		console.log(AlarmContests);
+		console.log(myContests);
 	}
 });
 

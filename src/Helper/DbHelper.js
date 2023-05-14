@@ -6,21 +6,20 @@ export const setDeletedContestsDB = async (deletedContests) => {
 	});
 };
 export const getDeletedContestsDB = async () => {
-	return await localforage.getItem("deletedContests", function (err, value) {
-		if (err) console.log(err);
-		return value;
-	});
+	var res = await localforage.getItem("deletedContests");
+	if (res === null) return [];
+	console.log("getDeletedContestsDB: ", res);
+	return res;
 };
 export const getMyContestsDB = async () => {
 	var res = await localforage.getItem("myContests");
 	if (res === null) return [];
-	console.log("getMyContestDB: ", res);
 	return res;
 };
 export const setMyContestsDB = async (myContests) => {
-	console.log("setMyContestsDB: ", myContests);
 	var res = await localforage.setItem("myContests", myContests);
-	console.log("setMyContestsDB: ", res);
+	if (res === null) console.log("Error in setMyContestsDB");
+	return res;
 };
 export const getSubscriptionStatusDB = async () => {
 	var res = await localforage.getItem("platforms");
@@ -39,7 +38,7 @@ export const getSubscriptionStatusDB = async () => {
 	return res;
 };
 export const setSubscriptionStatusDB = async (platforms) => {
-	console.log("setSubscriptionStatusDB: ", platforms);
+	// console.log("setSubscriptionStatusDB: ", platforms);
 	return await localforage.setItem("platforms", platforms, function (err) {
 		if (err) console.log(err);
 	});

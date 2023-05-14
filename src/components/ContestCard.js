@@ -14,7 +14,7 @@ import openIcon from "../assets/auto-open.png";
 // For browser apis
 var browser = require("webextension-polyfill");
 
-export default function ContestCard({ contest, onDelete }) {
+export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 	const calanderIcon = <img alt="calander" src={calIcon} />;
 	const autoopenIcon = <img alt="auto-open" src={openIcon} />;
 	const BinIcon = () => <img alt="bin" src={delIcon} />;
@@ -52,6 +52,12 @@ export default function ContestCard({ contest, onDelete }) {
 		)}&details=Your reminder is set by Kontest Reminder. We wish you all the success in the world ❤️`;
 		console.log("uri: " + uri);
 		browser.tabs.create({ active: true, url: uri });
+	};
+
+	const handleAutoOpenClick = (event) => {
+		event.stopPropagation();
+		console.log("start_time: ", contest.start_time);
+		handleAutoOpen(contest);
 	};
 
 	return (
@@ -179,12 +185,13 @@ export default function ContestCard({ contest, onDelete }) {
 							sx={{
 								fontSize: 8,
 								textTransform: "none",
-								backgroundColor: "#1FA0DB",
+								backgroundColor: contest.autoOpen ? color : "#1FA0DB",
 								":hover": {
-									bgcolor: color,
+									bgcolor: contest.autoOpen ? "#1FA0DB" : color,
 								},
 							}}
 							startIcon={autoopenIcon}
+							onClick={handleAutoOpenClick}
 						>
 							Auto open
 						</Button>

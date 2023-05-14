@@ -29,8 +29,14 @@ const styles = makeStyles({
 });
 
 export default function Contests() {
-	const { ongoing, upcoming, today, deleteContest, dailyChallenge } =
-		useContext(ContestContext);
+	const {
+		ongoing,
+		upcoming,
+		today,
+		deleteContest,
+		dailyChallenge,
+		handleAutoOpen,
+	} = useContext(ContestContext);
 	const classes = styles();
 	// console.log("dailyChallenge", dailyChallenge);
 
@@ -76,6 +82,7 @@ export default function Contests() {
 								key={contest.name}
 								contest={contest}
 								onDelete={() => deleteContest(contest.name, "ongoing")}
+								handleAutoOpen={handleAutoOpen}
 							/>
 						))
 					)}
@@ -92,6 +99,7 @@ export default function Contests() {
 								key={contest.name}
 								contest={contest}
 								onDelete={() => deleteContest(contest.name, "today")}
+								handleAutoOpen={handleAutoOpen}
 							/>
 						))
 					)}
@@ -107,6 +115,7 @@ export default function Contests() {
 								key={contest.name}
 								contest={contest}
 								onDelete={() => deleteContest(contest.name, "upcoming")}
+								handleAutoOpen={handleAutoOpen}
 							/>
 						))
 					)}

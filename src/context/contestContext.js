@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
 	setDeletedContestsDB,
 	getDeletedContestsDB,
-	// getMyContestDB,
 	getSubscriptionStatusDB,
 	setMyContestsDB,
 	getMyContestsDB,
@@ -12,9 +11,9 @@ import {
 	// setDailyChallengeDB,
 } from "../Helper/DbHelper.js";
 
-const ContestContext = React.createContext();
+var browser = require("webextension-polyfill");
 
-// const defaultSubscribtion = getSubscriptionStatusDB() || {};
+const ContestContext = React.createContext();
 
 var defaultDailyChallenge = {};
 
@@ -87,6 +86,47 @@ const ContestProvider = ({ children }) => {
 		setMyContestsDB(newContests);
 	};
 
+	const handleAutoOpen = (autoOpenContest) => {
+		console.log("autoOpenContest", autoOpenContest);
+		var tempContests = contests;
+		// Update contest based upon autoOpenContest status
+		// add contest to alarms as in previous state it was not added
+
+		if (!autoOpenContest.autoOpen) {
+			var d = autoOpenContest.start_time;
+			if (autoOpenContest.site === "code_chef") {
+				// the end of the string contains a time zone code like "UTC",
+				// so we need to replace it with ".000Z"
+				d = d.replace(" UTC", ".000Z");
+				// console.log("CodeChef date string d: " + d);
+			}
+			var date = new Date(d);
+
+			console.log(date);
+			var now = new Date();
+
+			var time_diff = Math.abs(date.getTime() - now.getTime());
+			time_diff = time_diff - 300000; // 5 minutes before
+			browser.alarms.create(autoOpenContest.name, {
+				when: Date.now() + time_diff,
+			});
+			console.log("reminderSet after " + time_diff);
+		} else {
+			// add contest to alarms
+			browser.alarms.clear(autoOpenContest.name);
+			console.log("Alarm Cleared");
+		}
+
+		for (var contest of tempContests) {
+			if (contest.name === autoOpenContest.name) {
+				contest.autoOpen = !autoOpenContest.autoOpen;
+				break;
+			}
+		}
+		setContests(tempContests);
+		setMyContestsDB(tempContests);
+	};
+
 	const changeSubStatus = (site) => {
 		var temp = { ...subscribed };
 		temp[site] = !temp[site];
@@ -103,8 +143,6 @@ const ContestProvider = ({ children }) => {
 			? defaultDailyChallenge.geeksforgeeks
 			: defaultDailyChallenge.leetcode;
 
-		var updatedDefaultDailyChallengeData = tempDailyChallengeData.platform;
-
 		setSubscriptionStatusDB(temp);
 		setDailyChallenge(tempDailyChallengeData);
 		setSubscribed(temp);
@@ -120,6 +158,7 @@ const ContestProvider = ({ children }) => {
 				changeSubStatus,
 				dailyChallenge,
 				changeDailyChallenge,
+				handleAutoOpen,
 			}}
 		>
 			{children}

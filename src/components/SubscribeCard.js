@@ -21,7 +21,7 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 				alignItems: "center",
 				width: "100%",
 				backgroundColor: value ? "#fff" : "transparent",
-				border: "none"
+				border: "none",
 			}}
 			onClick={() => changeSubStatus(platform)}
 			elevation={0}
@@ -71,7 +71,7 @@ const mapping = {
 		color: "#34A853",
 	},
 	CodeForces: {
-		logo: "https://i.pinimg.com/736x/b4/6e/54/b46e546a3ee4d410f961e81d4a8cae0f.jpg",
+		logo: "https://drive.google.com/file/d/1vjXRtz1RSoPzhUe8YtSMZGgn4SsdRnRP",
 		color: "#3B5998",
 	},
 	TopCoder: {

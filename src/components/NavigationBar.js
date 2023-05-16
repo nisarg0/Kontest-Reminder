@@ -7,7 +7,7 @@ export default function NavigationBar() {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" sx={{ backgroundColor: "white" }}>
+			<AppBar elevation={0} position="static" sx={{ backgroundColor: "white" }}>
 				<Toolbar>
 					<Typography
 						variant="h6"

@@ -48,10 +48,18 @@ const ContestProvider = ({ children }) => {
 	const [deletedContests, setDeletedContests] = useState([]);
 	const [dailyChallenge, setDailyChallenge] = useState({});
 
-	const filteredContests = filterContest(contests, subscribed);
-	const ongoing = filteredContests.ongoing;
-	const upcoming = filteredContests.upcoming;
-	const today = filteredContests.today;
+	console.log("updated");
+	let filteredContests = filterContest(contests, subscribed);
+	let ongoing = filteredContests.ongoing;
+	let upcoming = filteredContests.upcoming;
+	let today = filteredContests.today;
+
+	// useEffect(() => {
+	// 	filteredContests = filterContest(contests, subscribed);
+	// 	ongoing = filteredContests.ongoing;
+	// 	upcoming = filteredContests.upcoming;
+	// 	today = filteredContests.today;
+	// }, [contests, subscribed])
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -72,6 +80,7 @@ const ContestProvider = ({ children }) => {
 		};
 		fetchData();
 	}, []);
+
 
 	// Delete contest if it is in the past
 	const deleteContest = (name) => {
@@ -123,7 +132,7 @@ const ContestProvider = ({ children }) => {
 				break;
 			}
 		}
-		setContests(tempContests);
+		setContests([...tempContests]);
 		setMyContestsDB(tempContests);
 	};
 

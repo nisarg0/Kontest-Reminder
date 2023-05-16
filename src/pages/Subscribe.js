@@ -10,9 +10,9 @@ export default function Subscribe() {
 		useContext(ContestContext);
 	let dailyChallenge = subscribed.dailyChallenge;
 	return (
-		<Box sx={{ width: "100%", marginTop: "20px", padding: "8px" }}>
+		<Box sx={{ width: "100%", marginTop: '8px', padding: "8px" }}>
 			<Grid container spacing={1}>
-				<Grid item xs={12}>
+				<Grid item xs={12} marginBottom="8px">
 					<SubChallengeCard
 						dailyChallenge={dailyChallenge}
 						changeDailyChallenge={changeDailyChallenge}

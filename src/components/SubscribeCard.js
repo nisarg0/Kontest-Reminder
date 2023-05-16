@@ -11,18 +11,20 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 		<Card
 			sx={{
 				display: "flex",
-				border: 1,
-				borderRadius: 2,
-				borderColor: "grey.500",
+				// border: 1,
+				// borderRadius: 2,
+				// borderColor: "grey.500",
 				padding: 1,
 				":hover": {
 					"box-shadow": "0px 0px 10px 3px rgba(0, 0, 0, 0.2)",
 				},
 				alignItems: "center",
 				width: "100%",
-				backgroundColor: value ? "#b3e0ff" : "white",
+				backgroundColor: value ? "#fff" : "transparent",
+				border: "none"
 			}}
 			onClick={() => changeSubStatus(platform)}
+			elevation={0}
 		>
 			<CardMedia
 				component="img"

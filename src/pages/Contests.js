@@ -7,24 +7,70 @@ import { Tabs, Tab, AppBar } from "@mui/material";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@mui/styles";
 
+const tabBorders = {
+	0: {
+		ongoing: "12px 12px 0px 0px !important",
+		today: "0px 0px 0px 12px !important",
+		upcoming: "0px 0px 0px 0px !important",
+	},
+	1: {
+		ongoing: "0px 0px 12px 0px !important",
+		today: "12px 12px 0px 0px !important",
+		upcoming: "0px 0px 0px 12px !important",
+	},
+	2: {
+		ongoing: "0px 0px 0px 0px !important",
+		today: "0px 0px 12px 0px !important",
+		upcoming: "12px 12px 0px 0px !important",
+	},
+}
+
 const styles = makeStyles({
 	root: {},
 	tabPanel: {
 		backgroundColor: "#F2F2F2",
 	},
 	tabs: {
+		// "& .Mui-selected": {
+		// 	backgroundColor: "#C4C4C4 !important",
+		// },
+		// backgroundColor: "#C4C4C4",
 		"& .Mui-selected": {
+			color: "#222222"
+		},
+		"& .Mui-selected .MuiTouchRipple-root": {
 			backgroundColor: "#C4C4C4 !important",
 		},
-		backgroundColor: "#C4C4C4",
+		"& .Mui-selected::before": {
+			backgroundColor: "#F2F2F2 !important"
+		}
 	},
 	tabBtn: {
+		color: '#222222',
 		textTransform: "none !important",
 		position: "relative",
 		flex: 1,
 		outline: "none !important",
-		borderRadius: "12px !important",
+		// borderRadius: "12px !important",
 		// backgroundColor: "#F2F2F2 !important",
+		zIndex: 1,
+
+		"& .MuiTouchRipple-root": {
+			zIndex: "-1",
+			backgroundColor: '#F2F2F2',
+		},
+
+		overflow: "visible !important",
+		"&::before": {
+			content: "''",
+			position: "absolute",
+			top: "0",
+			left: "0",
+			width: "100%",
+			height: "100%",
+			backgroundColor: "#C4C4C4",
+			zIndex: "-1"
+		}
 	},
 });
 
@@ -59,15 +105,18 @@ export default function Contests() {
 						></Box>
 						<Tabs
 							className={classes.tabs}
-							indicatorColor="#F2F2F2"
+							// indicatorColor="#F2F2F2"
+							TabIndicatorProps={{
+								style: { display: 'none' }
+							}}
 							value={value}
 							onChange={handleTab}
 						>
-							<Tab className={classes.tabBtn} label="Ongoing" />
+							<Tab sx={{ borderRadius: tabBorders[value].ongoing }} className={classes.tabBtn} label="Ongoing" />
 
-							<Tab className={classes.tabBtn} label="Today" />
+							<Tab sx={{ borderRadius: tabBorders[value].today }} className={classes.tabBtn} label="Today" />
 
-							<Tab className={classes.tabBtn} label="Upcoming" />
+							<Tab sx={{ borderRadius: tabBorders[value].upcoming }} className={classes.tabBtn} label="Upcoming" />
 						</Tabs>
 					</AppBar>
 				</Box>

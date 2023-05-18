@@ -32,14 +32,10 @@ const styles = makeStyles({
 		backgroundColor: "#F2F2F2",
 	},
 	tabs: {
-		// "& .Mui-selected": {
-		// 	backgroundColor: "#C4C4C4 !important",
-		// },
-		// backgroundColor: "#C4C4C4",
 		"& .Mui-selected": {
 			color: "#222222",
 		},
-		"& .Mui-selected .MuiTouchRipple-root": {
+		"& .Mui-selected::after": {
 			backgroundColor: "#C4C4C4 !important",
 		},
 		"& .Mui-selected::before": {
@@ -52,14 +48,7 @@ const styles = makeStyles({
 		position: "relative",
 		flex: 1,
 		outline: "none !important",
-		// borderRadius: "12px !important",
-		// backgroundColor: "#F2F2F2 !important",
 		zIndex: 1,
-
-		"& .MuiTouchRipple-root": {
-			zIndex: "-1",
-			backgroundColor: "#F2F2F2",
-		},
 
 		overflow: "visible !important",
 		"&::before": {
@@ -70,7 +59,18 @@ const styles = makeStyles({
 			width: "100%",
 			height: "100%",
 			backgroundColor: "#C4C4C4",
+			zIndex: "-2",
+		},
+		"&::after": {
+			content: "''",
+			position: "absolute",
+			top: "0",
+			left: "0",
+			width: "100%",
+			height: "100%",
+			backgroundColor: "#F2F2F2",
 			zIndex: "-1",
+			borderRadius: "inherit"
 		},
 	},
 });
@@ -123,18 +123,21 @@ export default function Contests() {
 									sx={{ borderRadius: tabBorders[value].ongoing }}
 									className={classes.tabBtn}
 									label="Ongoing"
+									disableRipple
 								/>
 
 								<Tab
 									sx={{ borderRadius: tabBorders[value].today }}
 									className={classes.tabBtn}
 									label="Today"
+									disableRipple
 								/>
 
 								<Tab
 									sx={{ borderRadius: tabBorders[value].upcoming }}
 									className={classes.tabBtn}
 									label="Upcoming"
+									disableRipple
 								/>
 							</Tabs>
 						</AppBar>

@@ -43,6 +43,7 @@ const filterContest = (contests, subscribed) => {
 };
 
 const ContestProvider = ({ children }) => {
+	const [isFirstRender, setIsFirstRender] = useState(true);
 	const [contests, setContests] = useState([]);
 	const [subscribed, setSubscribed] = useState([]);
 	const [deletedContests, setDeletedContests] = useState([]);
@@ -53,13 +54,6 @@ const ContestProvider = ({ children }) => {
 	let ongoing = filteredContests.ongoing;
 	let upcoming = filteredContests.upcoming;
 	let today = filteredContests.today;
-
-	// useEffect(() => {
-	// 	filteredContests = filterContest(contests, subscribed);
-	// 	ongoing = filteredContests.ongoing;
-	// 	upcoming = filteredContests.upcoming;
-	// 	today = filteredContests.today;
-	// }, [contests, subscribed])
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -73,13 +67,14 @@ const ContestProvider = ({ children }) => {
 					defaultSubscribtion["dailyChallenge"] ? "geeksforgeeks" : "leetcode"
 				]
 			);
-
+			console.log(isFirstRender);
+			setIsFirstRender(false);
 			setContests(defaultContest);
 			setSubscribed(defaultSubscribtion);
 			setDeletedContestsDB(deletedContests);
 		};
 		fetchData();
-	}, []);
+	}, [isFirstRender]);
 
 	// Delete contest if it is in the past
 	const deleteContest = (name) => {
@@ -167,6 +162,7 @@ const ContestProvider = ({ children }) => {
 				dailyChallenge,
 				changeDailyChallenge,
 				handleAutoOpen,
+				isFirstRender,
 			}}
 		>
 			{children}

@@ -83,6 +83,7 @@ export default function Contests() {
 		deleteContest,
 		dailyChallenge,
 		handleAutoOpen,
+		isFirstRender,
 	} = useContext(ContestContext);
 	const classes = styles();
 	// console.log("dailyChallenge", dailyChallenge);
@@ -97,114 +98,120 @@ export default function Contests() {
 	};
 
 	return (
-		<>
-			<Box sx={{ width: "100%" }}>
-				<Box>
-					<AppBar position="static" sx={{ backgroundColor: "#F2F2F2" }}>
-						<Box
-							sx={{ width: "100%", height: "8px", backgroundColor: "#F2F2F2" }}
-						></Box>
-						<Tabs
-							className={classes.tabs}
-							// indicatorColor="#F2F2F2"
-							TabIndicatorProps={{
-								style: { display: "none" },
-							}}
-							value={value}
-							onChange={handleTab}
-						>
-							<Tab
-								sx={{ borderRadius: tabBorders[value].ongoing }}
-								className={classes.tabBtn}
-								label="Ongoing"
-							/>
+		!isFirstRender && (
+			<>
+				<Box sx={{ width: "100%" }}>
+					<Box>
+						<AppBar position="static" sx={{ backgroundColor: "#F2F2F2" }}>
+							<Box
+								sx={{
+									width: "100%",
+									height: "8px",
+									backgroundColor: "#F2F2F2",
+								}}
+							></Box>
+							<Tabs
+								className={classes.tabs}
+								// indicatorColor="#F2F2F2"
+								TabIndicatorProps={{
+									style: { display: "none" },
+								}}
+								value={value}
+								onChange={handleTab}
+							>
+								<Tab
+									sx={{ borderRadius: tabBorders[value].ongoing }}
+									className={classes.tabBtn}
+									label="Ongoing"
+								/>
 
-							<Tab
-								sx={{ borderRadius: tabBorders[value].today }}
-								className={classes.tabBtn}
-								label="Today"
-							/>
+								<Tab
+									sx={{ borderRadius: tabBorders[value].today }}
+									className={classes.tabBtn}
+									label="Today"
+								/>
 
-							<Tab
-								sx={{ borderRadius: tabBorders[value].upcoming }}
-								className={classes.tabBtn}
-								label="Upcoming"
-							/>
-						</Tabs>
-					</AppBar>
+								<Tab
+									sx={{ borderRadius: tabBorders[value].upcoming }}
+									className={classes.tabBtn}
+									label="Upcoming"
+								/>
+							</Tabs>
+						</AppBar>
+					</Box>
+					<TabPanel className={classes.tabPanel} value={value} index={0}>
+						{ongoing.length === 0 ? (
+							<>
+								<Box sx={{ textAlign: "center", color: "white" }}>
+									No Ongoing Contests
+								</Box>
+								<CardMedia
+									component="img"
+									height="400"
+									image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
+								/>
+							</>
+						) : (
+							ongoing.map((contest) => (
+								<ContestCard
+									key={contest.name}
+									contest={contest}
+									onDelete={() => deleteContest(contest.name, "ongoing")}
+									handleAutoOpen={handleAutoOpen}
+								/>
+							))
+						)}
+					</TabPanel>
+					<TabPanel className={classes.tabPanel} value={value} index={1}>
+						{<ChallengeCard dailyChallenge={dailyChallenge} />}
+						{today.length === 0 && !isFirstRender ? (
+							<>
+								<Box sx={{ textAlign: "center", color: "white" }}>
+									No Contest Today
+								</Box>
+								<CardMedia
+									component="img"
+									height="400"
+									image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
+								/>
+							</>
+						) : (
+							today.map((contest) => (
+								<ContestCard
+									key={contest.name}
+									contest={contest}
+									onDelete={() => deleteContest(contest.name, "today")}
+									handleAutoOpen={handleAutoOpen}
+								/>
+							))
+						)}
+					</TabPanel>
+					<TabPanel className={classes.tabPanel} value={value} index={2}>
+						{upcoming.length === 0 ? (
+							<>
+								<Box sx={{ textAlign: "center", color: "white" }}>
+									No Upcoming Contests
+								</Box>
+								<CardMedia
+									component="img"
+									height="400"
+									image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
+								/>
+							</>
+						) : (
+							upcoming.map((contest) => (
+								<ContestCard
+									key={contest.name}
+									contest={contest}
+									onDelete={() => deleteContest(contest.name, "upcoming")}
+									handleAutoOpen={handleAutoOpen}
+								/>
+							))
+						)}
+					</TabPanel>
 				</Box>
-				<TabPanel className={classes.tabPanel} value={value} index={0}>
-					{ongoing.length === 0 ? (
-						<>
-							<Box sx={{ textAlign: "center", color: "white" }}>
-								No Ongoing Contests
-							</Box>
-							<CardMedia
-								component="img"
-								height="400"
-								image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
-							/>
-						</>
-					) : (
-						ongoing.map((contest) => (
-							<ContestCard
-								key={contest.name}
-								contest={contest}
-								onDelete={() => deleteContest(contest.name, "ongoing")}
-								handleAutoOpen={handleAutoOpen}
-							/>
-						))
-					)}
-				</TabPanel>
-				<TabPanel className={classes.tabPanel} value={value} index={1}>
-					{<ChallengeCard dailyChallenge={dailyChallenge} />}
-					{today.length === 0 ? (
-						<>
-							<Box sx={{ textAlign: "center", color: "white" }}>
-								No Contest Today
-							</Box>
-							<CardMedia
-								component="img"
-								height="400"
-								image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
-							/>
-						</>
-					) : (
-						today.map((contest) => (
-							<ContestCard
-								key={contest.name}
-								contest={contest}
-								onDelete={() => deleteContest(contest.name, "today")}
-								handleAutoOpen={handleAutoOpen}
-							/>
-						))
-					)}
-				</TabPanel>
-				<TabPanel className={classes.tabPanel} value={value} index={2}>
-					{upcoming.length === 0 ? (
-						<>
-							<Box sx={{ textAlign: "center", color: "white" }}>
-								No Upcoming Contests
-							</Box>
-							<CardMedia
-								component="img"
-								height="400"
-								image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
-							/>
-						</>
-					) : (
-						upcoming.map((contest) => (
-							<ContestCard
-								key={contest.name}
-								contest={contest}
-								onDelete={() => deleteContest(contest.name, "upcoming")}
-								handleAutoOpen={handleAutoOpen}
-							/>
-						))
-					)}
-				</TabPanel>
-			</Box>
-		</>
+			</>
+		)
 	);
 }
 

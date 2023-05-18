@@ -81,7 +81,6 @@ const ContestProvider = ({ children }) => {
 		fetchData();
 	}, []);
 
-
 	// Delete contest if it is in the past
 	const deleteContest = (name) => {
 		const newContests = contests.filter((contest) => contest.name !== name);
@@ -98,9 +97,9 @@ const ContestProvider = ({ children }) => {
 	const handleAutoOpen = (autoOpenContest) => {
 		console.log("autoOpenContest", autoOpenContest);
 		var tempContests = contests;
+
 		// Update contest based upon autoOpenContest status
 		// add contest to alarms as in previous state it was not added
-
 		if (!autoOpenContest.autoOpen) {
 			var d = autoOpenContest.start_time;
 			if (autoOpenContest.site === "code_chef") {

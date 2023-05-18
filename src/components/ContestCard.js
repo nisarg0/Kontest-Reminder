@@ -22,26 +22,17 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 
 	const handleCalanderClick = (event) => {
 		event.stopPropagation();
-		console.log("start_time: ", contest.start_time);
-		// function openCalander(contest) {
-		// 	console.log("In Calander");
+
 		function ISODateString(d) {
-			console.log("In ISODateString");
-			// var isoDate = d.toISOString();
 			var isoDate = d;
-			console.log("ISO Date initial: " + isoDate);
 			isoDate = isoDate.replaceAll(":", "");
 			isoDate = isoDate.replaceAll("-", "");
-			console.log("ISO Date later: " + isoDate);
 			var retval = isoDate.split(".")[0] + "Z";
-			console.log("ISO Date retval: " + retval);
 			return retval;
 		}
 
 		var start = contest.start_time;
 		var end = contest.end_time;
-		console.log("start:" + start);
-		console.log("end:" + end);
 
 		var uri = `http://www.google.com/calendar/event?action=TEMPLATE&text=${encodeURIComponent(
 			contest.name
@@ -50,13 +41,11 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 		)}&location=${encodeURIComponent(
 			contest.url
 		)}&details=Your reminder is set by Kontest Reminder. We wish you all the success in the world ❤️`;
-		console.log("uri: " + uri);
 		browser.tabs.create({ active: true, url: uri });
 	};
 
 	const handleAutoOpenClick = (event) => {
 		event.stopPropagation();
-		console.log("start_time: ", contest.start_time);
 		handleAutoOpen(contest);
 	};
 
@@ -97,6 +86,7 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 						borderRadius: 2,
 						alignSelf: "center",
 						marginLeft: 1,
+						cursor: "default",
 					}}
 					image={mapping[contest.site].logo}
 					alt={contest.name}
@@ -114,7 +104,7 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 							className="contest-name"
 							component="div"
 							color="text.primary"
-							sx={{ fontSize: 14 }}
+							sx={{ fontSize: 14, cursor: "default" }}
 							textAlign="center"
 							fontWeight="550"
 						>
@@ -129,7 +119,11 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 									variant="caption"
 									color="text.secondary"
 									component="div"
-									sx={{ fontSize: "0.55rem", fontWeight: "600" }}
+									sx={{
+										fontSize: "0.55rem",
+										fontWeight: "600",
+										cursor: "default",
+									}}
 								>
 									{"Start: " + beautifyDate(contest.start_time)}
 								</Typography>
@@ -137,7 +131,11 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 									variant="caption"
 									color="text.secondary"
 									component="div"
-									sx={{ fontSize: "0.55rem", fontWeight: "600" }}
+									sx={{
+										fontSize: "0.55rem",
+										fontWeight: "600",
+										cursor: "default",
+									}}
 								>
 									{"End:  " + beautifyDate(contest.end_time)}
 								</Typography>
@@ -154,6 +152,7 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 									fontSize: "0.55rem",
 									fontWeight: "800",
 									color: "white",
+									cursor: "default",
 								}}
 							>
 								{findContestLength(contest.start_time, contest.end_time)}
@@ -179,22 +178,24 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 							Add to Calendar
 						</Button>
 
-						<Button
-							variant="contained"
-							size="small"
-							sx={{
-								fontSize: 8,
-								textTransform: "none",
-								backgroundColor: contest.autoOpen ? color : "#1FA0DB",
-								":hover": {
-									bgcolor: contest.autoOpen ? "#1FA0DB" : color,
-								},
-							}}
-							startIcon={autoopenIcon}
-							onClick={handleAutoOpenClick}
-						>
-							Auto open
-						</Button>
+						{contest.status !== "CODING" && (
+							<Button
+								variant="contained"
+								size="small"
+								sx={{
+									fontSize: 8,
+									textTransform: "none",
+									backgroundColor: contest.autoOpen ? color : "#1FA0DB",
+									":hover": {
+										bgcolor: contest.autoOpen ? "#1FA0DB" : color,
+									},
+								}}
+								startIcon={autoopenIcon}
+								onClick={handleAutoOpenClick}
+							>
+								Auto open
+							</Button>
+						)}
 					</Box>
 				</Box>
 			</Card>

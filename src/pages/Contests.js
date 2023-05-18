@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import ContestCard from "../components/ContestCard";
 import ChallengeCard from "../components/ChallengeCard";
+import CardMedia from "@mui/material/CardMedia";
 // import ContestConsumer from "../context/contestContext";
 import { ContestContext } from "../context/contestContext";
 import { Tabs, Tab, AppBar } from "@mui/material";
@@ -23,7 +24,7 @@ const tabBorders = {
 		today: "0px 0px 12px 0px !important",
 		upcoming: "12px 12px 0px 0px !important",
 	},
-}
+};
 
 const styles = makeStyles({
 	root: {},
@@ -36,17 +37,17 @@ const styles = makeStyles({
 		// },
 		// backgroundColor: "#C4C4C4",
 		"& .Mui-selected": {
-			color: "#222222"
+			color: "#222222",
 		},
 		"& .Mui-selected .MuiTouchRipple-root": {
 			backgroundColor: "#C4C4C4 !important",
 		},
 		"& .Mui-selected::before": {
-			backgroundColor: "#F2F2F2 !important"
-		}
+			backgroundColor: "#F2F2F2 !important",
+		},
 	},
 	tabBtn: {
-		color: '#222222',
+		color: "#222222",
 		textTransform: "none !important",
 		position: "relative",
 		flex: 1,
@@ -57,7 +58,7 @@ const styles = makeStyles({
 
 		"& .MuiTouchRipple-root": {
 			zIndex: "-1",
-			backgroundColor: '#F2F2F2',
+			backgroundColor: "#F2F2F2",
 		},
 
 		overflow: "visible !important",
@@ -69,8 +70,8 @@ const styles = makeStyles({
 			width: "100%",
 			height: "100%",
 			backgroundColor: "#C4C4C4",
-			zIndex: "-1"
-		}
+			zIndex: "-1",
+		},
 	},
 });
 
@@ -107,24 +108,43 @@ export default function Contests() {
 							className={classes.tabs}
 							// indicatorColor="#F2F2F2"
 							TabIndicatorProps={{
-								style: { display: 'none' }
+								style: { display: "none" },
 							}}
 							value={value}
 							onChange={handleTab}
 						>
-							<Tab sx={{ borderRadius: tabBorders[value].ongoing }} className={classes.tabBtn} label="Ongoing" />
+							<Tab
+								sx={{ borderRadius: tabBorders[value].ongoing }}
+								className={classes.tabBtn}
+								label="Ongoing"
+							/>
 
-							<Tab sx={{ borderRadius: tabBorders[value].today }} className={classes.tabBtn} label="Today" />
+							<Tab
+								sx={{ borderRadius: tabBorders[value].today }}
+								className={classes.tabBtn}
+								label="Today"
+							/>
 
-							<Tab sx={{ borderRadius: tabBorders[value].upcoming }} className={classes.tabBtn} label="Upcoming" />
+							<Tab
+								sx={{ borderRadius: tabBorders[value].upcoming }}
+								className={classes.tabBtn}
+								label="Upcoming"
+							/>
 						</Tabs>
 					</AppBar>
 				</Box>
 				<TabPanel className={classes.tabPanel} value={value} index={0}>
 					{ongoing.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
-							No Ongoing Contests
-						</Box>
+						<>
+							<Box sx={{ textAlign: "center", color: "white" }}>
+								No Ongoing Contests
+							</Box>
+							<CardMedia
+								component="img"
+								height="400"
+								image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
+							/>
+						</>
 					) : (
 						ongoing.map((contest) => (
 							<ContestCard
@@ -139,9 +159,16 @@ export default function Contests() {
 				<TabPanel className={classes.tabPanel} value={value} index={1}>
 					{<ChallengeCard dailyChallenge={dailyChallenge} />}
 					{today.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
-							No Contest Today
-						</Box>
+						<>
+							<Box sx={{ textAlign: "center", color: "white" }}>
+								No Contest Today
+							</Box>
+							<CardMedia
+								component="img"
+								height="400"
+								image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
+							/>
+						</>
 					) : (
 						today.map((contest) => (
 							<ContestCard
@@ -155,9 +182,16 @@ export default function Contests() {
 				</TabPanel>
 				<TabPanel className={classes.tabPanel} value={value} index={2}>
 					{upcoming.length === 0 ? (
-						<Box sx={{ textAlign: "center", color: "white" }}>
-							No Upcoming Contests
-						</Box>
+						<>
+							<Box sx={{ textAlign: "center", color: "white" }}>
+								No Upcoming Contests
+							</Box>
+							<CardMedia
+								component="img"
+								height="400"
+								image="https://lh3.googleusercontent.com/pw/AJFCJaVKfrbH93JGd6HdRh07vs6C22DpD2hXJNxLlNTp_Nd0KNS8l7WKrVPghkYgP6UkTq_tyFWkuOGM26JRsBvsihMPmJkbgRBPhZpLHHN3-LTvAg4ztd73pbeZo0cPRQP3zYuRNY3yjyMm-0FbPrysSkewkg=w460-h500-s-no"
+							/>
+						</>
 					) : (
 						upcoming.map((contest) => (
 							<ContestCard

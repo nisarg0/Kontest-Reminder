@@ -30,7 +30,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 			color: "#fff",
 			"& + .MuiSwitch-track": {
 				opacity: 1,
-				backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#1890ff",
+				backgroundColor: theme.palette.mode === "dark" ? "#FFA20E" : "#009900",
 			},
 		},
 	},
@@ -58,7 +58,6 @@ export default function SubChallengeCard({
 	dailyChallenge,
 	changeDailyChallenge,
 }) {
-	console.log("DailyChallenge: " + dailyChallenge);
 	return (
 		<Card
 			sx={{
@@ -74,9 +73,6 @@ export default function SubChallengeCard({
 					},
 				},
 				justifyContent: "center",
-			}}
-			onClick={() => {
-				browser.tabs.create({ active: true, url: "www.google.in" });
 			}}
 		>
 			<CardContent>

@@ -51,15 +51,15 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 
 const mapping = {
 	HackerEarth: {
-		logo: "https://yt3.ggpht.com/ytc/AAUvwngkLcuAWLtda6tQBsFi3tU9rnSSwsrK1Si7eYtx0A=s176-c-k-c0x00ffffff-no-rj",
+		logo: "https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png?20151101082728",
 		color: "#323754",
 	},
 	AtCoder: {
-		logo: "https://avatars.githubusercontent.com/u/7151918?s=200&v=4",
+		logo: "https://lh3.googleusercontent.com/pw/AJFCJaXOG-3G3GP5qDMwlMMXOYiTvOsMsSKdiaOVKTqjG_G_wClA3L-u5AlcesmmVsy1opp3AiLlkviTopbNzOCHPGEcXVlELZ4KWQSSXpGt73c8yb7mUPucP8gdr5hN1UldqahGk5IkLQUii4dDf1SSFi6GhA=w500-h500-s-no",
 		color: "#222222",
 	},
 	CodeChef: {
-		logo: "https://i.pinimg.com/originals/c5/d9/fc/c5d9fc1e18bcf039f464c2ab6cfb3eb6.jpg",
+		logo: "https://lh3.googleusercontent.com/pw/AJFCJaUa3As4Jm9xDu2CvqrC8QiN9v0Qo1dHmLX9OFga1dDJQ-gtFRl1xfWhAPrpbpwLPgTgEw1Z98GL-7X1-WYEhkLjRDZQKkZlfLSVwdNmfOZuke-moFmD8o5kocU133Y8W5QvgtrS4gP2edJ3ccpyZgvXnw=w500-h500-s-no?authuser=0",
 		color: "#D0C3AD",
 	},
 	LeetCode: {
@@ -71,7 +71,7 @@ const mapping = {
 		color: "#34A853",
 	},
 	CodeForces: {
-		logo: "https://drive.google.com/file/d/1vjXRtz1RSoPzhUe8YtSMZGgn4SsdRnRP",
+		logo: "https://lh3.googleusercontent.com/pw/AJFCJaUvRqnkk8vFL-3-PmNz2atfFLpAdi6ttG561IMiSLa-QllTQL8_WXPbYsb6WVJNBYIe8M-bct7CnGxiPD77D68zLMsf8E1c_4XuHVqos2pNIYVAAuR9ulR5nh97OGEmpppEaP8JAXXyzFmtyq9ybXrbWA=w512-h512-s-no",
 		color: "#3B5998",
 	},
 	TopCoder: {

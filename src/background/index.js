@@ -44,7 +44,6 @@ var defaultDailyChallenge = {
 // Fetch Function
 async function fetchAllMyContests() {
 	myContests = [];
-	console.log("deletedContests in fetch All Contests", deletedContests);
 	// We delete an element in it if it has occured in the fetch...
 	var usedDeletedContests = [];
 	var contests = await fetchContestDetails();
@@ -64,17 +63,15 @@ async function fetchAllMyContests() {
 
 	// add alarm for each contests as we want to store the status of alarm
 	var oldMyContests = (await getMyContestsDB()) || [];
-	console.log("oldMyContests", oldMyContests);
 	for (contest of myContests) {
 		contest.autoOpen = false;
 
 		for (var oldContest of oldMyContests) {
 			if (oldContest.name === contest.name) {
-				console.log("oldContest");
+				if (oldContest.autoOpen) contest.autoOpen = true;
 			}
 		}
 	}
-	console.log("myContests", myContests);
 
 	deletedContests = usedDeletedContests;
 }
@@ -97,7 +94,6 @@ browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
 // create alarm for fresh on installed/updated, and start fetch data
 browser.runtime.onInstalled.addListener((details) => {
-	// console.log("onInstalled....");
 	scheduleRequest();
 	startRequest();
 
@@ -137,14 +133,11 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 					url: myContests[i].url,
 				});
 				browser.alarms.clear(alarm.name);
-				// console.log("Created new tab with contest");
 				break;
 			}
 		}
 		myContests[i].autoOpen = false;
 		await setMyContestsDB(myContests);
-		console.log("Printing AlarmContests:");
-		console.log(myContests);
 	}
 });
 
@@ -211,7 +204,6 @@ const updateDailyChallenge = async () => {
 
 // fetch data and save to local storage
 async function startRequest() {
-	// console.log("start HTTP Request...");
 	// We need to get the array that user has stored previously if not then we use original one
 	subscriptionStatus = (await getSubscriptionStatusDB()) || {};
 	deletedContests = (await getDeletedContestsDB()) || [];

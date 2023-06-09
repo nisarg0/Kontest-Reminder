@@ -8,7 +8,12 @@
 	"icons": {
 		"48": "Assets/card.png"
 	},
-	"permissions": ["alarms", "https://leetcode.com/graphql"],
+	"permissions": [
+		"alarms",
+		"https://leetcode.com/graphql",
+		"https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest",
+		"https://practiceapi.geeksforgeeks.org/api/v1/problems-of-day/problem/today/"
+	],
 	"options_ui": {
 		"browser_style": true,
 		"page": "options.html"

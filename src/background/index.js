@@ -6,8 +6,8 @@ import {
 	getDeletedContestsDB,
 	setDailyChallengeDB,
 	getMyContestsDB,
+	fetchGfgDailyQuestion,
 } from "../Helper/DbHelper";
-
 var browser = require("webextension-polyfill");
 
 console.log("IN background");
@@ -36,7 +36,7 @@ var defaultDailyChallenge = {
 	geeksforgeeks: {
 		title: "Challenge of the Day",
 		difficulty: "",
-		link: "https://practice.geeksforgeeks.org/problem-of-the-day",
+		link: "",
 		platform: "geeksforgeeks",
 	},
 };
@@ -155,7 +155,9 @@ async function fetchContestDetails() {
 		throw new Error(message);
 	}
 
-	var contestDetails = await res.json();
+	var contests = await res.json();
+	var contestDetails = contests;
+	console.log(contestDetails);
 	return contestDetails;
 }
 
@@ -195,9 +197,15 @@ async function fetchLeetCodeDailyQuestion() {
 	return res;
 }
 
+async function fetchGfgDailyChallenge() {
+	var res = await fetchGfgDailyQuestion();
+	return res;
+}
 const updateDailyChallenge = async () => {
 	var leetcodeChallenge = await fetchLeetCodeDailyQuestion();
+	var gfgChallenge = await fetchGfgDailyChallenge();
 	defaultDailyChallenge.leetcode = leetcodeChallenge;
+	defaultDailyChallenge.geeksforgeeks = gfgChallenge;
 
 	await setDailyChallengeDB(defaultDailyChallenge);
 };

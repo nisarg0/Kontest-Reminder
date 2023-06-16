@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { ContestContext } from "../context/contestContext";
 
 export default function Subscribe() {
-	const { subscribed, changeSubStatus, changeDailyChallenge } =
+	const { subscribed, changeSubStatus, changeDailyChallenge,checkSubstatus} =
 		useContext(ContestContext);
 	let dailyChallenge = subscribed.dailyChallenge;
 	return (
@@ -27,6 +27,7 @@ export default function Subscribe() {
 									platform={key}
 									value={subscribed[key]}
 									changeSubStatus={changeSubStatus}
+									checkSubstatus={checkSubstatus}
 								/>
 							</Grid>
 						)

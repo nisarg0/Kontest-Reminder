@@ -3,11 +3,14 @@ import {
 	Typography,
 	CardMedia,
 	Card,
+	Tooltip
 	// Button,
 } from "@mui/material";
 
-export default function SubscribeCard({ platform, value, changeSubStatus }) {
+
+export default function SubscribeCard({ platform, value, changeSubStatus,checkSubstatus }) {
 	return (
+		<Tooltip title={checkSubstatus(platform)?"Unsubscribe":"Subscribe"} arrow>
 		<Card
 			sx={{
 				display: "flex",
@@ -22,6 +25,7 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 				width: "100%",
 				backgroundColor: value ? "#fff" : "transparent",
 				border: "none",
+				cursor: "pointer"
 			}}
 			onClick={() => changeSubStatus(platform)}
 			elevation={0}
@@ -40,12 +44,14 @@ export default function SubscribeCard({ platform, value, changeSubStatus }) {
 			<Typography
 				component="div"
 				color="text.primary"
-				sx={{ flex: 1, fontSize: 14, textAlign: "center", cursor: "default" }}
+				sx={{ flex: 1, fontSize: 14, textAlign: "center" ,lineHeight: 1}}
 				fontWeight="550"
+				
 			>
-				{platform}
+				{platform === "GeeksforGeeks" ? "Geeks for Geeks" : platform}
 			</Typography>
 		</Card>
+		</Tooltip>
 	);
 }
 
@@ -66,8 +72,8 @@ const mapping = {
 		logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
 		color: "#FFA20E",
 	},
-	"Kick Start": {
-		logo: "https://images.theconversation.com/files/93616/original/image-20150902-6700-t2axrz.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1000&fit=clip",
+	GeeksforGeeks: {
+		logo: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png",
 		color: "#34A853",
 	},
 	CodeForces: {

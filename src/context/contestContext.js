@@ -138,6 +138,16 @@ const ContestProvider = ({ children }) => {
 		setSubscribed(temp);
 	};
 
+	const checkSubstatus = (site) => {
+		var temp = {...subscribed}
+		if(temp[site]===true){
+			return true
+		}
+		else{
+			return false
+		}
+	}
+	
 	const changeDailyChallenge = () => {
 		var temp = { ...subscribed };
 		temp.dailyChallenge = !temp.dailyChallenge;
@@ -159,6 +169,7 @@ const ContestProvider = ({ children }) => {
 				subscribed,
 				deleteContest,
 				changeSubStatus,
+				checkSubstatus,
 				dailyChallenge,
 				changeDailyChallenge,
 				handleAutoOpen,

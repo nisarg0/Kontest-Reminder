@@ -9,13 +9,20 @@ export default function NavigationBar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar elevation={0} position="static" sx={{ backgroundColor: "white" }}>
 				<Toolbar>
+				{/* <Link to="https://nisarg0.github.io/Kontest-Reminder/" style={{ color: "black", textDecoration: "none" }}> */}
 					<Typography
 						variant="h6"
 						component="div"
 						sx={{ flexGrow: 1, fontWeight: "650", color: "black" }}
 					>
-						Kontest Reminder
+					<Link onClick={openSite} style={{ color: "black", textDecoration: "none" }}>
+					Kontest Reminder
+					</Link>
+						
+					
+						
 					</Typography>
+				{/* </Link> */}
 					{location === "/" && (
 						<Link
 							style={{ color: "black", textDecoration: "none" }}
@@ -33,4 +40,9 @@ export default function NavigationBar() {
 			</AppBar>
 		</Box>
 	);
+}
+
+function openSite() {
+	var uri = "https://nisarg0.github.io/Kontest-Reminder/";
+	chrome.tabs.create({ active: true, url: uri });
 }

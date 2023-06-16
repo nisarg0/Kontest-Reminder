@@ -255,8 +255,8 @@ const mapping = {
 		logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
 		color: "#FFA20E",
 	},
-	"Kick Start": {
-		logo: "https://images.theconversation.com/files/93616/original/image-20150902-6700-t2axrz.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1000&fit=clip",
+	GeeksforGeeks: {
+		logo: "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png",
 		color: "#34A853",
 	},
 	CodeForces: {
@@ -293,6 +293,9 @@ const findContestLength = (start, end) => {
 	let diff = end_date.getTime() - start_date.getTime();
 	let diff_in_days = diff / (1000 * 3600 * 24);
 	if (diff_in_days < 1) {
+		if (diff / (1000 * 3600) < 3){
+			return `${(diff / (1000 * 3600)).toFixed(1)}Hr`;
+		}
 		return `${Math.floor(diff / (1000 * 3600))}Hr`;
 	}
 	if (diff_in_days < 7) {

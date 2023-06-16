@@ -32,7 +32,7 @@ export const getSubscriptionStatusDB = async () => {
 			AtCoder: true,
 			HackerEarth: true,
 			HackerRank: true,
-			"Kick Start": true,
+			GeeksforGeeks: true,
 			TopCoder: true,
 		};
 	return res;
@@ -90,20 +90,6 @@ export const fetchGfgDailyQuestion = async () => {
 };
 
 export const getGfgContests = async () => {
-	let sentData = {
-		mode: "no-cors",
-	};
-	const response = await fetch(
-		"https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest",
-		sentData
-	);
-	if (!response.ok) {
-		throw new Error("Failed to fetch contest data");
-	}
-	const data = await response.json();
-	const contestsData = data.results.upcoming;
-	var gfgContests = [];
-
 	function getDuration(start_time, end_time) {
 		const startTime = DateTime.fromISO(start_time);
 		const endTime = DateTime.fromISO(end_time);
@@ -130,20 +116,40 @@ export const getGfgContests = async () => {
 			return "BEFORE";
 		}
 	}
+	let sentData = {
+		mode: "no-cors",
+	};
+	try{
+		const response = await fetch(
+			"https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest",
+			sentData
+		);
+		if (!response.ok) {
+			throw new Error("Failed to fetch contest data");
+		}
+		const data = await response.json();
+		const contestsData = data.results.upcoming;
+		var gfgContests = [];
+	
+		contestsData.forEach((contestData) => {
+			const contest = {
+				autoOpen:false,
+				name: contestData.name,
+				url: `https://practice.geeksforgeeks.org/contest/${contestData.slug}`,
+				start_time: contestData.start_time,
+				end_time: contestData.end_time,
+				duration:(getDuration(contestData.start_time, contestData.end_time)).toString(),
+				in_24_hours: getIn24Hours(contestData.start_time),
+				status: getStatus(contestData.start_time, contestData.end_time),
+				site: "GeeksforGeeks",
+			};
+			gfgContests.push(contest);
+		});
+		return gfgContests;
 
-	contestsData.forEach((contestData) => {
-		const contest = {
-			name: contestData.name,
-			url: `https://practice.geeksforgeeks.org/contest/${contestData.slug}`,
-			start_time: contestData.start_time,
-			end_time: contestData.end_time,
-			duration: getDuration(contestData.start_time, contestData.end_time),
-			in_24_hours: getIn24Hours(contestData.start_time),
-			status: getStatus(contestData.start_time, contestData.end_time),
-			site: "geeksforgeeks",
-		};
-		gfgContests.push(contest);
-	});
-	console.log("gfg" + gfgContests);
-	return gfgContests;
+	}catch (error) {
+		console.log("Error:", error);
+		return null;
+	}
+	
 };

@@ -9,7 +9,6 @@ export default function NavigationBar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar elevation={0} position="static" sx={{ backgroundColor: "white" }}>
 				<Toolbar>
-				{/* <Link to="https://nisarg0.github.io/Kontest-Reminder/" style={{ color: "black", textDecoration: "none" }}> */}
 					<Typography
 						variant="h6"
 						component="div"
@@ -22,7 +21,6 @@ export default function NavigationBar() {
 					
 						
 					</Typography>
-				{/* </Link> */}
 					{location === "/" && (
 						<Link
 							style={{ color: "black", textDecoration: "none" }}

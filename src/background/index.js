@@ -108,7 +108,7 @@ browser.runtime.onInstalled.addListener((details) => {
 // schedule a new fetch every 1 hour
 function scheduleRequest() {
 	console.log("schedule refresh alarm to 60 minutes...");
-	browser.alarms.create("refresh", { periodInMinutes: 2 });
+	browser.alarms.create("refresh", { periodInMinutes: 60 });
 }
 
 browser.alarms.onAlarm.addListener(async (alarm) => {

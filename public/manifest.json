@@ -1,6 +1,6 @@
 {
 	"name": "Kontest Reminder",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "This extension will never let you forget about any coding contest",
 	"homepage_url": "https://nisarg0.github.io/Kontest-Reminder/",
 	"manifest_version": 2,
@@ -20,7 +20,6 @@
 	},
 	"background": {
 		"scripts": ["browser-polyfill.js", "background.bundle.js"]
-		
 	},
 	"browser_action": {
 		"default_icon": "Assets/card.png",

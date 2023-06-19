@@ -69,9 +69,9 @@ export default function ContestCard({ contest, onDelete, handleAutoOpen }) {
 					marginRight: 1.5,
 					marginLeft: 1.5,
 					padding: 1,
+					transition: "box-shadow 0.3s ease-in-out",
 					":hover": {
-						borderColor: "#3CC5F3",
-						borderWidth: 1.5,
+						boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
 					},
 				}}
 				onClick={() => {
@@ -293,7 +293,8 @@ const findContestLength = (start, end) => {
 	let diff = end_date.getTime() - start_date.getTime();
 	let diff_in_days = diff / (1000 * 3600 * 24);
 	if (diff_in_days < 1) {
-		if (diff / (1000 * 3600) < 3){
+		if (diff / (1000 * 3600) < 3) {
+			if (diff % (1000 * 3600) === 0) return `${diff / (1000 * 3600)}Hr`;
 			return `${(diff / (1000 * 3600)).toFixed(1)}Hr`;
 		}
 		return `${Math.floor(diff / (1000 * 3600))}Hr`;

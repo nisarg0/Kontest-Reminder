@@ -14,12 +14,12 @@ export default function NavigationBar() {
 						component="div"
 						sx={{ flexGrow: 1, fontWeight: "650", color: "black" }}
 					>
-					<Link onClick={openSite} style={{ color: "black", textDecoration: "none" }}>
-					Kontest Reminder
-					</Link>
-						
-					
-						
+						<Link
+							onClick={openSite}
+							style={{ color: "black", textDecoration: "none" }}
+						>
+							Kontest Reminder
+						</Link>
 					</Typography>
 					{location === "/" && (
 						<Link

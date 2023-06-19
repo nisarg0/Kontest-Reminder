@@ -3,54 +3,61 @@ import {
 	Typography,
 	CardMedia,
 	Card,
-	Tooltip
+	Tooltip,
 	// Button,
 } from "@mui/material";
 
-
-export default function SubscribeCard({ platform, value, changeSubStatus,checkSubstatus }) {
+export default function SubscribeCard({
+	platform,
+	value,
+	changeSubStatus,
+	checkSubstatus,
+}) {
 	return (
-		<Tooltip title={checkSubstatus(platform)?"Unsubscribe":"Subscribe"} arrow>
-		<Card
-			sx={{
-				display: "flex",
-				// border: 1,
-				// borderRadius: 2,
-				// borderColor: "grey.500",
-				padding: 1,
-				":hover": {
-					"box-shadow": "0px 0px 10px 3px rgba(0, 0, 0, 0.2)",
-				},
-				alignItems: "center",
-				width: "100%",
-				backgroundColor: value ? "#fff" : "transparent",
-				border: "none",
-				cursor: "pointer"
-			}}
-			onClick={() => changeSubStatus(platform)}
-			elevation={0}
+		<Tooltip
+			title={checkSubstatus(platform) ? "Unsubscribe" : "Subscribe"}
+			arrow
 		>
-			<CardMedia
-				component="img"
+			<Card
 				sx={{
-					width: 35,
-					height: 35,
-					borderRadius: 2,
-					alignSelf: "center",
+					display: "flex",
+					// border: 1,
+					// borderRadius: 2,
+					// borderColor: "grey.500",
+					padding: 1,
+					transition: "box-shadow 0.3s ease-in-out",
+					":hover": {
+						boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+					},
+					alignItems: "center",
+					width: "100%",
+					backgroundColor: value ? "#fff" : "transparent",
+					border: "none",
+					cursor: "pointer",
 				}}
-				image={mapping[platform].logo}
-			/>
-
-			<Typography
-				component="div"
-				color="text.primary"
-				sx={{ flex: 1, fontSize: 14, textAlign: "center" ,lineHeight: 1}}
-				fontWeight="550"
-				
+				onClick={() => changeSubStatus(platform)}
+				elevation={0}
 			>
-				{platform === "GeeksforGeeks" ? "Geeks for Geeks" : platform}
-			</Typography>
-		</Card>
+				<CardMedia
+					component="img"
+					sx={{
+						width: 35,
+						height: 35,
+						borderRadius: 2,
+						alignSelf: "center",
+					}}
+					image={mapping[platform].logo}
+				/>
+
+				<Typography
+					component="div"
+					color="text.primary"
+					sx={{ flex: 1, fontSize: 14, textAlign: "center", lineHeight: 1 }}
+					fontWeight="550"
+				>
+					{platform === "GeeksforGeeks" ? "Geeks for Geeks" : platform}
+				</Typography>
+			</Card>
 		</Tooltip>
 	);
 }
@@ -65,11 +72,11 @@ const mapping = {
 		color: "#222222",
 	},
 	CodeChef: {
-		logo: "https://lh3.googleusercontent.com/pw/AJFCJaUa3As4Jm9xDu2CvqrC8QiN9v0Qo1dHmLX9OFga1dDJQ-gtFRl1xfWhAPrpbpwLPgTgEw1Z98GL-7X1-WYEhkLjRDZQKkZlfLSVwdNmfOZuke-moFmD8o5kocU133Y8W5QvgtrS4gP2edJ3ccpyZgvXnw=w500-h500-s-no?authuser=0",
+		logo: "https://www.linkpicture.com/q/cc_1.png",
 		color: "#D0C3AD",
 	},
 	LeetCode: {
-		logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
+		logo: "https://www.linkpicture.com/q/lc.png",
 		color: "#FFA20E",
 	},
 	GeeksforGeeks: {
@@ -77,7 +84,7 @@ const mapping = {
 		color: "#34A853",
 	},
 	CodeForces: {
-		logo: "https://lh3.googleusercontent.com/pw/AJFCJaUvRqnkk8vFL-3-PmNz2atfFLpAdi6ttG561IMiSLa-QllTQL8_WXPbYsb6WVJNBYIe8M-bct7CnGxiPD77D68zLMsf8E1c_4XuHVqos2pNIYVAAuR9ulR5nh97OGEmpppEaP8JAXXyzFmtyq9ybXrbWA=w512-h512-s-no",
+		logo: "https://www.linkpicture.com/q/cf_1.png",
 		color: "#3B5998",
 	},
 	TopCoder: {

@@ -66,11 +66,9 @@ export default function SubChallengeCard({
 				borderRadius: 2,
 				borderColor: "grey.500",
 				padding: 1,
+				transition: "box-shadow 0.3s ease-in-out",
 				":hover": {
-					":hover": {
-						borderColor: "#3CC5F3",
-						borderWidth: 1.5,
-					},
+					boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
 				},
 				justifyContent: "center",
 			}}

@@ -7,11 +7,9 @@ import {
 	setDailyChallengeDB,
 	getMyContestsDB,
 	fetchGfgDailyQuestion,
-	getGfgContests
+	getGfgContests,
 } from "../Helper/DbHelper";
 var browser = require("webextension-polyfill");
-
-console.log("IN background");
 
 /**
  * How to manage deleted Contests?
@@ -48,7 +46,6 @@ async function fetchAllMyContests() {
 	// We delete an element in it if it has occured in the fetch...
 	var usedDeletedContests = [];
 	var contests = await fetchContestDetails();
-	console.log(contests)
 	for (var contest of contests) {
 		if (subscriptionStatus[contest.site]) {
 			var contest_name = contest.name;
@@ -56,13 +53,12 @@ async function fetchAllMyContests() {
 			for (var deletedContest of deletedContests) {
 				if (deletedContest === contest_name) {
 					isDeleted = true;
-					usedDeletedContests.push(contest);
+					usedDeletedContests.push(contest.name);
 				}
 			}
 			if (!isDeleted) myContests.push(contest);
 		}
 	}
-	console.log(myContests)
 	// add alarm for each contests as we want to store the status of alarm
 	var oldMyContests = (await getMyContestsDB()) || [];
 	for (contest of myContests) {
@@ -86,7 +82,6 @@ browser.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 		subscriptionStatus = await getSubscriptionStatusDB();
 		deletedContests = await getDeletedContestsDB();
 		await fetchAllMyContests();
-		await setDeletedContestsDB(deletedContests);
 		await setMyContestsDB(myContests);
 		await setSubscriptionStatusDB(subscriptionStatus);
 	}
@@ -113,7 +108,7 @@ browser.runtime.onInstalled.addListener((details) => {
 // schedule a new fetch every 1 hour
 function scheduleRequest() {
 	console.log("schedule refresh alarm to 60 minutes...");
-	browser.alarms.create("refresh", { periodInMinutes: 60 });
+	browser.alarms.create("refresh", { periodInMinutes: 2 });
 }
 
 browser.alarms.onAlarm.addListener(async (alarm) => {
@@ -144,15 +139,13 @@ browser.alarms.onAlarm.addListener(async (alarm) => {
 });
 
 // ========================================== Helper ==================================================
-function sortFunction(a,b){  
+function sortFunction(a, b) {
 	var dateA = new Date(a.start_time).getTime();
 	var dateB = new Date(b.start_time).getTime();
-	return dateA > dateB ? 1 : -1;  
-};
+	return dateA > dateB ? 1 : -1;
+}
 
 async function fetchContestDetails() {
-	
-
 	const res = await fetch(`https://kontests.net/api/v1/all`, {
 		method: "GET",
 		headers: {
@@ -165,12 +158,10 @@ async function fetchContestDetails() {
 	}
 
 	var contests = await res.json();
-	var contestDetails = contests;
-	var gfgContests=await getGfgContests()
-	contestDetails=[...contestDetails,...gfgContests]
-	console.log(contestDetails);
+	var gfgContests = await getGfgContests();
+	var contestDetails = [...contests, ...gfgContests];
 
-	contestDetails.sort(sortFunction)
+	contestDetails.sort(sortFunction);
 	return contestDetails;
 }
 
@@ -234,5 +225,3 @@ async function startRequest() {
 	await setMyContestsDB(myContests);
 	await setSubscriptionStatusDB(subscriptionStatus);
 }
-
-

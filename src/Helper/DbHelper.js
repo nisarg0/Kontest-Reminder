@@ -1,7 +1,7 @@
 import localforage from "localforage";
 const { DateTime } = require("luxon");
 export const setDeletedContestsDB = async (deletedContests) => {
-	console.log("setDeletedContestsDB: ", deletedContests);
+	// console.log("setDeletedContestsDB: ", deletedContests);
 	await localforage.setItem("deletedContests", deletedContests, function (err) {
 		if (err) console.log(err);
 	});
@@ -9,7 +9,7 @@ export const setDeletedContestsDB = async (deletedContests) => {
 export const getDeletedContestsDB = async () => {
 	var res = await localforage.getItem("deletedContests");
 	if (res === null) return [];
-	console.log("getDeletedContestsDB: ", res);
+	// console.log("getDeletedContestsDB: ", res);
 	return res;
 };
 export const getMyContestsDB = async () => {
@@ -55,7 +55,7 @@ export const setDailyChallengeDB = async (dailyChallenge) => {
 };
 export const getDailyChallengeDB = async () => {
 	var res = await localforage.getItem("dailyChallenge");
-	console.log("getDailyChallengeDB: ", res);
+	// console.log("getDailyChallengeDB: ", res);
 	if (res === null) return {};
 	return res;
 };
@@ -90,14 +90,14 @@ export const fetchGfgDailyQuestion = async () => {
 };
 
 export const getGfgContests = async () => {
-	async function getDuration(start_time, end_time) {
+	function getDuration(start_time, end_time) {
 		const startTime = DateTime.fromISO(start_time);
 		const endTime = DateTime.fromISO(end_time);
 		const duration = endTime.diff(startTime).as("seconds");
 		return duration;
 	}
 
-	async function getIn24Hours(start_time) {
+	function getIn24Hours(start_time) {
 		const currentTime = DateTime.now();
 		const startTime = DateTime.fromISO(start_time);
 		const timeDifference = startTime.diff(currentTime);
@@ -106,7 +106,7 @@ export const getGfgContests = async () => {
 		return isIn24Hours ? "Yes" : "No";
 	}
 
-	async function getStatus(start_time, end_time) {
+	function getStatus(start_time, end_time) {
 		const currentTime = DateTime.now();
 		const startTime = DateTime.fromISO(start_time);
 		const endTime = DateTime.fromISO(end_time);
@@ -131,19 +131,19 @@ export const getGfgContests = async () => {
 		const contestsData = data.results.upcoming;
 		var gfgContests = [];
 
-		await contestsData.forEach(async (contestData) => {
+		contestsData.forEach((contestData) => {
 			const contest = {
 				autoOpen: false,
 				name: contestData.name,
 				url: `https://practice.geeksforgeeks.org/contest/${contestData.slug}`,
 				start_time: contestData.start_time,
 				end_time: contestData.end_time,
-				duration: await getDuration(
+				duration: getDuration(
 					contestData.start_time,
 					contestData.end_time
 				).toString(),
-				in_24_hours: await getIn24Hours(contestData.start_time),
-				status: await getStatus(contestData.start_time, contestData.end_time),
+				in_24_hours: getIn24Hours(contestData.start_time),
+				status: getStatus(contestData.start_time, contestData.end_time),
 				site: "GeeksforGeeks",
 			};
 			gfgContests.push(contest);

@@ -117,6 +117,13 @@ export const getGfgContests = async () => {
 		}
 	}
 
+	function converttoUTC(time){
+		const utcTime = DateTime.fromISO(time, { zone: 'Asia/Kolkata' }).toUTC();
+		return utcTime.toISO()
+	}
+	
+	
+
 	try {
 		const response = await fetch(
 			"https://practiceapi.geeksforgeeks.org/api/vr/events/?page_number=1&sub_type=all&type=contest",
@@ -132,12 +139,13 @@ export const getGfgContests = async () => {
 		var gfgContests = [];
 
 		contestsData.forEach((contestData) => {
+			
 			const contest = {
 				autoOpen: false,
 				name: contestData.name,
 				url: `https://practice.geeksforgeeks.org/contest/${contestData.slug}`,
-				start_time: contestData.start_time,
-				end_time: contestData.end_time,
+				start_time:converttoUTC(contestData.start_time),
+				end_time: converttoUTC(contestData.end_time),
 				duration: getDuration(
 					contestData.start_time,
 					contestData.end_time

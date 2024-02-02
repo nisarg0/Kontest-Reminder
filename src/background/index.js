@@ -46,8 +46,9 @@ async function fetchAllMyContests() {
 	// We delete an element in it if it has occured in the fetch...
 	var usedDeletedContests = [];
 	var contests = await fetchContestDetails();
+	
 	for (var contest of contests) {
-		if (subscriptionStatus[contest.site]) {
+		if (subscriptionStatus[contest.site.toLowerCase()]) {
 			var contest_name = contest.name;
 			var isDeleted = false;
 			for (var deletedContest of deletedContests) {
@@ -146,22 +147,33 @@ function sortFunction(a, b) {
 }
 
 async function fetchContestDetails() {
-	const res = await fetch(`https://kontests.net/api/v1/all`, {
+	const res = await fetch(`https://busy-gold-walkingstick-yoke.cyclic.app/api/v1/contests/all`, {
 		method: "GET",
 		headers: {
 			"Content-type": "application/json; charset=UTF-8",
 		},
 	});
+	
 	if (!res.ok) {
 		const message = "An error has occured";
 		throw new Error(message);
 	}
 
 	var contests = await res.json();
+	console.log(contests)
 	var gfgContests = await getGfgContests();
 	var contestDetails = [...contests, ...gfgContests];
-
+	
 	contestDetails.sort(sortFunction);
+	console.log("contestDetails" , contestDetails)
+	contestDetails = contestDetails.map((contest) =>  {
+		return {
+			...contest,
+			start_time : new Date(contest.start_time),
+			end_time : new Date(contest.end_time)
+		}
+	});
+	console.log("contestDetails after" , contestDetails)
 	return contestDetails;
 }
 

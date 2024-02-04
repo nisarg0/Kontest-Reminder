@@ -119,13 +119,16 @@ const ContestProvider = ({ children }) => {
 			browser.alarms.clear(autoOpenContest.name);
 			console.log("Alarm Cleared");
 		}
+		console.log("Old contests", tempContests);
 
 		for (var contest of tempContests) {
 			if (contest.name === autoOpenContest.name) {
+				console.log("Here");
 				contest.autoOpen = !autoOpenContest.autoOpen;
 				break;
 			}
 		}
+		console.log("Updated contests", tempContests);
 		setContests([...tempContests]);
 		setMyContestsDB(tempContests);
 	};

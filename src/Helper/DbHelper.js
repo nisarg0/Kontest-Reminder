@@ -26,7 +26,7 @@ export const getSubscriptionStatusDB = async () => {
 	var res = await localforage.getItem("platforms");
 	if (res === null)
 		return {
-			dailychallenge: true,
+			dailyChallenge: true,
 			codechef: true,
 			codeforces: true,
 			leetcode: true,

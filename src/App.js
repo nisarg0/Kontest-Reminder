@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 
 import NavigationBar from "./components/NavigationBar";

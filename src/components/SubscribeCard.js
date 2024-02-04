@@ -72,11 +72,11 @@ const mapping = {
 		color: "#222222",
 	},
 	codechef: {
-		logo: "https://www.linkpicture.com/q/cc_1.png",
+		logo: "https://avatars.githubusercontent.com/u/11960354",
 		color: "#D0C3AD",
 	},
 	leetcode: {
-		logo: "https://www.linkpicture.com/q/lc.png",
+		logo: "https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png",
 		color: "#FFA20E",
 	},
 	geeksforgeeks: {
@@ -84,7 +84,7 @@ const mapping = {
 		color: "#34A853",
 	},
 	codeforces: {
-		logo: "https://www.linkpicture.com/q/cf_1.png",
+		logo: "https://www.stopstalk.com/stopstalk/static/images/codeforces_small.png?_rev=20201225170526",
 		color: "#3B5998",
 	},
 	topcoder: {

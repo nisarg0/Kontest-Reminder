@@ -1,3 +1,4 @@
+/*global chrome*/
 import * as React from "react";
 import { Toolbar, Box, AppBar, Typography } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";

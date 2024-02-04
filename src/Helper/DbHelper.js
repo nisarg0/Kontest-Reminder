@@ -26,15 +26,15 @@ export const getSubscriptionStatusDB = async () => {
 	var res = await localforage.getItem("platforms");
 	if (res === null)
 		return {
-			dailyChallenge: true,
-			CodeChef: true,
-			CodeForces: true,
-			LeetCode: true,
-			AtCoder: true,
-			HackerEarth: true,
-			HackerRank: true,
-			GeeksforGeeks: true,
-			TopCoder: true,
+			dailychallenge: true,
+			codechef: true,
+			codeforces: true,
+			leetcode: true,
+			atcoder: true,
+			hackerearth: true,
+			hackerrank: true,
+			geeksforgeeks: true,
+			topcoder: true,
 		};
 	return res;
 };

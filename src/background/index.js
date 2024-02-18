@@ -146,35 +146,61 @@ function sortFunction(a, b) {
 	return dateA > dateB ? 1 : -1;
 }
 
-async function fetchContestDetails() {
-	const res = await fetch(`https://busy-gold-walkingstick-yoke.cyclic.app/api/v1/contests/all`, {
+async function fetchContestDetails(){
+    var res = await fetch(`https://www.stopstalk.com/contests.json`,{
 		method: "GET",
+        mode: 'no-cors',
 		headers: {
 			"Content-type": "application/json; charset=UTF-8",
-		},
-	});
-	
-	if (!res.ok) {
+	},
+    });
+    if (!res.ok) {
 		const message = "An error has occured";
 		throw new Error(message);
 	}
-
-	var contests = await res.json();
-	console.log(contests)
 	var gfgContests = await getGfgContests();
-	var contestDetails = [...contests, ...gfgContests];
-	
-	contestDetails.sort(sortFunction);
-	console.log("contestDetails" , contestDetails)
-	contestDetails = contestDetails.map((contest) =>  {
-		return {
-			...contest,
-			start_time : new Date(contest.start_time),
-			end_time : new Date(contest.end_time)
+    var contests = await res.json();
+    contests = contests.table
+    contests = contests.split(/<tr>|<\/tr>/).filter(contes => (contes!==""))
+    contests = contests.slice(3,contests.length-1)
+    contests = contests.map((contestStr) =>{
+		
+        var contestUnfiltered =  contestStr.split(/<td>|<\/td>/);
+        var contest =  contestUnfiltered.filter((el) => el!== "");
+		var name  = contest[0];
+		name = name.split("<")[0]
+		
+
+		var siteNameString  =  contest[1];
+		var site  = siteNameString.match(/title="([^"]*)"/)[1].toLowerCase()
+		var start_time  =  contest[2]
+		start_time = new Date(start_time)
+		start_time  = name.startsWith("ProjectEuler+")  ? new Date("Mon Jul 07 2014 21:08:00 GMT+0530") : start_time ;
+		var end_time = new Date(start_time)
+		var duration = contest[3]
+		if (duration.startsWith("<td")){
+			end_time = new Date(duration.split(">")[1])
 		}
-	});
-	console.log("contestDetails after" , contestDetails)
-	return contestDetails;
+		let [, days = 0, hours = 0, minutes = 0] = duration.match(/(\d+d\s*)?(\d+h\s*)?(\d+m\s*)?/) || [];
+		days = days ?  parseInt(days.slice(0,-1)) : 0
+		hours = hours ?  parseInt(hours.slice(0,-1)) : 0
+		minutes = minutes ?  parseInt(minutes.slice(0,-1)) : 0
+
+		end_time.setHours(end_time.getHours() + hours);
+    	end_time.setMinutes(end_time.getMinutes() + minutes);
+    	end_time.setDate(end_time.getDate() + days);
+		return {
+			contest : contest,
+			name: name,
+			start_time : start_time,
+			site : site,
+			duration : duration, 
+			end_time:end_time
+		}
+    })
+	contests = [...gfgContests, ...contests]
+	contests.sort(sortFunction);
+	return contests;
 }
 
 async function fetchLeetCodeDailyQuestion() {

@@ -152,7 +152,7 @@ export const getGfgContests = async () => {
 				).toString(),
 				in_24_hours: getIn24Hours(contestData.start_time),
 				status: getStatus(contestData.start_time, contestData.end_time),
-				site: "GeeksforGeeks",
+				site: "geeksforgeeks",
 			};
 			gfgContests.push(contest);
 		});

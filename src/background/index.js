@@ -160,7 +160,6 @@ async function fetchContestDetails(){
 	}
 	var gfgContests = await getGfgContests();
     var contests = await res.json();
-	console.log(contests)
     contests = contests.table
     contests = contests.split(/<tr>|<\/tr>/).filter(contes => (contes!==""))
     contests = contests.slice(3,contests.length-1)

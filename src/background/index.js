@@ -173,6 +173,7 @@ async function fetchContestDetails(){
 
 		var siteNameString  =  contest[1];
 		var site  = siteNameString.match(/title="([^"]*)"/)[1].toLowerCase()
+		
 		var start_time  =  contest[2]
 		start_time = new Date(start_time)
 		start_time  = name.startsWith("ProjectEuler+")  ? new Date("Mon Jul 07 2014 21:08:00 GMT+0530") : start_time ;
@@ -185,6 +186,8 @@ async function fetchContestDetails(){
 		days = days ?  parseInt(days.slice(0,-1)) : 0
 		hours = hours ?  parseInt(hours.slice(0,-1)) : 0
 		minutes = minutes ?  parseInt(minutes.slice(0,-1)) : 0
+		var contestLinkStr = contest[4];
+		var link = contestLinkStr.match(/https?:\/\/[^"]+/g)[0];
 
 		end_time.setHours(end_time.getHours() + hours);
     	end_time.setMinutes(end_time.getMinutes() + minutes);
@@ -195,7 +198,8 @@ async function fetchContestDetails(){
 			start_time : start_time,
 			site : site,
 			duration : duration, 
-			end_time:end_time
+			end_time:end_time,
+			url:link
 		}
     })
 	contests = [...gfgContests, ...contests]
